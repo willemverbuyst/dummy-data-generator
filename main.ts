@@ -1,42 +1,11 @@
 import { faker } from "npm:@faker-js/faker";
+import { dummyDataSchemas } from "./example_input.ts";
 import {
   DummyData,
   DummyDataItem,
   DummyDataSchema,
   FieldValueType,
 } from "./types.ts";
-
-const items: DummyDataSchema[] = [
-  {
-    entity: "User",
-    fields: {
-      name: "name",
-      age: "age",
-      email: "email",
-      isActive: "boolean",
-    },
-    amount: 3,
-  },
-  {
-    entity: "Post",
-    fields: {
-      title: "string",
-      content: "string",
-      authorId: "#User",
-      published: "boolean",
-    },
-    amount: 4,
-  },
-  {
-    entity: "Comment",
-    fields: {
-      content: "string",
-      postId: "#Post",
-      authorId: "#User",
-    },
-    amount: 5,
-  },
-];
 
 export function generateValue(
   type: Exclude<FieldValueType, `#${string}`>
@@ -132,7 +101,7 @@ function convertMapsToObjects(dummyData: DummyData) {
   return result;
 }
 
-const result = generateDummyData(items);
+const result = generateDummyData(dummyDataSchemas);
 const objectResult = convertMapsToObjects(result);
 await Deno.writeTextFile(
   "dummy-data.json",
