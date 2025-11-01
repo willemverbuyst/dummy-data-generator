@@ -18,24 +18,23 @@ const items: DummyDataSchema[] = [
     amount: 3,
   },
   {
-    entity: "Product",
-    fields: {
-      name: "string",
-      price: "number",
-      inStock: "boolean",
-      category: "#Category",
-    },
-    amount: 1,
-  },
-  {
     entity: "Post",
     fields: {
       title: "string",
       content: "string",
-      author: "#User",
+      authorId: "#User",
       published: "boolean",
     },
-    amount: 2,
+    amount: 4,
+  },
+  {
+    entity: "Comment",
+    fields: {
+      content: "string",
+      postId: "#Post",
+      authorId: "#User",
+    },
+    amount: 5,
   },
 ];
 
@@ -117,8 +116,6 @@ function generateDummyData(schemas: DummyDataSchema[]) {
   return dummyData;
 }
 
-const result = generateDummyData(items);
-
 function convertMapsToObjects(dummyData: DummyData) {
   const result: Record<string, Record<string, any>[]> = {};
 
@@ -135,6 +132,7 @@ function convertMapsToObjects(dummyData: DummyData) {
   return result;
 }
 
+const result = generateDummyData(items);
 const objectResult = convertMapsToObjects(result);
 await Deno.writeTextFile(
   "dummy-data.json",
