@@ -4,6 +4,11 @@ import {
 } from "https://deno.land/std@0.208.0/assert/mod.ts";
 import { generateValue } from "./generateValue.ts";
 
+Deno.test("generateValue - word type", () => {
+  const result = generateValue("word");
+  assertEquals(typeof result, "string");
+});
+
 Deno.test("generateValue - string type", () => {
   const result = generateValue("string");
   assertEquals(typeof result, "string");
@@ -41,10 +46,4 @@ Deno.test("generateValue - age type", () => {
   assertEquals(typeof result, "number");
   // Age should be between 1 and 100
   assertEquals((result as number) >= 1 && (result as number) <= 100, true);
-});
-
-Deno.test("generateValue - array type", () => {
-  const result = generateValue("array");
-  assertEquals(Array.isArray(result), true);
-  assertEquals((result as string[]).length, 3);
 });

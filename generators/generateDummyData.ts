@@ -2,10 +2,12 @@ import {
   DummyData,
   DummyDataItem,
   DummyDataSchema,
-  FieldValueType,
+  FieldValueTypeSimple,
 } from "../types.ts";
+import { generateArray } from "./generateArray.ts";
 import { generateRandomOption } from "./generateRandomOption.ts";
 import { generateReference } from "./generateReference.ts";
+import { generateString } from "./generateString.ts";
 import { generateValue } from "./generateValue.ts";
 
 export function generateDummyData(schemas: DummyDataSchema[]) {
@@ -15,7 +17,7 @@ export function generateDummyData(schemas: DummyDataSchema[]) {
     dummyData.set(`${schema.entity}s`, []);
 
     for (let i = 0; i < schema.amount; i++) {
-      const item: DummyDataItem = new Map<string, string | number | boolean>();
+      const item: DummyDataItem = new Map();
       item.set("id", crypto.randomUUID());
 
       for (const field in schema.fields) {
@@ -31,16 +33,20 @@ export function generateDummyData(schemas: DummyDataSchema[]) {
         } else if (schema.fields[field].startsWith("|")) {
           const randomOption = generateRandomOption(schema, field);
           item.set(field, randomOption);
+        } else if (schema.fields[field].startsWith("^")) {
+          const generatedString = generateString(schema, field);
+          if (generatedString) {
+            item.set(field, generatedString);
+          }
+        } else if (schema.fields[field].startsWith("@")) {
+          const array = generateArray(schema, field);
+          item.set(field, array);
         } else {
-          item.set(
-            field,
-            generateValue(
-              schema.fields[field] as Exclude<
-                FieldValueType,
-                `#${string}` | `|${string}`
-              >
-            )
+          const value = generateValue(
+            schema.fields[field] as FieldValueTypeSimple
           );
+
+          item.set(field, value);
         }
       }
       dummyData.get(`${schema.entity}s`)?.push(item);

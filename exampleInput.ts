@@ -15,9 +15,9 @@ export const dummyDataSchemas: DummyDataSchema[] = [
   {
     entity: "Post",
     fields: {
-      title: "string",
-      content: "string",
-      tags: "array",
+      title: "word",
+      content: "^30string",
+      tags: "@5string-array",
       authorId: "#User",
       published: "boolean",
     },
@@ -29,6 +29,7 @@ export const dummyDataSchemas: DummyDataSchema[] = [
       content: "string",
       postId: "#Post",
       authorId: "#User",
+      scores: "@3number-array",
     },
     amount: 5,
   },
