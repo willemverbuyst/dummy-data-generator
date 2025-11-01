@@ -2,7 +2,7 @@ import {
   assertEquals,
   assertMatch,
 } from "https://deno.land/std@0.208.0/assert/mod.ts";
-import { generateValue } from "./main.ts";
+import { generateValue } from "./generateValue.ts";
 
 Deno.test("generateValue - string type", () => {
   const result = generateValue("string");
