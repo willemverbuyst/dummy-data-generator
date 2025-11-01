@@ -1,19 +1,5 @@
 import { faker } from "npm:@faker-js/faker";
-
-type FieldValueType =
-  | "string"
-  | "number"
-  | "boolean"
-  | "email"
-  | "name"
-  | "age"
-  | `#${string}`;
-
-type DummyDataSchema = {
-  entity: string;
-  fields: { [key: string]: FieldValueType };
-  amount: number;
-};
+import { DummyData, DummyDataSchema, FieldValueType } from "./types.ts";
 
 const items: DummyDataSchema[] = [
   {
@@ -67,10 +53,32 @@ export function generateValue(
   }
 }
 
+export function generateReference({
+  schema,
+  field,
+  dummyData,
+}: {
+  schema: DummyDataSchema;
+  field: string;
+  dummyData: DummyData;
+}) {
+  const refEntity = schema.fields[field].substring(1) + "s";
+  const refData = dummyData[refEntity];
+
+  if (refData && refData.length > 0) {
+    const randomRef =
+      refData[faker.number.int({ min: 0, max: refData.length - 1 })];
+    return randomRef.id;
+  } else {
+    console.warn(
+      `Warning: No data found for referenced entity ${field} in ${schema.entity}`
+    );
+    return null;
+  }
+}
+
 function generateDummyData(schemas: DummyDataSchema[]) {
-  const dummyData: {
-    [key: string]: { [key: string]: string | number | boolean }[];
-  } = {};
+  const dummyData: DummyData = {};
   schemas.forEach((schema) => {
     console.log(`Generating data for entity: ${schema.entity}`);
     dummyData[`${schema.entity}s`] = [];
@@ -81,17 +89,13 @@ function generateDummyData(schemas: DummyDataSchema[]) {
 
       for (const field in schema.fields) {
         if (schema.fields[field].startsWith("#")) {
-          const refEntity = schema.fields[field].substring(1) + "s";
-          const refData = dummyData[refEntity];
-
-          if (refData && refData.length > 0) {
-            const randomRef =
-              refData[faker.number.int({ min: 0, max: refData.length - 1 })];
-            item[field] = randomRef.id;
-          } else {
-            console.warn(
-              `Warning: No data found for referenced entity ${field} in ${schema.entity}`
-            );
+          const refId = generateReference({
+            schema,
+            field,
+            dummyData,
+          });
+          if (refId !== null) {
+            item[field] = refId;
           }
         } else {
           item[field] = generateValue(
