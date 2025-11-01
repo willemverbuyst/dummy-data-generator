@@ -1,4 +1,4 @@
-import { DummyDataSchema } from "./types";
+import { type DummyDataSchema } from "./types";
 
 export const dummyDataSchemas: DummyDataSchema[] = [
   {
