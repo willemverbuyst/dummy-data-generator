@@ -42,3 +42,9 @@ Deno.test("generateValue - age type", () => {
   // Age should be between 1 and 100
   assertEquals((result as number) >= 1 && (result as number) <= 100, true);
 });
+
+Deno.test("generateValue - array type", () => {
+  const result = generateValue("array");
+  assertEquals(Array.isArray(result), true);
+  assertEquals((result as string[]).length, 3);
+});

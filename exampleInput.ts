@@ -8,6 +8,7 @@ export const dummyDataSchemas: DummyDataSchema[] = [
       age: "age",
       email: "email",
       isActive: "boolean",
+      sex: "|male,female,other",
     },
     amount: 3,
   },
@@ -16,6 +17,7 @@ export const dummyDataSchemas: DummyDataSchema[] = [
     fields: {
       title: "string",
       content: "string",
+      tags: "array",
       authorId: "#User",
       published: "boolean",
     },

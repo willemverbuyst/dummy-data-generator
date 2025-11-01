@@ -5,7 +5,9 @@ export type FieldValueType =
   | "email"
   | "name"
   | "age"
-  | `#${string}`;
+  | "array"
+  | `#${string}`
+  | `|${string}`;
 
 export type DummyDataSchema = {
   entity: string;
@@ -13,6 +15,6 @@ export type DummyDataSchema = {
   amount: number;
 };
 
-export type DummyDataItem = Map<string, string | number | boolean>;
+export type DummyDataItem = Map<string, string | number | boolean | string[]>;
 
 export type DummyData = Map<string, DummyDataItem[]>;

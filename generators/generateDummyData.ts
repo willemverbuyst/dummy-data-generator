@@ -4,6 +4,7 @@ import {
   DummyDataSchema,
   FieldValueType,
 } from "../types.ts";
+import { generateRandomOption } from "./generateRandomOption.ts";
 import { generateReference } from "./generateReference.ts";
 import { generateValue } from "./generateValue.ts";
 
@@ -27,11 +28,17 @@ export function generateDummyData(schemas: DummyDataSchema[]) {
           if (refId) {
             item.set(field, refId);
           }
+        } else if (schema.fields[field].startsWith("|")) {
+          const randomOption = generateRandomOption(schema, field);
+          item.set(field, randomOption);
         } else {
           item.set(
             field,
             generateValue(
-              schema.fields[field] as Exclude<FieldValueType, `#${string}`>
+              schema.fields[field] as Exclude<
+                FieldValueType,
+                `#${string}` | `|${string}`
+              >
             )
           );
         }
