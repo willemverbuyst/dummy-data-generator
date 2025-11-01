@@ -1,5 +1,5 @@
-import { faker } from "npm:@faker-js/faker";
-import { DummyData, DummyDataSchema } from "../types.ts";
+import { faker } from "@faker-js/faker";
+import { type DummyData, type DummyDataSchema } from "../types.ts";
 
 export function generateReference({
   schema,
@@ -19,7 +19,7 @@ export function generateReference({
     return randomRef.get("id");
   } else {
     console.warn(
-      `Warning: No data found for referenced entity ${field} in ${schema.entity}`
+      `Warning: No data found for referenced entity ${field} in ${schema.entity}`,
     );
     return null;
   }

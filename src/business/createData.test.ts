@@ -1,6 +1,6 @@
-import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts";
-import { createData } from "./createData.ts";
-import { DummyDataSchema } from "./types.ts";
+import { describe, expect, test } from "vitest";
+import { createData } from "./createData";
+import { type DummyDataSchema } from "./types";
 
 const DUMMY_DATA_SCHEMAS: DummyDataSchema[] = [
   {
@@ -34,9 +34,11 @@ const DUMMY_DATA_SCHEMAS: DummyDataSchema[] = [
   },
 ];
 
-Deno.test("createData - should create the correct amount of dummy data", () => {
-  const result = createData(DUMMY_DATA_SCHEMAS);
-  assertEquals(result.Users.length, 3);
-  assertEquals(result.Posts.length, 4);
-  assertEquals(result.Comments.length, 5);
+describe("createData", () => {
+  test("should create the correct amount of dummy data", () => {
+    const result = createData(DUMMY_DATA_SCHEMAS);
+    expect(result.Users.length).toBe(3);
+    expect(result.Posts.length).toBe(4);
+    expect(result.Comments.length).toBe(5);
+  });
 });

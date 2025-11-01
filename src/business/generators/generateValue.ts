@@ -1,8 +1,8 @@
-import { faker } from "npm:@faker-js/faker";
-import { FieldValueTypeSimple } from "../types.ts";
+import { faker } from "@faker-js/faker";
+import { type FieldValueTypeSimple } from "../types.ts";
 
 export function generateValue(
-  type: FieldValueTypeSimple
+  type: FieldValueTypeSimple,
 ): string | number | boolean | string[] {
   switch (type) {
     case "word":

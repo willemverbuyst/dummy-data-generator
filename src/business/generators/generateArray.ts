@@ -1,4 +1,4 @@
-import { DummyDataSchema } from "../types.ts";
+import { type DummyDataSchema } from "../types.ts";
 import { generateValue } from "./generateValue.ts";
 
 export function generateArray(schema: DummyDataSchema, field: string) {

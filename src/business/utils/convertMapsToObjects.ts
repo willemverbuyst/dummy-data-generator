@@ -1,4 +1,4 @@
-import { DummyData } from "../types.ts";
+import { type DummyData } from "../types.ts";
 
 export function convertMapsToObjects(dummyData: DummyData) {
   const result: Record<string, Record<string, unknown>[]> = {};

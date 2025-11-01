@@ -1,8 +1,8 @@
 import {
-  DummyData,
-  DummyDataItem,
-  DummyDataSchema,
-  FieldValueTypeSimple,
+  type DummyData,
+  type DummyDataItem,
+  type DummyDataSchema,
+  type FieldValueTypeSimple,
 } from "../types.ts";
 import { generateArray } from "./generateArray.ts";
 import { generateRandomOption } from "./generateRandomOption.ts";
@@ -43,7 +43,7 @@ export function generateDummyData(schemas: DummyDataSchema[]) {
           item.set(field, array);
         } else {
           const value = generateValue(
-            schema.fields[field] as FieldValueTypeSimple
+            schema.fields[field] as FieldValueTypeSimple,
           );
 
           item.set(field, value);
