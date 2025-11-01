@@ -48,7 +48,7 @@ const items: DummyDataSchema[] = [
   },
 ];
 
-function generateValue(
+export function generateValue(
   type: Exclude<FieldValueType, `#${string}`>
 ): string | number | boolean {
   switch (type) {
