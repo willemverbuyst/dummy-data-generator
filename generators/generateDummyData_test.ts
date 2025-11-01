@@ -117,3 +117,81 @@ Deno.test("generateDummyData - should handle zero amount", () => {
 
   assertEquals(result.get("Users")?.length, 0);
 });
+
+Deno.test("generateDummyData - should handle random option", () => {
+  const schemas: DummyDataSchema[] = [
+    {
+      entity: "Tag",
+      amount: 3,
+      fields: { name: "|red,green,blue" },
+    },
+  ];
+
+  const result = generateDummyData(schemas);
+  const tags = result.get("Tags")!;
+
+  tags.forEach((tag) => {
+    const name = tag.get("name");
+    assertExists(name);
+    assertEquals(["red", "green", "blue"].includes(name as string), true);
+  });
+});
+
+Deno.test("generateDummyData - should handle string fields", () => {
+  const schemas: DummyDataSchema[] = [
+    {
+      entity: "Comment",
+      amount: 2,
+      fields: {
+        content: "^5string",
+      },
+    },
+  ];
+
+  const result = generateDummyData(schemas);
+  const comments = result.get("Comments")!;
+
+  comments.forEach((comment) => {
+    const content = comment.get("content");
+    assertExists(content);
+    assertEquals(typeof content, "string");
+    assertEquals((content as string).split(" ").length, 5);
+  });
+});
+
+Deno.test("generateDummyData - should handle array fields", () => {
+  const schemas: DummyDataSchema[] = [
+    {
+      entity: "Product",
+      amount: 2,
+      fields: {
+        tags: "@3string-array",
+        items: "@2number-array",
+      },
+    },
+  ];
+
+  const result = generateDummyData(schemas);
+  const products = result.get("Products")!;
+
+  products.forEach((product) => {
+    const tags = product.get("tags");
+    const items = product.get("items");
+
+    // Validate items array
+    assertExists(items);
+    assertEquals(Array.isArray(items), true);
+    assertEquals((items as number[]).length, 2);
+    (items as number[]).forEach((item) => {
+      assertEquals(typeof item, "number");
+    });
+
+    // Validate tags array
+    assertExists(tags);
+    assertEquals(Array.isArray(tags), true);
+    assertEquals((tags as string[]).length, 3);
+    (tags as string[]).forEach((tag) => {
+      assertEquals(typeof tag, "string");
+    });
+  });
+});
