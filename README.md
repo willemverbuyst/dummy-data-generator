@@ -1,5 +1,5 @@
 # Dummy Data Generator
 
-> deno run main.ts
+> deno run --allow-write main.ts
 
 > deno test --quiet

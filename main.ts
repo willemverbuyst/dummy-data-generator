@@ -118,4 +118,25 @@ function generateDummyData(schemas: DummyDataSchema[]) {
 }
 
 const result = generateDummyData(items);
-console.log(result);
+
+function convertMapsToObjects(dummyData: DummyData) {
+  const result: Record<string, Record<string, any>[]> = {};
+
+  for (const [entityName, items] of dummyData) {
+    result[entityName] = items.map((item) => {
+      const obj: Record<string, any> = {};
+      for (const [key, value] of item) {
+        obj[key] = value;
+      }
+      return obj;
+    });
+  }
+
+  return result;
+}
+
+const objectResult = convertMapsToObjects(result);
+await Deno.writeTextFile(
+  "dummy-data.json",
+  JSON.stringify(objectResult, null, 2)
+);
