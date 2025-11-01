@@ -1,5 +1,7 @@
 # Dummy Data Generator
 
-> deno run --allow-write main.ts
+> deno task run
 
-> deno test --quiet
+> deno task test
+
+> deno task dev
