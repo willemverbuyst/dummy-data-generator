@@ -1,5 +1,10 @@
 import { faker } from "npm:@faker-js/faker";
-import { DummyData, DummyDataSchema, FieldValueType } from "./types.ts";
+import {
+  DummyData,
+  DummyDataItem,
+  DummyDataSchema,
+  FieldValueType,
+} from "./types.ts";
 
 const items: DummyDataSchema[] = [
   {
@@ -63,12 +68,12 @@ export function generateReference({
   dummyData: DummyData;
 }) {
   const refEntity = schema.fields[field].substring(1) + "s";
-  const refData = dummyData[refEntity];
+  const refData = dummyData.get(refEntity);
 
   if (refData && refData.length > 0) {
     const randomRef =
       refData[faker.number.int({ min: 0, max: refData.length - 1 })];
-    return randomRef.id;
+    return randomRef.get("id");
   } else {
     console.warn(
       `Warning: No data found for referenced entity ${field} in ${schema.entity}`
@@ -78,14 +83,14 @@ export function generateReference({
 }
 
 function generateDummyData(schemas: DummyDataSchema[]) {
-  const dummyData: DummyData = {};
+  const dummyData: DummyData = new Map<string, DummyDataItem[]>();
   schemas.forEach((schema) => {
     console.log(`Generating data for entity: ${schema.entity}`);
-    dummyData[`${schema.entity}s`] = [];
+    dummyData.set(`${schema.entity}s`, []);
 
     for (let i = 0; i < schema.amount; i++) {
-      const item: { [key: string]: string | boolean | number } = {};
-      item.id = crypto.randomUUID();
+      const item: DummyDataItem = new Map<string, string | number | boolean>();
+      item.set("id", crypto.randomUUID());
 
       for (const field in schema.fields) {
         if (schema.fields[field].startsWith("#")) {
@@ -94,16 +99,19 @@ function generateDummyData(schemas: DummyDataSchema[]) {
             field,
             dummyData,
           });
-          if (refId !== null) {
-            item[field] = refId;
+          if (refId) {
+            item.set(field, refId);
           }
         } else {
-          item[field] = generateValue(
-            schema.fields[field] as Exclude<FieldValueType, `#${string}`>
+          item.set(
+            field,
+            generateValue(
+              schema.fields[field] as Exclude<FieldValueType, `#${string}`>
+            )
           );
         }
       }
-      dummyData[`${schema.entity}s`].push(item);
+      dummyData.get(`${schema.entity}s`)?.push(item);
     }
   });
   return dummyData;

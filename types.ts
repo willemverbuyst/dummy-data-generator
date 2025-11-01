@@ -13,6 +13,6 @@ export type DummyDataSchema = {
   amount: number;
 };
 
-export type DummyData = {
-  [key: string]: { [key: string]: string | number | boolean }[];
-};
+export type DummyDataItem = Map<string, string | number | boolean>;
+
+export type DummyData = Map<string, DummyDataItem[]>;
