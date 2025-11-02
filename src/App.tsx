@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./App.css";
 import { createData } from "./business/createData";
 import { dummyDataSchemas } from "./business/exampleInput";
 
@@ -12,7 +11,9 @@ function App() {
   }
   return (
     <>
-      <h1>Dummy Data Generator</h1>
+      <h1 className="text-primary p-4 text-center text-5xl font-bold">
+        Dummy Data Generator
+      </h1>
       <button type="button" onClick={handleClick}>
         Generate
       </button>
