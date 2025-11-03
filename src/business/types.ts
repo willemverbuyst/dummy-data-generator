@@ -22,13 +22,13 @@ export type FieldValueType = FieldValueTypeSimple | FieldValueTypeComplex;
 
 export type DummyDataSchema = {
   entity: string;
-  fields: { [key: string]: FieldValueType };
+  fields: [string, FieldValueType][];
   amount: number;
 };
 
-export type DummyDataItem = Map<
+export type DummyDataItem = Record<
   string,
   string | number | boolean | string[] | number[]
 >;
 
-export type DummyData = Map<string, DummyDataItem[]>;
+export type DummyData = Record<string, DummyDataItem[]>;

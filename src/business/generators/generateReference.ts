@@ -1,26 +1,22 @@
 import { faker } from "@faker-js/faker";
-import { type DummyData, type DummyDataSchema } from "../types.ts";
+import { type DummyData } from "../types.ts";
 
 export function generateReference({
-  schema,
-  field,
+  entity,
   dummyData,
 }: {
-  schema: DummyDataSchema;
-  field: string;
+  entity: string;
   dummyData: DummyData;
 }) {
-  const refEntity = schema.fields[field].substring(1) + "s";
-  const refData = dummyData.get(refEntity);
+  const refEntity = entity.substring(1) + "s";
+  const refData = dummyData[refEntity];
 
   if (refData && refData.length > 0) {
     const randomRef =
       refData[faker.number.int({ min: 0, max: refData.length - 1 })];
-    return randomRef.get("id");
+    return randomRef.id;
   } else {
-    console.warn(
-      `Warning: No data found for referenced entity ${field} in ${schema.entity}`,
-    );
+    console.warn(`Warning: No data found for referenced entity ${entity}`);
     return null;
   }
 }

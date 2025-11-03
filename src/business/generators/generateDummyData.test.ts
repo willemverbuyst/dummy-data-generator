@@ -8,25 +8,24 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 2,
-        fields: {
-          name: "string",
-          age: "number",
-          active: "boolean",
-        },
+        fields: [
+          ["name", "string"],
+          ["age", "number"],
+          ["active", "boolean"],
+        ],
       },
     ];
 
     const result = generateDummyData(schemas);
 
-    expect(result.size).toBe(1);
-    expect(result.get("Users")).toBeDefined();
-    expect(result.get("Users")?.length).toBe(2);
+    expect(result.Users).toBeDefined();
+    expect(result.Users?.length).toBe(2);
 
-    const firstItem = result.get("Users")?.[0];
-    expect(firstItem?.get("id")).toBeDefined();
-    expect(firstItem?.get("name")).toBeDefined();
-    expect(firstItem?.get("age")).toBeDefined();
-    expect(firstItem?.get("active")).toBeDefined();
+    const firstItem = result.Users?.[0];
+    expect(firstItem?.id).toBeDefined();
+    expect(firstItem?.name).toBeDefined();
+    expect(firstItem?.age).toBeDefined();
+    expect(firstItem?.active).toBeDefined();
   });
 
   test("should generate data for multiple entities", () => {
@@ -34,20 +33,19 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 1,
-        fields: { name: "string" },
+        fields: [["name", "string"]],
       },
       {
         entity: "Post",
         amount: 2,
-        fields: { title: "string" },
+        fields: [["title", "string"]],
       },
     ];
 
     const result = generateDummyData(schemas);
 
-    expect(result.size).toBe(2);
-    expect(result.get("Users")?.length).toBe(1);
-    expect(result.get("Posts")?.length).toBe(2);
+    expect(result.Users?.length).toBe(1);
+    expect(result.Posts?.length).toBe(2);
   });
 
   test("should handle reference fields", () => {
@@ -55,22 +53,22 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 1,
-        fields: { name: "string" },
+        fields: [["name", "string"]],
       },
       {
         entity: "Post",
         amount: 1,
-        fields: {
-          title: "string",
-          userId: "#User",
-        },
+        fields: [
+          ["title", "string"],
+          ["userId", "#User"],
+        ],
       },
     ];
 
     const result = generateDummyData(schemas);
 
-    const post = result.get("Posts")?.[0];
-    expect(post?.get("userId")).toBeDefined();
+    const post = result?.Posts?.[0];
+    expect(post?.userId).toBeDefined();
   });
 
   test("should generate unique IDs", () => {
@@ -78,14 +76,14 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 3,
-        fields: { name: "string" },
+        fields: [["name", "string"]],
       },
     ];
 
     const result = generateDummyData(schemas);
-    const users = result.get("Users")!;
+    const users = result.Users!;
 
-    const ids = users.map((user) => user.get("id"));
+    const ids = users.map((user) => user.id);
     const uniqueIds = new Set(ids);
 
     expect(ids.length).toBe(uniqueIds.size);
@@ -96,7 +94,7 @@ describe("generateDummyData", () => {
 
     const result = generateDummyData(schemas);
 
-    expect(result.size).toBe(0);
+    expect(Object.keys(result).length).toBe(0);
   });
 
   test("should handle zero amount", () => {
@@ -104,13 +102,13 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 0,
-        fields: { name: "string" },
+        fields: [["name", "string"]],
       },
     ];
 
     const result = generateDummyData(schemas);
 
-    expect(result.get("Users")?.length).toBe(0);
+    expect(result.Users?.length).toBe(0);
   });
 
   test("should handle random option", () => {
@@ -118,15 +116,15 @@ describe("generateDummyData", () => {
       {
         entity: "Tag",
         amount: 3,
-        fields: { name: "|red,green,blue" },
+        fields: [["name", "|red,green,blue"]],
       },
     ];
 
     const result = generateDummyData(schemas);
-    const tags = result.get("Tags")!;
+    const tags = result.Tags!;
 
     tags.forEach((tag) => {
-      const name = tag.get("name");
+      const name = tag.name;
       expect(name).toBeDefined();
       expect(["red", "green", "blue"].includes(name as string)).toBe(true);
     });
@@ -137,17 +135,15 @@ describe("generateDummyData", () => {
       {
         entity: "Comment",
         amount: 2,
-        fields: {
-          content: "^5string",
-        },
+        fields: [["content", "^5string"]],
       },
     ];
 
     const result = generateDummyData(schemas);
-    const comments = result.get("Comments")!;
+    const comments = result.Comments!;
 
     comments.forEach((comment) => {
-      const content = comment.get("content");
+      const content = comment.content;
       expect(content).toBeDefined();
       expect(typeof content).toBe("string");
       expect((content as string).split(" ").length).toBe(5);
@@ -159,19 +155,19 @@ describe("generateDummyData", () => {
       {
         entity: "Product",
         amount: 2,
-        fields: {
-          tags: "@3string-array",
-          items: "@2number-array",
-        },
+        fields: [
+          ["tags", "@3string-array"],
+          ["items", "@2number-array"],
+        ],
       },
     ];
 
     const result = generateDummyData(schemas);
-    const products = result.get("Products")!;
+    const products = result.Products!;
 
     products.forEach((product) => {
-      const tags = product.get("tags");
-      const items = product.get("items");
+      const tags = product.tags;
+      const items = product.items;
 
       // Validate items array
       expect(items).toBeDefined();

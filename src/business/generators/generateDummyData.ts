@@ -11,45 +11,40 @@ import { generateString } from "./generateString.ts";
 import { generateValue } from "./generateValue.ts";
 
 export function generateDummyData(schemas: DummyDataSchema[]) {
-  const dummyData: DummyData = new Map<string, DummyDataItem[]>();
+  const dummyData: DummyData = {};
   schemas.forEach((schema) => {
     console.log(`Generating data for entity: ${schema.entity}`);
-    dummyData.set(`${schema.entity}s`, []);
+    dummyData[`${schema.entity}s`] = [];
 
     for (let i = 0; i < schema.amount; i++) {
-      const item: DummyDataItem = new Map();
-      item.set("id", crypto.randomUUID());
+      const item: DummyDataItem = { id: crypto.randomUUID() };
 
-      for (const field in schema.fields) {
-        if (schema.fields[field].startsWith("#")) {
+      for (const [key, value] of schema.fields) {
+        if (value.startsWith("#")) {
           const refId = generateReference({
-            schema,
-            field,
+            entity: value,
             dummyData,
           });
           if (refId) {
-            item.set(field, refId);
+            item[key] = refId;
           }
-        } else if (schema.fields[field].startsWith("|")) {
-          const randomOption = generateRandomOption(schema, field);
-          item.set(field, randomOption);
-        } else if (schema.fields[field].startsWith("^")) {
-          const generatedString = generateString(schema, field);
+        } else if (value.startsWith("|")) {
+          const randomOption = generateRandomOption(value);
+          item[key] = randomOption;
+        } else if (value.startsWith("^")) {
+          const generatedString = generateString(value);
           if (generatedString) {
-            item.set(field, generatedString);
+            item[key] = generatedString;
           }
-        } else if (schema.fields[field].startsWith("@")) {
-          const array = generateArray(schema, field);
-          item.set(field, array);
+        } else if (value.startsWith("@")) {
+          const array = generateArray(value);
+          item[key] = array;
         } else {
-          const value = generateValue(
-            schema.fields[field] as FieldValueTypeSimple,
-          );
-
-          item.set(field, value);
+          const simpleValue = generateValue(value as FieldValueTypeSimple);
+          item[key] = simpleValue;
         }
       }
-      dummyData.get(`${schema.entity}s`)?.push(item);
+      dummyData[`${schema.entity}s`]?.push(item);
     }
   });
   return dummyData;

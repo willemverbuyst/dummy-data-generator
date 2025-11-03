@@ -1,18 +1,9 @@
 import { describe, expect, test } from "vitest";
-import { type DummyDataSchema } from "../types.ts";
 import { generateRandomOption } from "./generateRandomOption.ts";
 
 describe("generateRandomOption", () => {
   test("returns valid option from schema", () => {
-    const schema: DummyDataSchema = {
-      entity: "Item",
-      amount: 1,
-      fields: {
-        color: "|red,blue,green,yellow",
-      },
-    };
-
-    const result = generateRandomOption(schema, "color");
+    const result = generateRandomOption("|red,blue,green,yellow");
     const validOptions = ["red", "blue", "green", "yellow"];
 
     expect(result).not.toBeUndefined();
@@ -20,43 +11,19 @@ describe("generateRandomOption", () => {
   });
 
   test("returns single option", () => {
-    const schema: DummyDataSchema = {
-      entity: "Item",
-      amount: 1,
-      fields: {
-        status: "|active",
-      },
-    };
-
-    const result = generateRandomOption(schema, "status");
+    const result = generateRandomOption("|active");
     expect(result).toBe("active");
   });
 
   test("handles empty options", () => {
-    const schema: DummyDataSchema = {
-      entity: "Item",
-      amount: 1,
-      fields: {
-        empty: "|",
-      },
-    };
-
-    const result = generateRandomOption(schema, "empty");
+    const result = generateRandomOption("|");
     expect(result).toBe("");
   });
 
   test("returns different values over multiple calls", () => {
-    const schema: DummyDataSchema = {
-      entity: "Item",
-      amount: 1,
-      fields: {
-        size: "|small,medium,large,extra-large",
-      },
-    };
-
     const results = new Set();
     for (let i = 0; i < 50; i++) {
-      results.add(generateRandomOption(schema, "size"));
+      results.add(generateRandomOption("|small,medium,large,extra-large"));
     }
 
     // With 50 calls and 4 options, we should get multiple different values

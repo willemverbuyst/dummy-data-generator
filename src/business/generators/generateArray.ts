@@ -1,8 +1,6 @@
-import { type DummyDataSchema } from "../types.ts";
 import { generateValue } from "./generateValue.ts";
 
-export function generateArray(schema: DummyDataSchema, field: string) {
-  const arrayPattern = schema.fields[field];
+export function generateArray(arrayPattern: string) {
   const matchStringArray = arrayPattern.match(/^@(\d+)string-array$/);
   const matchNumberArray = arrayPattern.match(/^@(\d+)number-array$/);
 
