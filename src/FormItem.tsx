@@ -36,7 +36,10 @@ export function FormItem({
     name: `schemas.${index}.fields`,
   });
   return (
-    <FieldGroup key={schema.id} className="mb-2 rounded-md border-2 p-4">
+    <FieldGroup
+      key={schema.id}
+      className="border-primary mb-2 rounded-md border-2 p-4"
+    >
       <Controller
         name={`schemas.${index}.entity`}
         control={form.control}
