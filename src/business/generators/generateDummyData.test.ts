@@ -9,9 +9,9 @@ describe("generateDummyData", () => {
         entity: "User",
         amount: 2,
         fields: [
-          ["name", "string"],
-          ["age", "number"],
-          ["active", "boolean"],
+          { key: "name", value: "string" },
+          { key: "age", value: "number" },
+          { key: "active", value: "boolean" },
         ],
       },
     ];
@@ -33,12 +33,12 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 1,
-        fields: [["name", "string"]],
+        fields: [{ key: "name", value: "string" }],
       },
       {
         entity: "Post",
         amount: 2,
-        fields: [["title", "string"]],
+        fields: [{ key: "title", value: "string" }],
       },
     ];
 
@@ -53,14 +53,14 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 1,
-        fields: [["name", "string"]],
+        fields: [{ key: "name", value: "string" }],
       },
       {
         entity: "Post",
         amount: 1,
         fields: [
-          ["title", "string"],
-          ["userId", "#User"],
+          { key: "title", value: "string" },
+          { key: "userId", value: "#User" },
         ],
       },
     ];
@@ -76,7 +76,7 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 3,
-        fields: [["name", "string"]],
+        fields: [{ key: "name", value: "string" }],
       },
     ];
 
@@ -102,7 +102,7 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 0,
-        fields: [["name", "string"]],
+        fields: [{ key: "name", value: "string" }],
       },
     ];
 
@@ -116,7 +116,7 @@ describe("generateDummyData", () => {
       {
         entity: "Tag",
         amount: 3,
-        fields: [["name", "|red,green,blue"]],
+        fields: [{ key: "name", value: "|red,green,blue" }],
       },
     ];
 
@@ -135,7 +135,7 @@ describe("generateDummyData", () => {
       {
         entity: "Comment",
         amount: 2,
-        fields: [["content", "^5string"]],
+        fields: [{ key: "content", value: "^5string" }],
       },
     ];
 
@@ -156,8 +156,8 @@ describe("generateDummyData", () => {
         entity: "Product",
         amount: 2,
         fields: [
-          ["tags", "@3string-array"],
-          ["items", "@2number-array"],
+          { key: "tags", value: "@3string-array" },
+          { key: "items", value: "@2number-array" },
         ],
       },
     ];

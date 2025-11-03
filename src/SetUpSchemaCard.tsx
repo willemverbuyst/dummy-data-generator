@@ -2,9 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { Dispatch, SetStateAction } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
-import { dummyDataSchemas } from "./business/exampleInput";
+import { exampleInput } from "./business/exampleInput";
 import { generateDummyData } from "./business/generators/generateDummyData";
-import type { DummyData, FieldValueType } from "./business/types";
+import type { DummyData } from "./business/types";
 import { Button } from "./components/ui/button";
 import {
   Card,
@@ -69,24 +69,7 @@ export function SetUpSchemaCard({
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    const schemas = data.schemas.map((schema) => {
-      console.log({ schema });
-      const fieldsAsObject = schema.fields.reduce(
-        (a, b) => {
-          a.push([b.key, b.value as FieldValueType]);
-          return a;
-        },
-        [] as [string, FieldValueType][],
-      );
-
-      return {
-        entity: schema.entity,
-        fields: fieldsAsObject,
-        amount: schema.amount,
-      };
-    });
-    console.log({ schemas });
-    const dummyData = generateDummyData(schemas);
+    const dummyData = generateDummyData(data.schemas);
     setDummyData(dummyData);
   }
 
@@ -96,9 +79,8 @@ export function SetUpSchemaCard({
   }
 
   function generateExample() {
-    form.reset();
-    const dummyData = generateDummyData(dummyDataSchemas);
-    setDummyData(dummyData);
+    form.setValue("schemas", exampleInput);
+    onSubmit({ schemas: exampleInput });
   }
 
   return (
@@ -137,16 +119,20 @@ export function SetUpSchemaCard({
         </form>
       </CardContent>
       <CardFooter>
-        <Field orientation="horizontal">
-          <Button variant="outline" onClick={generateExample}>
-            Example
-          </Button>
-          <Button type="button" variant="destructive" onClick={handleReset}>
-            Reset
-          </Button>
-          <Button type="submit" form="form-dummy-data">
-            Generate
-          </Button>
+        <Field orientation="horizontal" className="flex justify-between">
+          <div>
+            <Button variant="outline" onClick={generateExample}>
+              Example
+            </Button>
+          </div>
+          <div className="flex gap-2">
+            <Button type="button" variant="destructive" onClick={handleReset}>
+              Reset
+            </Button>
+            <Button type="submit" form="form-dummy-data">
+              Generate
+            </Button>
+          </div>
         </Field>
       </CardFooter>
     </Card>

@@ -22,7 +22,7 @@ export type FieldValueType = FieldValueTypeSimple | FieldValueTypeComplex;
 
 export type DummyDataSchema = {
   entity: string;
-  fields: [string, FieldValueType][];
+  fields: { key: string; value: string }[];
   amount: number;
 };
 

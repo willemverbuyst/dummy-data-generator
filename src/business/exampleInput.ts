@@ -1,35 +1,33 @@
-import { type DummyDataSchema } from "./types";
-
-export const dummyDataSchemas: DummyDataSchema[] = [
+export const exampleInput = [
   {
     entity: "User",
     fields: [
-      ["name", "name"],
-      ["age", "age"],
-      ["email", "email"],
-      ["isActive", "boolean"],
-      ["sex", "|male,female,other"],
+      { key: "name", value: "name" },
+      { key: "age", value: "age" },
+      { key: "email", value: "email" },
+      { key: "isActive", value: "boolean" },
+      { key: "sex", value: "|male,female,other" },
     ],
     amount: 3,
   },
   {
     entity: "Post",
     fields: [
-      ["title", "word"],
-      ["content", "^30string"],
-      ["tags", "@5string-array"],
-      ["authorId", "#User"],
-      ["published", "boolean"],
+      { key: "title", value: "word" },
+      { key: "content", value: "^30string" },
+      { key: "tags", value: "@5string-array" },
+      { key: "authorId", value: "#User" },
+      { key: "published", value: "boolean" },
     ],
     amount: 4,
   },
   {
     entity: "Comment",
     fields: [
-      ["content", "string"],
-      ["postId", "#Post"],
-      ["authorId", "#User"],
-      ["scores", "@3number-array"],
+      { key: "content", value: "string" },
+      { key: "postId", value: "#Post" },
+      { key: "authorId", value: "#User" },
+      { key: "scores", value: "@3number-array" },
     ],
     amount: 5,
   },

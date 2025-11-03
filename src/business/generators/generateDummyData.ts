@@ -19,7 +19,7 @@ export function generateDummyData(schemas: DummyDataSchema[]) {
     for (let i = 0; i < schema.amount; i++) {
       const item: DummyDataItem = { id: crypto.randomUUID() };
 
-      for (const [key, value] of schema.fields) {
+      for (const { key, value } of schema.fields) {
         if (value.startsWith("#")) {
           const refId = generateReference({
             entity: value,
