@@ -1,0 +1,16 @@
+import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
+
+export function GeneratedDataCard({ dummyData }: { dummyData: unknown }) {
+  return (
+    <Card className="max-w-[1400px] min-w-[800px] overflow-y-auto">
+      <CardHeader>
+        <CardTitle>Generated Data</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <pre className="text-code-foreground bg-secondary rounded-md p-4 text-sm text-wrap">
+          <code>{JSON.stringify(dummyData, null, 4)}</code>
+        </pre>
+      </CardContent>
+    </Card>
+  );
+}
