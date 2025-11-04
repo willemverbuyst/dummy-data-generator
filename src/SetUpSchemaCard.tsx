@@ -52,7 +52,7 @@ export function SetUpSchemaCard({
       schemas: [
         {
           entity: "",
-          fields: [{ key: "name", value: "name" }],
+          fields: [{ key: "", value: "" }],
           amount: 1 as unknown as number,
         },
       ],
@@ -84,7 +84,7 @@ export function SetUpSchemaCard({
   }
 
   return (
-    <Card className="w-[400px]">
+    <Card className="w-[600px]">
       <CardHeader>
         <CardTitle>Set up Schema</CardTitle>
       </CardHeader>
@@ -108,7 +108,7 @@ export function SetUpSchemaCard({
               onClick={() =>
                 appendSchema({
                   entity: "",
-                  fields: [{ key: "name", value: "name" }],
+                  fields: [{ key: "", value: "" }],
                   amount: 1,
                 })
               }
