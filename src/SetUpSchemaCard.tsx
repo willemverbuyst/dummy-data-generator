@@ -1,10 +1,10 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import type { Dispatch, SetStateAction } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
-import { z } from "zod";
+import type {
+  FieldArrayWithId,
+  UseFieldArrayAppend,
+  UseFieldArrayRemove,
+  UseFormReturn,
+} from "react-hook-form";
 import { exampleInput } from "./business/exampleInput";
-import { generateDummyData } from "./business/generators/generateDummyData";
-import type { DummyData } from "./business/types";
 import { Button } from "./components/ui/button";
 import {
   Card,
@@ -15,57 +15,26 @@ import {
 } from "./components/ui/card";
 import { Field } from "./components/ui/field";
 import { FormItem } from "./FormItem";
-import { formSchema } from "./formSchema";
+import type { FormSchema } from "./formSchema";
 
 export function SetUpSchemaCard({
-  setDummyData,
+  schemas,
+  removeSchema,
+  appendSchema,
+  form,
 }: {
-  setDummyData: Dispatch<SetStateAction<DummyData | undefined>>;
+  schemas: FieldArrayWithId<FormSchema, "schemas", "id">[];
+  removeSchema: UseFieldArrayRemove;
+  appendSchema: UseFieldArrayAppend<FormSchema, "schemas">;
+  form: UseFormReturn<FormSchema, unknown, FormSchema>;
 }) {
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      schemas: [
-        {
-          entity: "",
-          fields: [{ key: "", value: "" }],
-          amount: 1 as unknown as number,
-        },
-      ],
-    },
-  });
-
-  const {
-    fields: schemas,
-    append: appendSchema,
-    remove: removeSchema,
-  } = useFieldArray({
-    control: form.control,
-    name: "schemas",
-  });
-
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    const dummyData = generateDummyData(data.schemas);
-    setDummyData(dummyData);
-  }
-
-  function handleReset() {
-    form.reset();
-    setDummyData(undefined);
-  }
-
-  function generateExample() {
-    form.setValue("schemas", exampleInput);
-    onSubmit({ schemas: exampleInput });
-  }
-
   return (
     <Card className="w-[600px]">
       <CardHeader>
         <CardTitle>Set up Schema</CardTitle>
       </CardHeader>
       <CardContent>
-        <form id="form-dummy-data" onSubmit={form.handleSubmit(onSubmit)}>
+        <form id="form-dummy-data">
           {schemas.map((schema, index) => (
             <FormItem
               key={schema.id}
@@ -97,16 +66,20 @@ export function SetUpSchemaCard({
       <CardFooter>
         <Field orientation="horizontal" className="flex justify-between">
           <div>
-            <Button variant="outline" onClick={generateExample}>
+            <Button
+              variant="outline"
+              onClick={() => form.setValue("schemas", exampleInput)}
+            >
               Example
             </Button>
           </div>
           <div className="flex gap-2">
-            <Button type="button" variant="destructive" onClick={handleReset}>
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={() => form.reset()}
+            >
               Reset
-            </Button>
-            <Button type="submit" form="form-dummy-data">
-              Generate
             </Button>
           </div>
         </Field>

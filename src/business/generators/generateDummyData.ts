@@ -13,6 +13,7 @@ import { generateValue } from "./generateValue.ts";
 export function generateDummyData(schemas: DummyDataSchema[]) {
   const dummyData: DummyData = {};
   schemas.forEach((schema) => {
+    if (!schema.entity || schema.amount <= 0) return [];
     console.log(`Generating data for entity: ${schema.entity}`);
     dummyData[`${schema.entity}s`] = [];
 
