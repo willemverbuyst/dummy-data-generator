@@ -31,11 +31,11 @@ function App() {
   const values = form.watch();
 
   return (
-    <div className="bg-background flex min-h-screen w-screen flex-col items-center gap-8 p-8">
-      <h1 className="text-primary p-4 text-center text-5xl font-bold">
+    <div className="bg-background flex h-screen w-screen flex-col items-center gap-2 p-4">
+      <h1 className="text-primary mb-2 text-center text-4xl font-bold">
         Dummy Data Generator
       </h1>
-      <div className="flex h-[80vh] gap-4">
+      <div className="flex h-[90vh] gap-4">
         <SetUpSchemaCard
           schemas={schemas}
           appendSchema={appendSchema}
