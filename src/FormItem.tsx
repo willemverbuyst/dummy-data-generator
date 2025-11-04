@@ -23,7 +23,7 @@ import {
   FieldLabel,
 } from "./components/ui/field";
 import { Input } from "./components/ui/input";
-import type { FormSchema } from "./SetUpSchemaCard";
+import type { FormSchema } from "./formSchema";
 
 export function FormItem({
   form,
