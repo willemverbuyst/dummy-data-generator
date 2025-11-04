@@ -17,7 +17,6 @@ import {
 import { Button } from "./components/ui/button";
 import {
   Field,
-  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
@@ -50,37 +49,76 @@ export function FormItem({
       key={schema.id}
       className="border-primary mb-2 rounded-md border-2 p-4"
     >
-      <Controller
-        name={`schemas.${index}.entity`}
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor="form-dummy-data-entity">
-              {`Entity ${index + 1}`}
-            </FieldLabel>
-            <Input
-              {...field}
-              id="form-dummy-data-entity"
-              aria-invalid={fieldState.invalid}
-              placeholder="Enter entity name"
-              autoComplete="off"
-            />
-            <FieldDescription>
-              Entity name should be singular and starting with a capital letter,
-              eg. "User".
-            </FieldDescription>
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </Field>
-        )}
-      />
+      <div className="flex items-end gap-2">
+        <div className="flex w-10/12 gap-2">
+          <Controller
+            name={`schemas.${index}.entity`}
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-dummy-data-entity">
+                  {`Entity ${index + 1}`}
+                </FieldLabel>
+                <Input
+                  {...field}
+                  id="form-dummy-data-entity"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="Enter entity name"
+                  autoComplete="off"
+                />
+                {/* <FieldDescription>
+                Entity name should be singular and starting with a capital
+                letter, eg. "User".
+              </FieldDescription> */}
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+          <Controller
+            name={`schemas.${index}.amount`}
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor="form-dummy-data-amount">
+                  Number of Records
+                </FieldLabel>
+                <Input
+                  {...field}
+                  type="number"
+                  min={1}
+                  max={1000}
+                  value={typeof field.value === "number" ? field.value : 1}
+                  onChange={(e) => field.onChange(Number(e.target.value))}
+                  id="form-dummy-data-amount"
+                  aria-invalid={fieldState.invalid}
+                  autoComplete="off"
+                />
+
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+        </div>
+        <Button
+          variant="secondary"
+          size="sm"
+          type="button"
+          onClick={() => removeSchema(index)}
+        >
+          -
+        </Button>
+      </div>
 
       <div className="flex gap-2">
-        <FieldLabel>Key</FieldLabel>
-        <FieldLabel>Value</FieldLabel>
+        <FieldLabel>Fields</FieldLabel>
       </div>
 
       {keyValueFields.map((field, index2) => (
-        <div key={field.id} className="flex gap-2">
+        <div key={field.id} className="flex items-end gap-2">
           <div className="flex w-10/12 gap-2">
             <Controller
               name={`schemas.${index}.fields.${index2}.key`}
@@ -101,7 +139,7 @@ export function FormItem({
               )}
             />
             <Controller
-              name={`schemas.${index}.fields.${index2}.value`}
+              name={`schemas.${index}.fields.${index2}.type`}
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field className="flex-1" data-invalid={fieldState.invalid}>
@@ -116,26 +154,24 @@ export function FormItem({
                     <SelectContent>
                       <SelectGroup>
                         <SelectLabel>Simple type</SelectLabel>
-                        <SelectItem value="word">Word</SelectItem>
-                        <SelectItem value="string">String</SelectItem>
-                        <SelectItem value="number">Number</SelectItem>
-                        <SelectItem value="boolean">Boolean</SelectItem>
-                        <SelectItem value="email">Email</SelectItem>
-                        <SelectItem value="name">Name</SelectItem>
-                        <SelectItem value="age">Age</SelectItem>
+                        <SelectItem value="word">word</SelectItem>
+                        <SelectItem value="string">string</SelectItem>
+                        <SelectItem value="number">number</SelectItem>
+                        <SelectItem value="boolean">boolean</SelectItem>
+                        <SelectItem value="email">email</SelectItem>
+                        <SelectItem value="name">name</SelectItem>
+                        <SelectItem value="age">age</SelectItem>
                       </SelectGroup>
                       <SelectGroup>
                         <SelectLabel>Complex type</SelectLabel>
-                        <SelectItem value="reference">Reference</SelectItem>
-                        <SelectItem value="one-of">One of</SelectItem>
-                        <SelectItem value="string-with-words">
-                          Number of words
-                        </SelectItem>
+                        <SelectItem value="reference">reference</SelectItem>
+                        <SelectItem value="one-of">one of</SelectItem>
+                        <SelectItem value="long-string">long string</SelectItem>
                         <SelectItem value="string-array">
-                          Array of strings
+                          string array
                         </SelectItem>
                         <SelectItem value="number-array">
-                          Array of numbers
+                          number array
                         </SelectItem>
                       </SelectGroup>
                     </SelectContent>
@@ -146,12 +182,60 @@ export function FormItem({
                 </Field>
               )}
             />
+            {form.watch(`schemas.${index}.fields.${index2}.type`) ===
+              "reference" && (
+              <Controller
+                name={`schemas.${index}.fields.${index2}.value`}
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field className="flex-1" data-invalid={fieldState.invalid}>
+                    <Input
+                      {...field}
+                      id={`form-dummy-data-field-value-${index2}`}
+                      aria-invalid={fieldState.invalid}
+                      placeholder="e.g. User"
+                      autoComplete="off"
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+            )}
+            {["string-array", "number-array", "long-string"].includes(
+              form.watch(`schemas.${index}.fields.${index2}.type`),
+            ) && (
+              <Controller
+                name={`schemas.${index}.fields.${index2}.value`}
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field className="flex-1" data-invalid={fieldState.invalid}>
+                    <Input
+                      {...field}
+                      id={`form-dummy-data-field-value-${index2}`}
+                      aria-invalid={fieldState.invalid}
+                      autoComplete="off"
+                      type="number"
+                      min={1}
+                      max={1000}
+                      value={typeof field.value === "number" ? field.value : 1}
+                      onChange={(e) => field.onChange(Number(e.target.value))}
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+            )}
           </div>
 
           <Button
             variant="secondary"
             size="sm"
             type="button"
+            disabled={keyValueFields.length === 1}
             onClick={() => removeKeyValue(index2)}
           >
             -
@@ -161,49 +245,13 @@ export function FormItem({
               variant="secondary"
               size="sm"
               type="button"
-              onClick={() => appendKeyValue({ key: "name", value: "name" })}
+              onClick={() => appendKeyValue({ key: "", value: "", type: "" })}
             >
               +
             </Button>
           )}
         </div>
       ))}
-
-      <Controller
-        name={`schemas.${index}.amount`}
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor="form-dummy-data-amount">
-              Number of Records
-            </FieldLabel>
-            <Input
-              {...field}
-              type="number"
-              min={1}
-              max={1000}
-              value={typeof field.value === "number" ? field.value : 1}
-              onChange={(e) => field.onChange(Number(e.target.value))}
-              id="form-dummy-data-amount"
-              aria-invalid={fieldState.invalid}
-              autoComplete="off"
-            />
-            <FieldDescription>
-              Number of records to generate for this entity.
-            </FieldDescription>
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </Field>
-        )}
-      />
-
-      <Button
-        variant="secondary"
-        size="sm"
-        type="button"
-        onClick={() => removeSchema(index)}
-      >
-        Remove Entity
-      </Button>
     </FieldGroup>
   );
 }

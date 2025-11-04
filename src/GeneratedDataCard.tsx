@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 
 export function GeneratedDataCard({ dummyData }: { dummyData: unknown }) {
   return (
-    <Card className="w-[800px]">
+    <Card className="w-[800px] overflow-y-auto">
       <CardHeader>
         <CardTitle>Generated Data</CardTitle>
       </CardHeader>

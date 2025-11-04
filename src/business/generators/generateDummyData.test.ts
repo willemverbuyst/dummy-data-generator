@@ -9,9 +9,9 @@ describe("generateDummyData", () => {
         entity: "User",
         amount: 2,
         fields: [
-          { key: "name", value: "string" },
-          { key: "age", value: "number" },
-          { key: "active", value: "boolean" },
+          { key: "name", type: "string" },
+          { key: "age", type: "number" },
+          { key: "active", type: "boolean" },
         ],
       },
     ];
@@ -33,12 +33,12 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 1,
-        fields: [{ key: "name", value: "string" }],
+        fields: [{ key: "name", type: "string" }],
       },
       {
         entity: "Post",
         amount: 2,
-        fields: [{ key: "title", value: "string" }],
+        fields: [{ key: "title", type: "string" }],
       },
     ];
 
@@ -53,14 +53,14 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 1,
-        fields: [{ key: "name", value: "string" }],
+        fields: [{ key: "name", type: "string" }],
       },
       {
         entity: "Post",
         amount: 1,
         fields: [
-          { key: "title", value: "string" },
-          { key: "userId", value: "#User" },
+          { key: "title", type: "string" },
+          { key: "userId", type: "reference", value: "User" },
         ],
       },
     ];
@@ -76,7 +76,7 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 3,
-        fields: [{ key: "name", value: "string" }],
+        fields: [{ key: "name", type: "string" }],
       },
     ];
 
@@ -102,13 +102,13 @@ describe("generateDummyData", () => {
       {
         entity: "User",
         amount: 0,
-        fields: [{ key: "name", value: "string" }],
+        fields: [{ key: "name", type: "string" }],
       },
     ];
 
     const result = generateDummyData(schemas);
 
-    expect(result.Users?.length).toBe(0);
+    expect(result.Users?.length).toBeUndefined();
   });
 
   test("should handle random option", () => {
@@ -116,7 +116,7 @@ describe("generateDummyData", () => {
       {
         entity: "Tag",
         amount: 3,
-        fields: [{ key: "name", value: "|red,green,blue" }],
+        fields: [{ key: "name", type: "|red,green,blue" }],
       },
     ];
 
@@ -135,7 +135,7 @@ describe("generateDummyData", () => {
       {
         entity: "Comment",
         amount: 2,
-        fields: [{ key: "content", value: "^5string" }],
+        fields: [{ key: "content", type: "long-string", value: 5 }],
       },
     ];
 
@@ -156,8 +156,8 @@ describe("generateDummyData", () => {
         entity: "Product",
         amount: 2,
         fields: [
-          { key: "tags", value: "@3string-array" },
-          { key: "items", value: "@2number-array" },
+          { key: "tags", type: "string-array", value: 3 },
+          { key: "items", type: "number-array", value: 2 },
         ],
       },
     ];

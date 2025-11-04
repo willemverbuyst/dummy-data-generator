@@ -14,7 +14,7 @@ describe("generateReference", () => {
     };
 
     const result = generateReference({
-      entity: "#User",
+      entity: "User",
       dummyData,
     });
 
@@ -27,7 +27,7 @@ describe("generateReference", () => {
     };
 
     const result = generateReference({
-      entity: "#User",
+      entity: "User",
       dummyData,
     });
 
@@ -38,7 +38,7 @@ describe("generateReference", () => {
     const dummyData: DummyData = {};
 
     const result = generateReference({
-      entity: "#User",
+      entity: "User",
       dummyData,
     });
 
@@ -51,7 +51,7 @@ describe("generateReference", () => {
     };
 
     const result = generateReference({
-      entity: "#User",
+      entity: "User",
       dummyData,
     });
 

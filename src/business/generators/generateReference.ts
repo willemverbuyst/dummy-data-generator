@@ -8,7 +8,7 @@ export function generateReference({
   entity: string;
   dummyData: DummyData;
 }) {
-  const refEntity = entity.substring(1) + "s";
+  const refEntity = entity + "s";
   const refData = dummyData[refEntity];
 
   if (refData && refData.length > 0) {

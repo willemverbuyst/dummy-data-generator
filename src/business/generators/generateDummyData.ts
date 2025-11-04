@@ -13,15 +13,15 @@ import { generateValue } from "./generateValue.ts";
 export function generateDummyData(schemas: DummyDataSchema[]) {
   const dummyData: DummyData = {};
   schemas.forEach((schema) => {
-    if (!schema.entity || schema.amount <= 0) return [];
+    if (!schema.entity || schema.amount <= 0) return undefined;
     console.log(`Generating data for entity: ${schema.entity}`);
     dummyData[`${schema.entity}s`] = [];
 
     for (let i = 0; i < schema.amount; i++) {
       const item: DummyDataItem = { id: crypto.randomUUID() };
 
-      for (const { key, value } of schema.fields) {
-        if (value.startsWith("#")) {
+      for (const { key, type, value } of schema.fields) {
+        if (type === "reference" && typeof value === "string") {
           const refId = generateReference({
             entity: value,
             dummyData,
@@ -29,19 +29,22 @@ export function generateDummyData(schemas: DummyDataSchema[]) {
           if (refId) {
             item[key] = refId;
           }
-        } else if (value.startsWith("|")) {
-          const randomOption = generateRandomOption(value);
+        } else if (type.startsWith("|")) {
+          const randomOption = generateRandomOption(type);
           item[key] = randomOption;
-        } else if (value.startsWith("^")) {
+        } else if (type === "long-string" && typeof value === "number") {
           const generatedString = generateString(value);
           if (generatedString) {
             item[key] = generatedString;
           }
-        } else if (value.startsWith("@")) {
-          const array = generateArray(value);
+        } else if (
+          (type === "string-array" || type === "number-array") &&
+          typeof value === "number"
+        ) {
+          const array = generateArray(type, value);
           item[key] = array;
         } else {
-          const simpleValue = generateValue(value as FieldValueTypeSimple);
+          const simpleValue = generateValue(type as FieldValueTypeSimple);
           item[key] = simpleValue;
         }
       }

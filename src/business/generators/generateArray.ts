@@ -1,20 +1,15 @@
 import { generateValue } from "./generateValue.ts";
 
-export function generateArray(arrayPattern: string) {
-  const matchStringArray = arrayPattern.match(/^@(\d+)string-array$/);
-  const matchNumberArray = arrayPattern.match(/^@(\d+)number-array$/);
-
-  if (matchStringArray) {
-    const count = parseInt(matchStringArray[1], 10);
+export function generateArray(arrayPattern: string, value: number) {
+  if (arrayPattern === "string-array") {
     const stringArray: string[] = [];
-    for (let j = 0; j < count; j++) {
+    for (let j = 0; j < value; j++) {
       stringArray.push(generateValue("word") as string);
     }
     return stringArray;
-  } else if (matchNumberArray) {
-    const count = parseInt(matchNumberArray[1], 10);
+  } else if (arrayPattern === "number-array") {
     const numberArray: number[] = [];
-    for (let j = 0; j < count; j++) {
+    for (let j = 0; j < value; j++) {
       numberArray.push(generateValue("number") as number);
     }
     return numberArray;
