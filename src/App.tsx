@@ -1,11 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
+import { z } from "zod";
 import { generateDummyData } from "./business/generators/generateDummyData";
+import type { DummyData } from "./business/types";
 import { formSchema } from "./formSchema";
 import { GeneratedDataCard } from "./GeneratedDataCard";
 import { SetUpSchemaCard } from "./SetUpSchemaCard";
 
 function App() {
+  const [dummyData, setDummyData] = useState<DummyData | null>(null);
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,7 +32,10 @@ function App() {
     name: "schemas",
   });
 
-  const values = form.watch();
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    const dummyData = generateDummyData(data.schemas);
+    setDummyData(dummyData);
+  }
 
   return (
     <div className="bg-background flex h-screen w-screen flex-col items-center gap-2 p-4">
@@ -41,8 +48,9 @@ function App() {
           appendSchema={appendSchema}
           removeSchema={removeSchema}
           form={form}
+          onSubmit={onSubmit}
         />
-        <GeneratedDataCard dummyData={generateDummyData(values.schemas)} />
+        <GeneratedDataCard dummyData={dummyData} />
       </div>
     </div>
   );
