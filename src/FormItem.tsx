@@ -14,6 +14,7 @@ import {
   type UseFieldArrayRemove,
   type UseFormReturn,
 } from "react-hook-form";
+import { fieldValueTypeComplex, fieldValueTypeSimple } from "./business/types";
 import { Button } from "./components/ui/button";
 import {
   Field,
@@ -154,25 +155,19 @@ export function FormItem({
                     <SelectContent>
                       <SelectGroup>
                         <SelectLabel>Simple type</SelectLabel>
-                        <SelectItem value="word">word</SelectItem>
-                        <SelectItem value="string">string</SelectItem>
-                        <SelectItem value="number">number</SelectItem>
-                        <SelectItem value="boolean">boolean</SelectItem>
-                        <SelectItem value="email">email</SelectItem>
-                        <SelectItem value="name">name</SelectItem>
-                        <SelectItem value="age">age</SelectItem>
+                        {fieldValueTypeSimple.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {type}
+                          </SelectItem>
+                        ))}
                       </SelectGroup>
                       <SelectGroup>
                         <SelectLabel>Complex type</SelectLabel>
-                        <SelectItem value="reference">reference</SelectItem>
-                        <SelectItem value="one-of">one of</SelectItem>
-                        <SelectItem value="long-string">long string</SelectItem>
-                        <SelectItem value="string-array">
-                          string array
-                        </SelectItem>
-                        <SelectItem value="number-array">
-                          number array
-                        </SelectItem>
+                        {fieldValueTypeComplex.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {type.replace("-", " ")}
+                          </SelectItem>
+                        ))}
                       </SelectGroup>
                     </SelectContent>
                   </Select>
