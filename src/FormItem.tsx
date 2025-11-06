@@ -182,8 +182,9 @@ export function FormItem({
                 </Field>
               )}
             />
-            {form.watch(`schemas.${index}.fields.${index2}.type`) ===
-              "reference" && (
+            {["reference", "one-of"].includes(
+              form.watch(`schemas.${index}.fields.${index2}.type`),
+            ) && (
               <Controller
                 name={`schemas.${index}.fields.${index2}.value`}
                 control={form.control}

@@ -29,8 +29,8 @@ export function generateDummyData(schemas: DummyDataSchema[]) {
           if (refId) {
             item[key] = refId;
           }
-        } else if (type.startsWith("|")) {
-          const randomOption = generateRandomOption(type);
+        } else if (type === "one-of" && typeof value === "string") {
+          const randomOption = generateRandomOption(value);
           item[key] = randomOption;
         } else if (type === "long-string" && typeof value === "number") {
           const generatedString = generateString(value);

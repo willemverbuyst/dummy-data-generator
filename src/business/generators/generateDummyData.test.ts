@@ -116,7 +116,7 @@ describe("generateDummyData", () => {
       {
         entity: "Tag",
         amount: 3,
-        fields: [{ key: "name", type: "|red,green,blue" }],
+        fields: [{ key: "name", type: "one-of", value: "red,green,blue" }],
       },
     ];
 
