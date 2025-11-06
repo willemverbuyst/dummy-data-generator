@@ -1,3 +1,8 @@
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -37,20 +42,51 @@ function App() {
     setDummyData(dummyData);
   }
 
+  <ResizablePanelGroup
+    direction="vertical"
+    className="min-h-[200px] max-w-md rounded-lg border md:min-w-[450px]"
+  >
+    <ResizablePanel defaultSize={25}>
+      <div className="flex h-full items-center justify-center p-6">
+        <span className="font-semibold">Header</span>
+      </div>
+    </ResizablePanel>
+    <ResizableHandle />
+    <ResizablePanel defaultSize={75}>
+      <div className="flex h-full items-center justify-center p-6">
+        <span className="font-semibold">Content</span>
+      </div>
+    </ResizablePanel>
+  </ResizablePanelGroup>;
+
   return (
     <div className="bg-background flex h-screen w-screen flex-col items-center gap-2 p-4">
       <h1 className="text-primary mb-2 text-center text-4xl font-bold">
         Dummy Data Generator
       </h1>
-      <div className="flex h-[90vh] gap-4">
-        <SetUpSchemaCard
-          schemas={schemas}
-          appendSchema={appendSchema}
-          removeSchema={removeSchema}
-          form={form}
-          onSubmit={onSubmit}
-        />
-        <GeneratedDataCard dummyData={dummyData} />
+      <div className="flex h-[90vh] w-screen gap-4 px-4">
+        <ResizablePanelGroup
+          direction="horizontal"
+          className="rounded-lg border"
+        >
+          <ResizablePanel defaultSize={60}>
+            <div className="bg-secondary h-full overflow-y-auto">
+              <GeneratedDataCard dummyData={dummyData} />
+            </div>
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel defaultSize={40}>
+            <div className="h-full overflow-y-auto p-2">
+              <SetUpSchemaCard
+                schemas={schemas}
+                appendSchema={appendSchema}
+                removeSchema={removeSchema}
+                form={form}
+                onSubmit={onSubmit}
+              />
+            </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
       </div>
     </div>
   );
