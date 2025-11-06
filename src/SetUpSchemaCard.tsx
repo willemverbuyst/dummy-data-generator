@@ -15,11 +15,13 @@ export function SetUpSchemaCard({
   removeSchema,
   appendSchema,
   form,
+  onSubmit,
 }: {
   schemas: FieldArrayWithId<FormSchema, "schemas", "id">[];
   removeSchema: UseFieldArrayRemove;
   appendSchema: UseFieldArrayAppend<FormSchema, "schemas">;
   form: UseFormReturn<FormSchema, unknown, FormSchema>;
+  onSubmit: (data: FormSchema) => void;
 }) {
   return (
     <Card className="w-[600px] overflow-y-auto">
@@ -27,7 +29,7 @@ export function SetUpSchemaCard({
         <CardTitle>Set up Schema</CardTitle>
       </CardHeader>
       <CardContent>
-        <form id="form-dummy-data">
+        <form id="form-dummy-data" onSubmit={form.handleSubmit(onSubmit)}>
           {schemas.map((schema, index) => (
             <FormItem
               key={schema.id}
@@ -51,6 +53,7 @@ export function SetUpSchemaCard({
             <div className="flex gap-2">
               <Button
                 type="button"
+                variant="secondary"
                 onClick={() =>
                   appendSchema({
                     entity: "",
@@ -67,6 +70,9 @@ export function SetUpSchemaCard({
                 onClick={() => form.reset()}
               >
                 Reset
+              </Button>
+              <Button type="submit" variant="default">
+                Generate
               </Button>
             </div>
           </div>

@@ -1,24 +1,22 @@
-export const fieldValueTypeSimple = {
-  WORD: "word",
-  STRING: "string",
-  NUMBER: "number",
-  BOOLEAN: "boolean",
-  EMAIL: "email",
-  NAME: "name",
-  AGE: "age",
-} as const;
+export const fieldValueTypeSimple = [
+  "word",
+  "string",
+  "number",
+  "boolean",
+  "email",
+  "name",
+  "age",
+] as const;
 
-export type FieldValueTypeSimple =
-  (typeof fieldValueTypeSimple)[keyof typeof fieldValueTypeSimple];
+export const fieldValueTypeComplex = [
+  "reference",
+  "one-of",
+  "long-string",
+  "string-array",
+  "number-array",
+] as const;
 
-export type FieldValueTypeComplex =
-  | `#${string}` // reference to another entity
-  | `|${string}` // one of values from a list separated by ","
-  | `^${number}string` // string with a specific number of words
-  | `@${number}string-array` // array of strings with a specific number of elements
-  | `@${number}number-array`; // array of numbers with a specific number of elements
-
-export type FieldValueType = FieldValueTypeSimple | FieldValueTypeComplex;
+export type FieldValueTypeSimple = (typeof fieldValueTypeSimple)[number];
 
 export type DummyDataSchema = {
   entity: string;
