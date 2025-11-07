@@ -1,10 +1,11 @@
-import type {
-  FieldArrayWithId,
-  UseFieldArrayAppend,
-  UseFieldArrayRemove,
-  UseFormReturn,
+import {
+  type FieldArrayWithId,
+  type UseFieldArrayAppend,
+  type UseFieldArrayRemove,
+  type UseFormReturn,
 } from "react-hook-form";
 import { exampleInput } from "./business/exampleInput";
+import type { DummyData } from "./business/types";
 import { Button } from "./components/ui/button";
 import { FormItem } from "./FormItem";
 import type { FormSchema } from "./formSchema";
@@ -15,19 +16,15 @@ export function SetUpSchemaCard({
   appendSchema,
   form,
   onSubmit,
+  setDummyData,
 }: {
   schemas: FieldArrayWithId<FormSchema, "schemas", "id">[];
   removeSchema: UseFieldArrayRemove;
   appendSchema: UseFieldArrayAppend<FormSchema, "schemas">;
   form: UseFormReturn<FormSchema, unknown, FormSchema>;
   onSubmit: (data: FormSchema) => void;
+  setDummyData: React.Dispatch<React.SetStateAction<DummyData | null>>;
 }) {
-  function generateExample() {
-    form.setValue("schemas", exampleInput);
-
-    onSubmit({ schemas: form.watch("schemas") });
-  }
-
   return (
     <form
       id="form-dummy-data"
@@ -47,10 +44,15 @@ export function SetUpSchemaCard({
       </div>
 
       <div className="flex flex-col gap-2">
-        <Button variant="outline" type="button" onClick={generateExample}>
+        <Button
+          variant="outline"
+          type="submit"
+          onClick={() => {
+            form.setValue("schemas", exampleInput);
+          }}
+        >
           Example
         </Button>
-
         <Button
           type="button"
           variant="secondary"
@@ -67,7 +69,10 @@ export function SetUpSchemaCard({
         <Button
           type="button"
           variant="destructive"
-          onClick={() => form.reset()}
+          onClick={() => {
+            form.reset();
+            setDummyData(null);
+          }}
         >
           Reset
         </Button>

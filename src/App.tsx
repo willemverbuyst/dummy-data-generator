@@ -83,6 +83,7 @@ function App() {
                 removeSchema={removeSchema}
                 form={form}
                 onSubmit={onSubmit}
+                setDummyData={setDummyData}
               />
             </div>
           </ResizablePanel>

@@ -67,10 +67,6 @@ export function FormItem({
                   placeholder="Enter entity name"
                   autoComplete="off"
                 />
-                {/* <FieldDescription>
-                Entity name should be singular and starting with a capital
-                letter, eg. "User".
-              </FieldDescription> */}
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
                 )}
