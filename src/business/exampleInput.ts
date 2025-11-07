@@ -8,7 +8,7 @@ export const exampleInput = [
       { key: "isActive", type: "boolean" },
       { key: "sex", type: "one-of", value: "male,female,other" },
     ],
-    amount: 3,
+    numberOfRecords: 3,
   },
   {
     entity: "Post",
@@ -19,7 +19,7 @@ export const exampleInput = [
       { key: "authorId", type: "reference", value: "User" },
       { key: "published", type: "boolean" },
     ],
-    amount: 4,
+    numberOfRecords: 4,
   },
   {
     entity: "Comment",
@@ -29,6 +29,6 @@ export const exampleInput = [
       { key: "authorId", type: "reference", value: "User" },
       { key: "scores", type: "number-array", value: 3 },
     ],
-    amount: 5,
+    numberOfRecords: 5,
   },
 ];

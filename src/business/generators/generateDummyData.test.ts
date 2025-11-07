@@ -7,7 +7,7 @@ describe("generateDummyData", () => {
     const schemas: DummyDataSchema[] = [
       {
         entity: "User",
-        amount: 2,
+        numberOfRecords: 2,
         fields: [
           { key: "name", type: "string" },
           { key: "age", type: "number" },
@@ -32,12 +32,12 @@ describe("generateDummyData", () => {
     const schemas: DummyDataSchema[] = [
       {
         entity: "User",
-        amount: 1,
+        numberOfRecords: 1,
         fields: [{ key: "name", type: "string" }],
       },
       {
         entity: "Post",
-        amount: 2,
+        numberOfRecords: 2,
         fields: [{ key: "title", type: "string" }],
       },
     ];
@@ -52,12 +52,12 @@ describe("generateDummyData", () => {
     const schemas: DummyDataSchema[] = [
       {
         entity: "User",
-        amount: 1,
+        numberOfRecords: 1,
         fields: [{ key: "name", type: "string" }],
       },
       {
         entity: "Post",
-        amount: 1,
+        numberOfRecords: 1,
         fields: [
           { key: "title", type: "string" },
           { key: "userId", type: "reference", value: "User" },
@@ -75,7 +75,7 @@ describe("generateDummyData", () => {
     const schemas: DummyDataSchema[] = [
       {
         entity: "User",
-        amount: 3,
+        numberOfRecords: 3,
         fields: [{ key: "name", type: "string" }],
       },
     ];
@@ -97,11 +97,11 @@ describe("generateDummyData", () => {
     expect(Object.keys(result).length).toBe(0);
   });
 
-  test("should handle zero amount", () => {
+  test("should handle zero number of records", () => {
     const schemas: DummyDataSchema[] = [
       {
         entity: "User",
-        amount: 0,
+        numberOfRecords: 0,
         fields: [{ key: "name", type: "string" }],
       },
     ];
@@ -115,7 +115,7 @@ describe("generateDummyData", () => {
     const schemas: DummyDataSchema[] = [
       {
         entity: "Tag",
-        amount: 3,
+        numberOfRecords: 3,
         fields: [{ key: "name", type: "one-of", value: "red,green,blue" }],
       },
     ];
@@ -134,7 +134,7 @@ describe("generateDummyData", () => {
     const schemas: DummyDataSchema[] = [
       {
         entity: "Comment",
-        amount: 2,
+        numberOfRecords: 2,
         fields: [{ key: "content", type: "long-string", value: 5 }],
       },
     ];
@@ -154,7 +154,7 @@ describe("generateDummyData", () => {
     const schemas: DummyDataSchema[] = [
       {
         entity: "Product",
-        amount: 2,
+        numberOfRecords: 2,
         fields: [
           { key: "tags", type: "string-array", value: 3 },
           { key: "items", type: "number-array", value: 2 },

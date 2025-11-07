@@ -21,7 +21,7 @@ export type FieldValueTypeSimple = (typeof fieldValueTypeSimple)[number];
 export type DummyDataSchema = {
   entity: string;
   fields: { key: string; type: string; value?: string | number }[];
-  amount: number;
+  numberOfRecords: number;
 };
 
 export type DummyDataItem = Record<

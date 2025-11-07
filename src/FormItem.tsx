@@ -74,11 +74,11 @@ export function FormItem({
             )}
           />
           <Controller
-            name={`schemas.${index}.amount`}
+            name={`schemas.${index}.numberOfRecords`}
             control={form.control}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="form-dummy-data-amount">
+                <FieldLabel htmlFor="form-dummy-data-number-of-records">
                   Number of Records
                 </FieldLabel>
                 <Input
@@ -88,7 +88,7 @@ export function FormItem({
                   max={1000}
                   value={typeof field.value === "number" ? field.value : 1}
                   onChange={(e) => field.onChange(Number(e.target.value))}
-                  id="form-dummy-data-amount"
+                  id="form-dummy-data-number-of-records"
                   aria-invalid={fieldState.invalid}
                   autoComplete="off"
                 />

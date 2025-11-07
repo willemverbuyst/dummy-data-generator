@@ -24,7 +24,7 @@ function App() {
         {
           entity: "",
           fields: [{ key: "", value: "", type: "" }],
-          amount: 1 as unknown as number,
+          numberOfRecords: 1 as unknown as number,
         },
       ],
     },

@@ -60,7 +60,7 @@ export function SetUpSchemaCard({
             appendSchema({
               entity: "",
               fields: [{ key: "", value: "", type: "" }],
-              amount: 1,
+              numberOfRecords: 1,
             })
           }
         >

@@ -13,11 +13,11 @@ import { generateValue } from "./generateValue.ts";
 export function generateDummyData(schemas: DummyDataSchema[]) {
   const dummyData: DummyData = {};
   schemas.forEach((schema) => {
-    if (!schema.entity || schema.amount <= 0) return undefined;
+    if (!schema.entity || schema.numberOfRecords <= 0) return undefined;
     console.log(`Generating data for entity: ${schema.entity}`);
     dummyData[`${schema.entity}s`] = [];
 
-    for (let i = 0; i < schema.amount; i++) {
+    for (let i = 0; i < schema.numberOfRecords; i++) {
       const item: DummyDataItem = { id: crypto.randomUUID() };
 
       for (const { key, type, value } of schema.fields) {

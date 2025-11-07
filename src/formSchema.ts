@@ -23,7 +23,9 @@ export const formSchema = z.object({
             }),
           )
           .nonempty("At least one field is required"),
-        amount: z.number().min(1, "Amount must be at least 1"),
+        numberOfRecords: z
+          .number()
+          .min(1, "Number of records must be at least 1"),
       }),
     )
     .superRefine((schemas, ctx) => {
