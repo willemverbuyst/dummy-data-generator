@@ -4,7 +4,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { generateDummyData } from "./business/generators/generateDummyData";
@@ -15,6 +15,8 @@ import { SetUpSchemaCard } from "./SetUpSchemaCard";
 
 function App() {
   const [dummyData, setDummyData] = useState<DummyData | null>(null);
+  const [upToDate, setUpToDate] = useState<boolean>(true);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,6 +30,21 @@ function App() {
     },
   });
 
+  const subscribe = form.subscribe;
+
+  useEffect(() => {
+    const callback = subscribe({
+      formState: {
+        values: true,
+      },
+      callback: () => {
+        setUpToDate(false);
+      },
+    });
+
+    return () => callback();
+  }, [subscribe]);
+
   const {
     fields: schemas,
     append: appendSchema,
@@ -40,6 +57,7 @@ function App() {
   function onSubmit(data: z.infer<typeof formSchema>) {
     const dummyData = generateDummyData(data.schemas);
     setDummyData(dummyData);
+    setUpToDate(true);
   }
 
   <ResizablePanelGroup
@@ -71,7 +89,7 @@ function App() {
         >
           <ResizablePanel defaultSize={60}>
             <div className="bg-secondary h-full overflow-y-auto">
-              <GeneratedDataCard dummyData={dummyData} />
+              <GeneratedDataCard dummyData={dummyData} upToDate={upToDate} />
             </div>
           </ResizablePanel>
           <ResizableHandle />
