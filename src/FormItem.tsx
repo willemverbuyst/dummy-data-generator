@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
 import {
   Controller,
   useFieldArray,
@@ -29,7 +30,6 @@ export function FormItem({
   form,
   index,
   schema,
-
   removeSchema,
 }: {
   form: UseFormReturn<FormSchema, unknown, FormSchema>;
@@ -50,78 +50,79 @@ export function FormItem({
       key={schema.id}
       className="border-primary mb-2 rounded-md border-2 p-4"
     >
-      <div className="flex items-end gap-2">
-        <div className="flex w-10/12 gap-2">
-          <Controller
-            name={`schemas.${index}.entity`}
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="form-dummy-data-entity">
-                  {`Entity ${index + 1}`}
-                </FieldLabel>
-                <Input
-                  {...field}
-                  id="form-dummy-data-entity"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="Enter entity name"
-                  autoComplete="off"
-                />
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-          <Controller
-            name={`schemas.${index}.numberOfRecords`}
-            control={form.control}
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="form-dummy-data-number-of-records">
-                  Number of Records
-                </FieldLabel>
-                <Input
-                  {...field}
-                  type="number"
-                  min={1}
-                  max={1000}
-                  value={typeof field.value === "number" ? field.value : 1}
-                  onChange={(e) => field.onChange(Number(e.target.value))}
-                  id="form-dummy-data-number-of-records"
-                  aria-invalid={fieldState.invalid}
-                  autoComplete="off"
-                />
+      <div className="flex w-full items-end gap-2">
+        <Controller
+          name={`schemas.${index}.entity`}
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="form-dummy-data-entity">
+                {`Entity ${index + 1}`}{" "}
+              </FieldLabel>
+              <Input
+                {...field}
+                id="form-dummy-data-entity"
+                aria-invalid={fieldState.invalid}
+                placeholder="Enter entity name"
+                autoComplete="off"
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+        <Controller
+          name={`schemas.${index}.numberOfRecords`}
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor="form-dummy-data-number-of-records">
+                Number of Records
+              </FieldLabel>
+              <Input
+                {...field}
+                type="number"
+                min={1}
+                max={1000}
+                value={typeof field.value === "number" ? field.value : 1}
+                onChange={(e) => field.onChange(Number(e.target.value))}
+                id="form-dummy-data-number-of-records"
+                aria-invalid={fieldState.invalid}
+                autoComplete="off"
+              />
 
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-        </div>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
         <Button
-          variant="secondary"
+          variant="outline"
           size="sm"
           type="button"
           onClick={() => removeSchema(index)}
         >
-          -
+          <TrashIcon />
         </Button>
       </div>
 
-      <div className="flex gap-2">
-        <FieldLabel>Fields</FieldLabel>
-      </div>
-
-      {keyValueFields.map((field, index2) => (
-        <div key={field.id} className="flex items-end gap-2">
-          <div className="flex w-10/12 gap-2">
+      <div className="flex w-full flex-col gap-2">
+        <div className="flex w-full items-end justify-between">
+          <FieldLabel>Fields</FieldLabel>
+          <Button
+            variant="outline"
+            size="sm"
+            type="button"
+            onClick={() => appendKeyValue({ key: "", value: "", type: "" })}
+          >
+            <PlusIcon />
+          </Button>
+        </div>
+        {keyValueFields.map((field, index2) => (
+          <div key={field.id} className="flex w-full items-end gap-2">
             <Controller
               name={`schemas.${index}.fields.${index2}.key`}
               control={form.control}
               render={({ field, fieldState }) => (
-                <Field className="flex-1" data-invalid={fieldState.invalid}>
+                <Field data-invalid={fieldState.invalid}>
                   <Input
                     {...field}
                     id={`form-dummy-data-field-key-${index2}`}
@@ -139,7 +140,7 @@ export function FormItem({
               name={`schemas.${index}.fields.${index2}.type`}
               control={form.control}
               render={({ field, fieldState }) => (
-                <Field className="flex-1" data-invalid={fieldState.invalid}>
+                <Field data-invalid={fieldState.invalid}>
                   <Select
                     name={field.name}
                     value={field.value}
@@ -180,7 +181,7 @@ export function FormItem({
                 name={`schemas.${index}.fields.${index2}.value`}
                 control={form.control}
                 render={({ field, fieldState }) => (
-                  <Field className="flex-1" data-invalid={fieldState.invalid}>
+                  <Field data-invalid={fieldState.invalid}>
                     <Input
                       {...field}
                       id={`form-dummy-data-field-value-${index2}`}
@@ -202,7 +203,7 @@ export function FormItem({
                 name={`schemas.${index}.fields.${index2}.value`}
                 control={form.control}
                 render={({ field, fieldState }) => (
-                  <Field className="flex-1" data-invalid={fieldState.invalid}>
+                  <Field data-invalid={fieldState.invalid}>
                     <Input
                       {...field}
                       id={`form-dummy-data-field-value-${index2}`}
@@ -221,29 +222,19 @@ export function FormItem({
                 )}
               />
             )}
-          </div>
 
-          <Button
-            variant="secondary"
-            size="sm"
-            type="button"
-            disabled={keyValueFields.length === 1}
-            onClick={() => removeKeyValue(index2)}
-          >
-            -
-          </Button>
-          {keyValueFields.length === index2 + 1 && (
             <Button
-              variant="secondary"
+              variant="outline"
               size="sm"
               type="button"
-              onClick={() => appendKeyValue({ key: "", value: "", type: "" })}
+              disabled={keyValueFields.length === 1}
+              onClick={() => removeKeyValue(index2)}
             >
-              +
+              <MinusIcon />
             </Button>
-          )}
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </FieldGroup>
   );
 }
