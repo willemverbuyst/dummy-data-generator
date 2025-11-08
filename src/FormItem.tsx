@@ -7,6 +7,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
 import {
   Controller,
@@ -94,14 +99,21 @@ export function FormItem({
             </Field>
           )}
         />
-        <Button
-          variant="outline"
-          size="sm"
-          type="button"
-          onClick={() => removeSchema(index)}
-        >
-          <TrashIcon />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="outline"
+              size="sm"
+              type="button"
+              onClick={() => removeSchema(index)}
+            >
+              <TrashIcon />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Remove entity</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
 
       <div className="flex w-full flex-col gap-2">
