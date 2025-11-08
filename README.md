@@ -1,13 +1,5 @@
-# Dummy Data Generator
+# Dummy Data Generator (wip)
 
-> deno task run
+Tool to generate some json dummy data with linked entities.
 
-> deno task test
-
-> deno task dev
-
-## Tests Coverage
-
-> deno test --coverage=cov_profile
-
-> deno coverage cov_profile --detailed
+![screenshot](./screenshot.png)
