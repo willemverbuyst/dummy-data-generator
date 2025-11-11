@@ -64,22 +64,25 @@ function App() {
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="bg-background flex h-screen w-screen flex-col items-center gap-2 p-4">
+      <div className="bg-dark relative flex h-screen w-screen flex-col items-center gap-2 p-4">
         <h1 className="text-primary mb-2 text-center text-4xl font-bold">
           Dummy Data Generator
         </h1>
-        <ModeToggle />
+        <span className="absolute top-4 right-4">
+          <ModeToggle />
+        </span>
+
         <div className="flex h-[90vh] w-screen">
           <ResizablePanelGroup
             direction="horizontal"
-            className="horizontal p-2"
+            className="horizontal p-4"
           >
             <ResizablePanel defaultSize={60}>
               <div className="h-full overflow-y-auto">
                 <GeneratedDataCard dummyData={dummyData} upToDate={upToDate} />
               </div>
             </ResizablePanel>
-            <ResizableHandle className="bg-background p-1" />
+            <ResizableHandle className="bg-dark p-2" />
             <ResizablePanel defaultSize={40}>
               <div className="h-full overflow-y-auto">
                 <SetUpSchemaCard
