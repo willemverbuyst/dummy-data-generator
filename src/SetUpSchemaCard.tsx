@@ -29,9 +29,9 @@ export function SetUpSchemaCard({
     <form
       id="form-dummy-data"
       onSubmit={form.handleSubmit(onSubmit)}
-      className="flex w-full justify-between gap-2"
+      className="flex w-full justify-between gap-4"
     >
-      <div className="flex w-full flex-col gap-2">
+      <div className="flex w-full flex-col gap-4">
         {schemas.map((schema, index) => (
           <FormItem
             key={schema.id}
@@ -43,7 +43,7 @@ export function SetUpSchemaCard({
         ))}
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="bg-background flex flex-col gap-2 rounded-md p-4">
         <Button
           variant="outline"
           type="submit"
