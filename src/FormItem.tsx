@@ -53,7 +53,7 @@ export function FormItem({
   return (
     <FieldGroup
       key={schema.id}
-      className="border-primary mb-2 rounded-md border-2 p-4"
+      className="bg-background shadow-l m-2 rounded-md p-4"
     >
       <div className="flex w-full items-end gap-2">
         <Controller

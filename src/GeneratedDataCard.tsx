@@ -13,7 +13,7 @@ export function GeneratedDataCard({
   upToDate: boolean;
 }) {
   return (
-    <div className="relative p-4">
+    <div className="bg-background shadow-l relative m-2 rounded-md p-4">
       {!!dummyData && (
         <Tooltip>
           <TooltipTrigger asChild>
