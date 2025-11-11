@@ -20,15 +20,13 @@ import {
   type UseFieldArrayRemove,
   type UseFormReturn,
 } from "react-hook-form";
-import { fieldValueTypeComplex, fieldValueTypeSimple } from "./business/types";
-import { Button } from "./components/ui/button";
 import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "./components/ui/field";
-import { Input } from "./components/ui/input";
+  fieldValueTypeComplex,
+  fieldValueTypeSimple,
+} from "../../business/types";
+import { Button } from "../ui/button";
+import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
+import { Input } from "../ui/input";
 import type { FormSchema } from "./formSchema";
 
 export function FormItem({

@@ -4,11 +4,11 @@ import {
   type UseFieldArrayRemove,
   type UseFormReturn,
 } from "react-hook-form";
-import { exampleInput } from "./business/exampleInput";
-import type { DummyData } from "./business/types";
-import { Button } from "./components/ui/button";
-import { FormItem } from "./FormItem";
-import type { FormSchema } from "./formSchema";
+import { exampleInput } from "../business/exampleInput";
+import type { DummyData } from "../business/types";
+import { FormItem } from "./form/FormItem";
+import type { FormSchema } from "./form/formSchema";
+import { Button } from "./ui/button";
 
 export function SetUpSchemaCard({
   schemas,

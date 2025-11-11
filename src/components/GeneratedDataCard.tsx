@@ -3,7 +3,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Badge } from "./components/ui/badge";
+import { Badge } from "./ui/badge";
 
 export function GeneratedDataCard({
   dummyData,
