@@ -70,7 +70,6 @@ export function FormItem({
                 aria-invalid={fieldState.invalid}
                 placeholder="Enter entity name"
                 autoComplete="off"
-                className="bg-light"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
