@@ -9,6 +9,8 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { generateDummyData } from "./business/generators/generateDummyData";
 import type { DummyData } from "./business/types";
+import { ModeToggle } from "./components/theme-provider/mode-toggle";
+import { ThemeProvider } from "./components/theme-provider/theme-provider";
 import { formSchema } from "./formSchema";
 import { GeneratedDataCard } from "./GeneratedDataCard";
 import { SetUpSchemaCard } from "./SetUpSchemaCard";
@@ -60,54 +62,40 @@ function App() {
     setUpToDate(true);
   }
 
-  <ResizablePanelGroup
-    direction="vertical"
-    className="min-h-[200px] max-w-md rounded-lg border md:min-w-[450px]"
-  >
-    <ResizablePanel defaultSize={25}>
-      <div className="flex h-full items-center justify-center p-6">
-        <span className="font-semibold">Header</span>
-      </div>
-    </ResizablePanel>
-    <ResizableHandle />
-    <ResizablePanel defaultSize={75}>
-      <div className="flex h-full items-center justify-center p-6">
-        <span className="font-semibold">Content</span>
-      </div>
-    </ResizablePanel>
-  </ResizablePanelGroup>;
-
   return (
-    <div className="bg-background flex h-screen w-screen flex-col items-center gap-2 p-4">
-      <h1 className="text-primary mb-2 text-center text-4xl font-bold">
-        Dummy Data Generator
-      </h1>
-      <div className="flex h-[90vh] w-screen gap-4 px-4">
-        <ResizablePanelGroup
-          direction="horizontal"
-          className="rounded-lg border"
-        >
-          <ResizablePanel defaultSize={60}>
-            <div className="bg-secondary h-full overflow-y-auto">
-              <GeneratedDataCard dummyData={dummyData} upToDate={upToDate} />
-            </div>
-          </ResizablePanel>
-          <ResizableHandle />
-          <ResizablePanel defaultSize={40}>
-            <div className="h-full overflow-y-auto p-2">
-              <SetUpSchemaCard
-                schemas={schemas}
-                appendSchema={appendSchema}
-                removeSchema={removeSchema}
-                form={form}
-                onSubmit={onSubmit}
-                setDummyData={setDummyData}
-              />
-            </div>
-          </ResizablePanel>
-        </ResizablePanelGroup>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <div className="bg-background flex h-screen w-screen flex-col items-center gap-2 p-4">
+        <h1 className="text-primary mb-2 text-center text-4xl font-bold">
+          Dummy Data Generator
+        </h1>
+        <ModeToggle />
+        <div className="flex h-[90vh] w-screen">
+          <ResizablePanelGroup
+            direction="horizontal"
+            className="horizontal p-2"
+          >
+            <ResizablePanel defaultSize={60}>
+              <div className="h-full overflow-y-auto">
+                <GeneratedDataCard dummyData={dummyData} upToDate={upToDate} />
+              </div>
+            </ResizablePanel>
+            <ResizableHandle className="bg-background p-1" />
+            <ResizablePanel defaultSize={40}>
+              <div className="h-full overflow-y-auto">
+                <SetUpSchemaCard
+                  schemas={schemas}
+                  appendSchema={appendSchema}
+                  removeSchema={removeSchema}
+                  form={form}
+                  onSubmit={onSubmit}
+                  setDummyData={setDummyData}
+                />
+              </div>
+            </ResizablePanel>
+          </ResizablePanelGroup>
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }
 
