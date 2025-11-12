@@ -1,3 +1,4 @@
+import { generateDummyData } from "@/business/generators/generateDummyData";
 import { useDummyData } from "@/zustand/store";
 import {
   type FieldArrayWithId,
@@ -24,6 +25,7 @@ export function SetUpSchemaCard({
   onSubmit: (data: FormSchema) => void;
 }) {
   const clearDummyData = useDummyData((state) => state.clearDummyData);
+  const setDummyData = useDummyData((state) => state.setDummyData);
 
   return (
     <form
@@ -46,9 +48,10 @@ export function SetUpSchemaCard({
       <div className="bg-background shadow-l m-2 flex flex-col gap-2 rounded-md p-4">
         <Button
           variant="outline"
-          type="submit"
+          type="button"
           onClick={() => {
-            clearDummyData();
+            const dummyData = generateDummyData(exampleInput);
+            setDummyData(dummyData);
             form.setValue("schemas", exampleInput);
           }}
         >
