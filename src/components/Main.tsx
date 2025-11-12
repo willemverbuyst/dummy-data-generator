@@ -3,19 +3,19 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import { useDummyData } from "@/zustand/store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { generateDummyData } from "../business/generators/generateDummyData";
-import type { DummyData } from "../business/types";
 import { formSchema } from "./form/formSchema";
 import { GeneratedDataCard } from "./GeneratedDataCard";
 import { SetUpSchemaCard } from "./SetUpSchemaCard";
 
 export function Main() {
-  const [dummyData, setDummyData] = useState<DummyData | null>(null);
-  const [upToDate, setUpToDate] = useState<boolean>(true);
+  const setDummyData = useDummyData((state) => state.setDummyData);
+  const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -38,12 +38,12 @@ export function Main() {
         values: true,
       },
       callback: () => {
-        setUpToDate(false);
+        setInSyncWithForm(false);
       },
     });
 
     return () => callback();
-  }, [subscribe]);
+  }, [subscribe, setInSyncWithForm]);
 
   const {
     fields: schemas,
@@ -57,7 +57,7 @@ export function Main() {
   function onSubmit(data: z.infer<typeof formSchema>) {
     const dummyData = generateDummyData(data.schemas);
     setDummyData(dummyData);
-    setUpToDate(true);
+    setInSyncWithForm(true);
   }
 
   return (
@@ -65,7 +65,7 @@ export function Main() {
       <ResizablePanelGroup direction="horizontal" className="horizontal p-2">
         <ResizablePanel defaultSize={60}>
           <div className="h-full overflow-y-auto">
-            <GeneratedDataCard dummyData={dummyData} upToDate={upToDate} />
+            <GeneratedDataCard />
           </div>
         </ResizablePanel>
         <ResizableHandle className="bg-dark" />
@@ -77,7 +77,6 @@ export function Main() {
               removeSchema={removeSchema}
               form={form}
               onSubmit={onSubmit}
-              setDummyData={setDummyData}
             />
           </div>
         </ResizablePanel>

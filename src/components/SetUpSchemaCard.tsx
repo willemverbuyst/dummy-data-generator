@@ -1,3 +1,4 @@
+import { useDummyData } from "@/zustand/store";
 import {
   type FieldArrayWithId,
   type UseFieldArrayAppend,
@@ -5,7 +6,6 @@ import {
   type UseFormReturn,
 } from "react-hook-form";
 import { exampleInput } from "../business/exampleInput";
-import type { DummyData } from "../business/types";
 import { FormItem } from "./form/FormItem";
 import type { FormSchema } from "./form/formSchema";
 import { Button } from "./ui/button";
@@ -16,15 +16,15 @@ export function SetUpSchemaCard({
   appendSchema,
   form,
   onSubmit,
-  setDummyData,
 }: {
   schemas: FieldArrayWithId<FormSchema, "schemas", "id">[];
   removeSchema: UseFieldArrayRemove;
   appendSchema: UseFieldArrayAppend<FormSchema, "schemas">;
   form: UseFormReturn<FormSchema, unknown, FormSchema>;
   onSubmit: (data: FormSchema) => void;
-  setDummyData: React.Dispatch<React.SetStateAction<DummyData | null>>;
 }) {
+  const clearDummyData = useDummyData((state) => state.clearDummyData);
+
   return (
     <form
       id="form-dummy-data"
@@ -48,6 +48,7 @@ export function SetUpSchemaCard({
           variant="outline"
           type="submit"
           onClick={() => {
+            clearDummyData();
             form.setValue("schemas", exampleInput);
           }}
         >
@@ -71,7 +72,7 @@ export function SetUpSchemaCard({
           variant="destructive"
           onClick={() => {
             form.reset();
-            setDummyData(null);
+            clearDummyData();
           }}
         >
           Reset
