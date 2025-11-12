@@ -10,7 +10,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { generateDummyData } from "../business/generators/generateDummyData";
 import { formSchema } from "./form/formSchema";
-import { GeneratedDataCard } from "./GeneratedDataCard";
+import { OutputCard } from "./output/OutputCard";
 import { SetUpSchemaCard } from "./SetUpSchemaCard";
 
 export function Main() {
@@ -65,7 +65,7 @@ export function Main() {
       <ResizablePanelGroup direction="horizontal" className="horizontal p-2">
         <ResizablePanel defaultSize={60}>
           <div className="h-full overflow-y-auto">
-            <GeneratedDataCard />
+            <OutputCard />
           </div>
         </ResizablePanel>
         <ResizableHandle className="bg-dark" />
