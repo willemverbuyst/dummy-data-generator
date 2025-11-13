@@ -16,6 +16,7 @@ import { SetUpSchemaCard } from "./SetUpSchemaCard";
 export function Main() {
   const setDummyData = useDummyData((state) => state.setDummyData);
   const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
+  const setIsGenerating = useDummyData((state) => state.setIsGenerating);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -55,9 +56,13 @@ export function Main() {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    const dummyData = generateDummyData(data.schemas);
-    setDummyData(dummyData);
-    setInSyncWithForm(true);
+    setIsGenerating(true);
+    setTimeout(() => {
+      const dummyData = generateDummyData(data.schemas);
+      setDummyData(dummyData);
+      setInSyncWithForm(true);
+      setIsGenerating(false);
+    }, 300);
   }
 
   return (

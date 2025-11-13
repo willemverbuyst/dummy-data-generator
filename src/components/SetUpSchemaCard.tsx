@@ -1,3 +1,4 @@
+import { exampleInput } from "@/business/exampleInput";
 import { generateDummyData } from "@/business/generators/generateDummyData";
 import { useDummyData } from "@/zustand/store";
 import {
@@ -6,7 +7,6 @@ import {
   type UseFieldArrayRemove,
   type UseFormReturn,
 } from "react-hook-form";
-import { exampleInput } from "../business/exampleInput";
 import { FormItem } from "./form/FormItem";
 import type { FormSchema } from "./form/formSchema";
 import { Button } from "./ui/button";
@@ -26,6 +26,7 @@ export function SetUpSchemaCard({
 }) {
   const clearDummyData = useDummyData((state) => state.clearDummyData);
   const setDummyData = useDummyData((state) => state.setDummyData);
+  const setIsGenerating = useDummyData((state) => state.setIsGenerating);
 
   return (
     <form
@@ -50,9 +51,13 @@ export function SetUpSchemaCard({
           variant="outline"
           type="button"
           onClick={() => {
-            const dummyData = generateDummyData(exampleInput);
-            setDummyData(dummyData);
-            form.setValue("schemas", exampleInput);
+            setIsGenerating(true);
+            setTimeout(() => {
+              const dummyData = generateDummyData(exampleInput);
+              setDummyData(dummyData);
+              form.setValue("schemas", exampleInput);
+              setIsGenerating(false);
+            }, 300);
           }}
         >
           Example
