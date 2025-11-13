@@ -36,7 +36,7 @@ export function Main() {
   useEffect(() => {
     const callback = subscribe({
       formState: {
-        values: true,
+        touchedFields: true,
       },
       callback: () => {
         setInSyncWithForm(false);

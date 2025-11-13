@@ -27,6 +27,7 @@ export function SetUpSchemaCard({
   const clearDummyData = useDummyData((state) => state.clearDummyData);
   const setDummyData = useDummyData((state) => state.setDummyData);
   const setIsGenerating = useDummyData((state) => state.setIsGenerating);
+  const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
 
   return (
     <form
@@ -55,7 +56,8 @@ export function SetUpSchemaCard({
             setTimeout(() => {
               const dummyData = generateDummyData(exampleInput);
               setDummyData(dummyData);
-              form.setValue("schemas", exampleInput);
+              form.reset({ schemas: exampleInput });
+              setInSyncWithForm(true);
               setIsGenerating(false);
             }, 300);
           }}
@@ -79,8 +81,17 @@ export function SetUpSchemaCard({
           type="button"
           variant="destructive"
           onClick={() => {
-            form.reset();
+            form.reset({
+              schemas: [
+                {
+                  entity: "",
+                  fields: [{ key: "", value: "", type: "" }],
+                  numberOfRecords: 1 as unknown as number,
+                },
+              ],
+            });
             clearDummyData();
+            setInSyncWithForm(true);
           }}
         >
           Reset
