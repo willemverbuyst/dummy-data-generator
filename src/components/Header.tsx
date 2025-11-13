@@ -1,4 +1,4 @@
-import { ModeToggle } from "./theme-provider/mode-toggle";
+import { ThemeToggle } from "./theme-provider/ThemeToggle";
 
 export function Header() {
   return (
@@ -7,7 +7,7 @@ export function Header() {
         Dummy Data Generator
       </h1>
       <span className="absolute top-4 right-4">
-        <ModeToggle />
+        <ThemeToggle />
       </span>
     </div>
   );
