@@ -31,4 +31,13 @@ export const exampleInput = [
     ],
     numberOfRecords: 5,
   },
+  {
+    entity: "Note",
+    fields: [
+      { key: "scribble", type: "string" },
+      { key: "authorId", type: "reference", value: "User" },
+      { key: "commentId", type: "reference", value: "Comment" },
+    ],
+    numberOfRecords: 20,
+  },
 ];
