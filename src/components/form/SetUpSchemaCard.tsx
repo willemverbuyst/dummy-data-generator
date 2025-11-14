@@ -1,33 +1,66 @@
 import { exampleInput } from "@/business/exampleInput";
 import { generateDummyData } from "@/business/generators/generateDummyData";
 import { useDummyData } from "@/zustand/store";
-import {
-  type FieldArrayWithId,
-  type UseFieldArrayAppend,
-  type UseFieldArrayRemove,
-  type UseFormReturn,
-} from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+import type z from "zod";
 import { Button } from "../ui/button";
 import { FormItem } from "./FormItem";
-import type { FormSchema } from "./formSchema";
+import { formSchema } from "./formSchema";
 
-export function SetUpSchemaCard({
-  schemas,
-  removeSchema,
-  appendSchema,
-  form,
-  onSubmit,
-}: {
-  schemas: FieldArrayWithId<FormSchema, "schemas", "id">[];
-  removeSchema: UseFieldArrayRemove;
-  appendSchema: UseFieldArrayAppend<FormSchema, "schemas">;
-  form: UseFormReturn<FormSchema, unknown, FormSchema>;
-  onSubmit: (data: FormSchema) => void;
-}) {
+export function SetUpSchemaCard() {
   const clearDummyData = useDummyData((state) => state.clearDummyData);
   const setDummyData = useDummyData((state) => state.setDummyData);
   const setIsGenerating = useDummyData((state) => state.setIsGenerating);
   const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
+
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      schemas: [
+        {
+          entity: "",
+          fields: [{ key: "", value: "", type: "" }],
+          numberOfRecords: 1 as unknown as number,
+        },
+      ],
+    },
+  });
+
+  const subscribe = form.subscribe;
+
+  useEffect(() => {
+    const callback = subscribe({
+      formState: {
+        touchedFields: true,
+      },
+      callback: () => {
+        setInSyncWithForm(false);
+      },
+    });
+
+    return () => callback();
+  }, [subscribe, setInSyncWithForm]);
+
+  const {
+    fields: schemas,
+    append: appendSchema,
+    remove: removeSchema,
+  } = useFieldArray({
+    control: form.control,
+    name: "schemas",
+  });
+
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    setIsGenerating(true);
+    setTimeout(() => {
+      const dummyData = generateDummyData(data.schemas);
+      setDummyData(dummyData);
+      setInSyncWithForm(true);
+      setIsGenerating(false);
+    }, 300);
+  }
 
   return (
     <form
