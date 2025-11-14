@@ -27,7 +27,7 @@ export function RemoveEntityButton({
         </Button>
       </TooltipTrigger>
       <TooltipContent>
-        <p>Remove</p>
+        <p>Remove Entity</p>
       </TooltipContent>
     </Tooltip>
   );

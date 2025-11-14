@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-react";
@@ -31,14 +31,16 @@ describe("RemoveEntityButton", () => {
     expect(button.querySelector("svg")).toHaveClass("lucide-trash");
   });
 
-  it("calls remove with correct index when clicked", () => {
+  it("calls remove with correct index when clicked", async () => {
     render(<RemoveEntityButton {...defaultProps} index={2} />);
 
     const button = screen.getByRole("button");
-    fireEvent.click(button);
+    userEvent.click(button);
 
-    expect(mockRemove).toHaveBeenCalledWith(2);
-    expect(mockRemove).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(mockRemove).toHaveBeenCalledWith(2);
+      expect(mockRemove).toHaveBeenCalledTimes(1);
+    });
   });
 
   it("shows tooltip on hover", async () => {
@@ -52,7 +54,7 @@ describe("RemoveEntityButton", () => {
 
     await waitFor(async () => {
       const tooltip = await screen.findByRole("tooltip");
-      expect(tooltip).toHaveTextContent("Remove");
+      expect(tooltip).toHaveTextContent("Remove Entity");
     });
   });
 });
