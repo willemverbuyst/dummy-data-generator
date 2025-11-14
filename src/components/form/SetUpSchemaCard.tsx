@@ -1,28 +1,29 @@
 import { generateDummyData } from "@/business/generators/generateDummyData";
 import { useDummyData } from "@/zustand/store";
-import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
-import type z from "zod";
-import { AddEntityButton } from "./AddEntityButton";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { z } from "zod";
+import { AddEntityButton } from "./buttons/AddEntityButton";
+import { GenerateButton } from "./buttons/GenerateButton";
+import { ResetButton } from "./buttons/ResetButton";
+import { ShowExampleButton } from "./buttons/ShowExampleButton";
 import { FormItem } from "./FormItem";
 import { defaultSchema, formSchema } from "./formSchema";
-import { GenerateButton } from "./GenerateButton";
-import { ResetButton } from "./ResetButton";
-import { ShowExampleButton } from "./ShowExampleButton";
 
 export function SetUpSchemaCard() {
   const setDummyData = useDummyData((state) => state.setDummyData);
   const setIsGenerating = useDummyData((state) => state.setIsGenerating);
   const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
 
-  const { subscribe, reset, handleSubmit, control, watch } = useForm({
+  const methods = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       schemas: [defaultSchema],
     },
   });
+
+  const { subscribe, handleSubmit, control } = methods;
 
   useEffect(() => {
     const callback = subscribe({
@@ -39,8 +40,8 @@ export function SetUpSchemaCard() {
 
   const {
     fields: schemas,
-    append: appendSchema,
     remove: removeSchema,
+    append: appendSchema,
   } = useFieldArray({
     control,
     name: "schemas",
@@ -57,7 +58,7 @@ export function SetUpSchemaCard() {
   }
 
   return (
-    <>
+    <FormProvider {...methods}>
       <form
         id="form-dummy-data"
         onSubmit={handleSubmit(onSubmit)}
@@ -69,21 +70,18 @@ export function SetUpSchemaCard() {
               key={schema.id}
               schemaId={schema.id}
               index={index}
-              control={control}
               removeSchema={removeSchema}
-              watch={watch}
             />
           ))}
         </div>
 
         <div className="bg-background shadow-l m-2 flex flex-col gap-2 rounded-md p-4">
-          <ShowExampleButton reset={reset} />
+          <ShowExampleButton />
           <AddEntityButton append={appendSchema} />
-          <ResetButton reset={reset} />
+          <ResetButton />
           <GenerateButton />
         </div>
       </form>
-      <DevTool control={control} />
-    </>
+    </FormProvider>
   );
 }

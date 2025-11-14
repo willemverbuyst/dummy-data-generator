@@ -45,8 +45,14 @@ export const formSchema = z.object({
 
 export type FormSchema = z.infer<typeof formSchema>;
 
+export const defaultField: FormSchema["schemas"][number]["fields"][number] = {
+  key: "",
+  value: "",
+  type: "",
+};
+
 export const defaultSchema: FormSchema["schemas"][number] = {
   entity: "",
-  fields: [{ key: "", value: "", type: "" }],
+  fields: [defaultField],
   numberOfRecords: 1 as unknown as number,
 };

@@ -8,44 +8,35 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
-import {
   Controller,
   useFieldArray,
-  type Control,
+  useFormContext,
   type UseFieldArrayRemove,
-  type UseFormWatch,
 } from "react-hook-form";
 import {
   fieldValueTypeComplex,
   fieldValueTypeSimple,
 } from "../../business/types";
-import { Button } from "../ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
-import type { FormSchema } from "./formSchema";
+import { AddFieldButton } from "./buttons/AddFieldButton";
+import { RemoveEntityButton } from "./buttons/RemoveEntityButton";
+import { RemoveFieldButton } from "./buttons/RemoveFieldButton";
 
 export function FormItem({
-  control,
   index,
   schemaId,
   removeSchema,
-  watch,
 }: {
-  control: Control<FormSchema, unknown, FormSchema>;
   index: number;
   schemaId: string;
   removeSchema: UseFieldArrayRemove;
-  watch: UseFormWatch<FormSchema>;
 }) {
+  const { watch, control } = useFormContext();
   const {
     fields: keyValueFields,
-    append: appendKeyValue,
-    remove: removeKeyValue,
+    append: appendField,
+    remove: removeField,
   } = useFieldArray({
     control,
     name: `schemas.${index}.fields`,
@@ -99,45 +90,24 @@ export function FormItem({
             </Field>
           )}
         />
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              size="sm"
-              type="button"
-              onClick={() => removeSchema(index)}
-            >
-              <TrashIcon />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Remove entity</p>
-          </TooltipContent>
-        </Tooltip>
+        <RemoveEntityButton remove={removeSchema} index={index} />
       </div>
 
       <div className="flex w-full flex-col gap-2">
         <div className="flex w-full items-end justify-between">
           <FieldLabel>Fields</FieldLabel>
-          <Button
-            variant="outline"
-            size="sm"
-            type="button"
-            onClick={() => appendKeyValue({ key: "", value: "", type: "" })}
-          >
-            <PlusIcon />
-          </Button>
+          <AddFieldButton append={appendField} />
         </div>
-        {keyValueFields.map((field, index2) => (
+        {keyValueFields.map((field, fieldIndex) => (
           <div key={field.id} className="flex w-full items-end gap-2">
             <Controller
-              name={`schemas.${index}.fields.${index2}.key`}
+              name={`schemas.${index}.fields.${fieldIndex}.key`}
               control={control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <Input
                     {...field}
-                    id={`form-dummy-data-field-key-${index2}`}
+                    id={`form-dummy-data-field-key-${fieldIndex}`}
                     aria-invalid={fieldState.invalid}
                     placeholder="e.g. name"
                     autoComplete="off"
@@ -149,7 +119,7 @@ export function FormItem({
               )}
             />
             <Controller
-              name={`schemas.${index}.fields.${index2}.type`}
+              name={`schemas.${index}.fields.${fieldIndex}.type`}
               control={control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
@@ -187,16 +157,16 @@ export function FormItem({
               )}
             />
             {["reference", "one-of"].includes(
-              watch(`schemas.${index}.fields.${index2}.type`),
+              watch(`schemas.${index}.fields.${fieldIndex}.type`),
             ) && (
               <Controller
-                name={`schemas.${index}.fields.${index2}.value`}
+                name={`schemas.${index}.fields.${fieldIndex}.value`}
                 control={control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <Input
                       {...field}
-                      id={`form-dummy-data-field-value-${index2}`}
+                      id={`form-dummy-data-field-value-${fieldIndex}`}
                       aria-invalid={fieldState.invalid}
                       placeholder="e.g. User"
                       autoComplete="off"
@@ -209,16 +179,16 @@ export function FormItem({
               />
             )}
             {["string-array", "number-array", "long-string"].includes(
-              watch(`schemas.${index}.fields.${index2}.type`),
+              watch(`schemas.${index}.fields.${fieldIndex}.type`),
             ) && (
               <Controller
-                name={`schemas.${index}.fields.${index2}.value`}
+                name={`schemas.${index}.fields.${fieldIndex}.value`}
                 control={control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <Input
                       {...field}
-                      id={`form-dummy-data-field-value-${index2}`}
+                      id={`form-dummy-data-field-value-${fieldIndex}`}
                       aria-invalid={fieldState.invalid}
                       autoComplete="off"
                       type="number"
@@ -235,15 +205,11 @@ export function FormItem({
               />
             )}
 
-            <Button
-              variant="outline"
-              size="sm"
-              type="button"
+            <RemoveFieldButton
+              remove={removeField}
+              index={fieldIndex}
               disabled={keyValueFields.length === 1}
-              onClick={() => removeKeyValue(index2)}
-            >
-              <MinusIcon />
-            </Button>
+            />
           </div>
         ))}
       </div>

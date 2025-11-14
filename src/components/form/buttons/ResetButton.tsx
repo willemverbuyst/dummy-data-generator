@@ -1,11 +1,12 @@
+import { Button } from "@/components/ui/button";
 import { useDummyData } from "@/zustand/store";
-import type { UseFormReset } from "react-hook-form";
-import { Button } from "../ui/button";
-import { defaultSchema, type FormSchema } from "./formSchema";
+import { useFormContext } from "react-hook-form";
+import { defaultSchema } from "../formSchema";
 
-export function ResetButton({ reset }: { reset: UseFormReset<FormSchema> }) {
+export function ResetButton() {
   const clearDummyData = useDummyData((state) => state.clearDummyData);
   const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
+  const { reset } = useFormContext();
 
   return (
     <Button

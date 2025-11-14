@@ -1,6 +1,6 @@
+import { Button } from "@/components/ui/button";
 import type { UseFieldArrayAppend } from "react-hook-form";
-import { Button } from "../ui/button";
-import { defaultSchema, type FormSchema } from "./formSchema";
+import { defaultSchema, type FormSchema } from "../formSchema";
 
 export function AddEntityButton({
   append,

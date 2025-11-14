@@ -1,18 +1,14 @@
 import { exampleInput } from "@/business/exampleInput";
 import { generateDummyData } from "@/business/generators/generateDummyData";
+import { Button } from "@/components/ui/button";
 import { useDummyData } from "@/zustand/store";
-import type { UseFormReset } from "react-hook-form";
-import { Button } from "../ui/button";
-import type { FormSchema } from "./formSchema";
+import { useFormContext } from "react-hook-form";
 
-export function ShowExampleButton({
-  reset,
-}: {
-  reset: UseFormReset<FormSchema>;
-}) {
+export function ShowExampleButton() {
   const setDummyData = useDummyData((state) => state.setDummyData);
   const setIsGenerating = useDummyData((state) => state.setIsGenerating);
   const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
+  const { reset } = useFormContext();
 
   return (
     <Button
