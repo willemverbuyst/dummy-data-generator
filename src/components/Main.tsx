@@ -10,8 +10,8 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { generateDummyData } from "../business/generators/generateDummyData";
 import { formSchema } from "./form/formSchema";
+import { SetUpSchemaCard } from "./form/SetUpSchemaCard";
 import { OutputCard } from "./output/OutputCard";
-import { SetUpSchemaCard } from "./SetUpSchemaCard";
 
 export function Main() {
   const setDummyData = useDummyData((state) => state.setDummyData);

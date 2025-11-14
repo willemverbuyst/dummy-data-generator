@@ -7,9 +7,9 @@ import {
   type UseFieldArrayRemove,
   type UseFormReturn,
 } from "react-hook-form";
-import { FormItem } from "./form/FormItem";
-import type { FormSchema } from "./form/formSchema";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
+import { FormItem } from "./FormItem";
+import type { FormSchema } from "./formSchema";
 
 export function SetUpSchemaCard({
   schemas,
