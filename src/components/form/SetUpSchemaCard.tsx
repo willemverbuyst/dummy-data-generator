@@ -1,5 +1,6 @@
 import { generateDummyData } from "@/business/generators/generateDummyData";
 import { useDummyData } from "@/zustand/store";
+import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -56,30 +57,33 @@ export function SetUpSchemaCard() {
   }
 
   return (
-    <form
-      id="form-dummy-data"
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex w-full justify-between gap-4"
-    >
-      <div className="flex w-full flex-col gap-1">
-        {schemas.map((schema, index) => (
-          <FormItem
-            key={schema.id}
-            schemaId={schema.id}
-            index={index}
-            control={control}
-            removeSchema={removeSchema}
-            watch={watch}
-          />
-        ))}
-      </div>
+    <>
+      <form
+        id="form-dummy-data"
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex w-full justify-between gap-4"
+      >
+        <div className="flex w-full flex-col gap-1">
+          {schemas.map((schema, index) => (
+            <FormItem
+              key={schema.id}
+              schemaId={schema.id}
+              index={index}
+              control={control}
+              removeSchema={removeSchema}
+              watch={watch}
+            />
+          ))}
+        </div>
 
-      <div className="bg-background shadow-l m-2 flex flex-col gap-2 rounded-md p-4">
-        <ShowExampleButton reset={reset} />
-        <AddEntityButton append={appendSchema} />
-        <ResetButton reset={reset} />
-        <GenerateButton />
-      </div>
-    </form>
+        <div className="bg-background shadow-l m-2 flex flex-col gap-2 rounded-md p-4">
+          <ShowExampleButton reset={reset} />
+          <AddEntityButton append={appendSchema} />
+          <ResetButton reset={reset} />
+          <GenerateButton />
+        </div>
+      </form>
+      <DevTool control={control} />
+    </>
   );
 }
