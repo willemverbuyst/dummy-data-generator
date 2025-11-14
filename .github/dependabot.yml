@@ -1,10 +1,12 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: npm
+    directory: /
     schedule:
-      interval: "weekly"
-    allow:
-      - dependency-type: "all"
-    post-update-options:
-      - "use-pnpm"
+      interval: weekly
+    versioning-strategy: increase
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
