@@ -1,7 +1,7 @@
 import { useDummyData } from "@/zustand/store";
+import { Spinner } from "../Spinner";
 import { DataDisplay } from "./DataDisplay";
 import { InSyncBadge } from "./InSyncBadge";
-import { Spinner } from "./Spinner";
 
 export function OutputCard() {
   const isGenerating = useDummyData((state) => state.isGenerating);
