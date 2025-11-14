@@ -16,9 +16,9 @@ import { MinusIcon, PlusIcon, TrashIcon } from "lucide-react";
 import {
   Controller,
   useFieldArray,
-  type FieldArrayWithId,
+  type Control,
   type UseFieldArrayRemove,
-  type UseFormReturn,
+  type UseFormWatch,
 } from "react-hook-form";
 import {
   fieldValueTypeComplex,
@@ -30,33 +30,35 @@ import { Input } from "../ui/input";
 import type { FormSchema } from "./formSchema";
 
 export function FormItem({
-  form,
+  control,
   index,
-  schema,
+  schemaId,
   removeSchema,
+  watch,
 }: {
-  form: UseFormReturn<FormSchema, unknown, FormSchema>;
+  control: Control<FormSchema, unknown, FormSchema>;
   index: number;
-  schema: FieldArrayWithId<FormSchema, "schemas", "id">;
+  schemaId: string;
   removeSchema: UseFieldArrayRemove;
+  watch: UseFormWatch<FormSchema>;
 }) {
   const {
     fields: keyValueFields,
     append: appendKeyValue,
     remove: removeKeyValue,
   } = useFieldArray({
-    control: form.control,
+    control,
     name: `schemas.${index}.fields`,
   });
   return (
     <FieldGroup
-      key={schema.id}
+      key={schemaId}
       className="bg-background shadow-l m-2 rounded-md p-4"
     >
       <div className="flex w-full items-end gap-2">
         <Controller
           name={`schemas.${index}.entity`}
-          control={form.control}
+          control={control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor="form-dummy-data-entity">
@@ -75,7 +77,7 @@ export function FormItem({
         />
         <Controller
           name={`schemas.${index}.numberOfRecords`}
-          control={form.control}
+          control={control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor="form-dummy-data-number-of-records">
@@ -130,7 +132,7 @@ export function FormItem({
           <div key={field.id} className="flex w-full items-end gap-2">
             <Controller
               name={`schemas.${index}.fields.${index2}.key`}
-              control={form.control}
+              control={control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <Input
@@ -148,7 +150,7 @@ export function FormItem({
             />
             <Controller
               name={`schemas.${index}.fields.${index2}.type`}
-              control={form.control}
+              control={control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <Select
@@ -185,11 +187,11 @@ export function FormItem({
               )}
             />
             {["reference", "one-of"].includes(
-              form.watch(`schemas.${index}.fields.${index2}.type`),
+              watch(`schemas.${index}.fields.${index2}.type`),
             ) && (
               <Controller
                 name={`schemas.${index}.fields.${index2}.value`}
-                control={form.control}
+                control={control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <Input
@@ -207,11 +209,11 @@ export function FormItem({
               />
             )}
             {["string-array", "number-array", "long-string"].includes(
-              form.watch(`schemas.${index}.fields.${index2}.type`),
+              watch(`schemas.${index}.fields.${index2}.type`),
             ) && (
               <Controller
                 name={`schemas.${index}.fields.${index2}.value`}
-                control={form.control}
+                control={control}
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <Input

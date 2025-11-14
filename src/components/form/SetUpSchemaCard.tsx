@@ -6,7 +6,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import type z from "zod";
 import { AddEntityButton } from "./AddEntityButton";
 import { FormItem } from "./FormItem";
-import { formSchema } from "./formSchema";
+import { defaultSchema, formSchema } from "./formSchema";
 import { GenerateButton } from "./GenerateButton";
 import { ResetButton } from "./ResetButton";
 import { ShowExampleButton } from "./ShowExampleButton";
@@ -16,20 +16,12 @@ export function SetUpSchemaCard() {
   const setIsGenerating = useDummyData((state) => state.setIsGenerating);
   const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
 
-  const form = useForm({
+  const { subscribe, reset, handleSubmit, control, watch } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      schemas: [
-        {
-          entity: "",
-          fields: [{ key: "", value: "", type: "" }],
-          numberOfRecords: 1 as unknown as number,
-        },
-      ],
+      schemas: [defaultSchema],
     },
   });
-
-  const subscribe = form.subscribe;
 
   useEffect(() => {
     const callback = subscribe({
@@ -49,7 +41,7 @@ export function SetUpSchemaCard() {
     append: appendSchema,
     remove: removeSchema,
   } = useFieldArray({
-    control: form.control,
+    control,
     name: "schemas",
   });
 
@@ -66,25 +58,26 @@ export function SetUpSchemaCard() {
   return (
     <form
       id="form-dummy-data"
-      onSubmit={form.handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       className="flex w-full justify-between gap-4"
     >
       <div className="flex w-full flex-col gap-1">
         {schemas.map((schema, index) => (
           <FormItem
             key={schema.id}
-            schema={schema}
+            schemaId={schema.id}
             index={index}
-            form={form}
+            control={control}
             removeSchema={removeSchema}
+            watch={watch}
           />
         ))}
       </div>
 
       <div className="bg-background shadow-l m-2 flex flex-col gap-2 rounded-md p-4">
-        <ShowExampleButton reset={form.reset} />
+        <ShowExampleButton reset={reset} />
         <AddEntityButton append={appendSchema} />
-        <ResetButton reset={form.reset} />
+        <ResetButton reset={reset} />
         <GenerateButton />
       </div>
     </form>
