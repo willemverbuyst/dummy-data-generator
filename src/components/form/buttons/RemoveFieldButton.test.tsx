@@ -1,5 +1,4 @@
-import { screen } from "@testing-library/react";
-import { userEvent } from "@testing-library/user-event";
+import { fireEvent, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-react";
 import { RemoveFieldButton } from "./RemoveFieldButton";
@@ -32,12 +31,11 @@ describe("RemoveFieldButton", () => {
     expect(button.querySelector("svg")).toHaveClass("lucide-minus");
   });
 
-  it("calls remove with correct index when clicked", async () => {
-    const user = userEvent.setup();
+  it("calls remove with correct index when clicked", () => {
     render(<RemoveFieldButton {...defaultProps} index={2} />);
 
     const button = screen.getByRole("button");
-    await user.click(button);
+    fireEvent.click(button);
 
     expect(mockRemove).toHaveBeenCalledTimes(1);
     expect(mockRemove).toHaveBeenCalledWith(2);
@@ -50,12 +48,11 @@ describe("RemoveFieldButton", () => {
     expect(button).toBeDisabled();
   });
 
-  it("does not call remove when disabled and clicked", async () => {
-    const user = userEvent.setup();
+  it("does not call remove when disabled and clicked", () => {
     render(<RemoveFieldButton {...defaultProps} disabled={true} />);
 
     const button = screen.getByRole("button");
-    await user.click(button);
+    fireEvent.click(button);
 
     expect(mockRemove).not.toHaveBeenCalled();
   });

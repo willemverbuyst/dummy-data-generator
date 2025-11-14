@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "test:unit": "vitest --project unit",
     "test:component": "vitest --project component --browser.headless",
-    "bench": "ts-node --esm src/business/generators/benchmark.ts",
+    "test:component:browser": "vitest --project component",
     "knip": "knip"
   },
   "dependencies": {

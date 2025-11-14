@@ -1,13 +1,13 @@
 import type { DummyData } from "@/business/types";
 import { create } from "zustand";
 
-type State = {
+export type State = {
   dummyData: DummyData;
   inSyncWithForm: boolean;
   isGenerating: boolean;
 };
 
-type Action = {
+export type Action = {
   setDummyData: (dummyData: State["dummyData"]) => void;
   clearDummyData: () => void;
   setInSyncWithForm: (inSyncWithForm: boolean) => void;
