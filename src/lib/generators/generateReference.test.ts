@@ -1,4 +1,3 @@
-import { describe, expect, test } from "vitest";
 import { type DummyData } from "../../types.ts";
 import { generateReference } from "./generateReference.ts";
 
@@ -22,6 +21,7 @@ describe("generateReference", () => {
   });
 
   test("returns null when no referenced data exists", () => {
+    const consoleSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
     const dummyData: DummyData = {
       Users: [],
     };
@@ -31,10 +31,15 @@ describe("generateReference", () => {
       dummyData,
     });
 
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Warning: No data found for referenced entity User",
+    );
     expect(result).toBeNull();
+    consoleSpy.mockRestore();
   });
 
   test("returns null when referenced entity doesn't exist", () => {
+    const consoleSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
     const dummyData: DummyData = {};
 
     const result = generateReference({
@@ -42,7 +47,11 @@ describe("generateReference", () => {
       dummyData,
     });
 
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Warning: No data found for referenced entity User",
+    );
     expect(result).toBeNull();
+    consoleSpy.mockRestore();
   });
 
   test("returns random id from multiple references", () => {

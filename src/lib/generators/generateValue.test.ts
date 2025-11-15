@@ -1,4 +1,3 @@
-import { describe, expect, test } from "vitest";
 import { generateValue } from "./generateValue.ts";
 
 describe("generateValue", () => {

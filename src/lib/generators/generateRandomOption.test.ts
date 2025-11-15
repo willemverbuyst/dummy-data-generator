@@ -1,4 +1,3 @@
-import { describe, expect, test } from "vitest";
 import { generateRandomOption } from "./generateRandomOption.ts";
 
 describe("generateRandomOption", () => {

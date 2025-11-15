@@ -8,9 +8,10 @@ export default mergeConfig(
       projects: [
         {
           test: {
+            globals: true,
             name: "unit",
             environment: "node",
-            include: ["src/business/**/*.test.ts"],
+            include: ["src/lib/**/*.test.ts"],
           },
         },
         {

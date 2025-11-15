@@ -1,4 +1,3 @@
-import { describe, expect, test } from "vitest";
 import { generateArray } from "./generateArray.ts";
 
 describe("generateArray", () => {
