@@ -108,6 +108,9 @@ importers:
       knip:
         specifier: ^5.69.1
         version: 5.69.1(@types/node@24.9.2)(typescript@5.9.3)
+      playwright:
+        specifier: ^1.56.1
+        version: 1.56.1
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
