@@ -1,6 +1,4 @@
-import { screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
-import { render } from "vitest-browser-react";
+import { render, screen } from "@testing-library/react";
 import { GenerateButton } from "./GenerateButton";
 
 describe("GenerateButton", () => {
