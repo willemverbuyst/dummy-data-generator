@@ -38,6 +38,9 @@ jobs:
       - name: 🔍 Type check
         run: pnpm type:check
 
+      - name: 🔨 Build check
+        run: pnpm build
+
       - name: ✂️ Run knip
         run: pnpm run knip:check
 
@@ -45,14 +48,14 @@ jobs:
     name: Lint Actions
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: 💻 Checkout repo
         uses: actions/checkout@v5
 
-      - name: Download actionlint
+      - name: ⬇️ Download actionlint
         id: get_actionlint
         run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
         shell: bash
 
-      - name: Check workflow files
+      - name: 🔍 Check workflow files
         run: ${{ steps.get_actionlint.outputs.executable }} -color
         shell: bash
