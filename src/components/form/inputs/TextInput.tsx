@@ -6,30 +6,27 @@ import type {
   FieldValues,
 } from "react-hook-form";
 
-export function NumberInput({
+export function TextInput({
   field,
   fieldState,
   label,
+  placeholder,
 }: {
   field: ControllerRenderProps<FieldValues, string>;
   fieldState: ControllerFieldState;
   label?: string;
+  placeholder?: string;
 }) {
   return (
     <Field data-invalid={fieldState.invalid}>
       {label && <FieldLabel htmlFor={field.name}>{label}</FieldLabel>}
       <Input
         {...field}
-        type="number"
-        min={1}
-        max={1000}
-        value={typeof field.value === "number" ? field.value : 1}
-        onChange={(e) => field.onChange(Number(e.target.value))}
         id={field.name}
         aria-invalid={fieldState.invalid}
+        placeholder={placeholder}
         autoComplete="off"
       />
-
       {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
     </Field>
   );

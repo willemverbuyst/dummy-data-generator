@@ -18,11 +18,11 @@ import {
   fieldValueTypeSimple,
 } from "../../business/types";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
-import { Input } from "../ui/input";
 import { AddFieldButton } from "./buttons/AddFieldButton";
 import { RemoveEntityButton } from "./buttons/RemoveEntityButton";
 import { RemoveFieldButton } from "./buttons/RemoveFieldButton";
 import { NumberInput } from "./inputs/NumberInput";
+import { TextInput } from "./inputs/TextInput";
 
 export function FormItem({
   index,
@@ -52,19 +52,12 @@ export function FormItem({
           name={`schemas.${index}.entity`}
           control={control}
           render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="form-dummy-data-entity">
-                {`Entity ${index + 1}`}{" "}
-              </FieldLabel>
-              <Input
-                {...field}
-                id="form-dummy-data-entity"
-                aria-invalid={fieldState.invalid}
-                placeholder="Enter entity name"
-                autoComplete="off"
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
+            <TextInput
+              field={field}
+              fieldState={fieldState}
+              placeholder="Enter entity name"
+              label={`Entity ${index + 1}`}
+            />
           )}
         />
         <Controller
@@ -92,18 +85,11 @@ export function FormItem({
               name={`schemas.${index}.fields.${fieldIndex}.key`}
               control={control}
               render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <Input
-                    {...field}
-                    id={`form-dummy-data-field-key-${fieldIndex}`}
-                    aria-invalid={fieldState.invalid}
-                    placeholder="e.g. name"
-                    autoComplete="off"
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
+                <TextInput
+                  field={field}
+                  fieldState={fieldState}
+                  placeholder="e.g. name"
+                />
               )}
             />
             <Controller
@@ -151,18 +137,11 @@ export function FormItem({
                 name={`schemas.${index}.fields.${fieldIndex}.value`}
                 control={control}
                 render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <Input
-                      {...field}
-                      id={`form-dummy-data-field-value-${fieldIndex}`}
-                      aria-invalid={fieldState.invalid}
-                      placeholder="e.g. User"
-                      autoComplete="off"
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
+                  <TextInput
+                    field={field}
+                    fieldState={fieldState}
+                    placeholder="e.g. User"
+                  />
                 )}
               />
             )}
@@ -173,22 +152,7 @@ export function FormItem({
                 name={`schemas.${index}.fields.${fieldIndex}.value`}
                 control={control}
                 render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <Input
-                      {...field}
-                      id={`form-dummy-data-field-value-${fieldIndex}`}
-                      aria-invalid={fieldState.invalid}
-                      autoComplete="off"
-                      type="number"
-                      min={1}
-                      max={1000}
-                      value={typeof field.value === "number" ? field.value : 1}
-                      onChange={(e) => field.onChange(Number(e.target.value))}
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
+                  <NumberInput field={field} fieldState={fieldState} />
                 )}
               />
             )}

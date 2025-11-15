@@ -31,6 +31,13 @@ describe("NumberInput", () => {
     expect(screen.getByRole("spinbutton")).toBeInTheDocument();
   });
 
+  it("renders without label", () => {
+    render(<NumberInput field={mockField} fieldState={mockFieldState} />);
+
+    expect(screen.queryByLabelText("Test Number")).not.toBeInTheDocument();
+    expect(screen.getByRole("spinbutton")).toBeInTheDocument();
+  });
+
   it("displays the correct value", () => {
     render(
       <NumberInput
