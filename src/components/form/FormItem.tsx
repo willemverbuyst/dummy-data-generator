@@ -1,28 +1,16 @@
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   Controller,
   useFieldArray,
   useFormContext,
   type UseFieldArrayRemove,
 } from "react-hook-form";
-import {
-  fieldValueTypeComplex,
-  fieldValueTypeSimple,
-} from "../../business/types";
-import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
+import { FieldGroup, FieldLabel } from "../ui/field";
 import { AddFieldButton } from "./buttons/AddFieldButton";
 import { RemoveEntityButton } from "./buttons/RemoveEntityButton";
 import { RemoveFieldButton } from "./buttons/RemoveFieldButton";
 import { NumberInput } from "./inputs/NumberInput";
 import { TextInput } from "./inputs/TextInput";
+import { ValueTypeSelector } from "./inputs/ValueTypeSelector";
 
 export function FormItem({
   index,
@@ -96,38 +84,7 @@ export function FormItem({
               name={`schemas.${index}.fields.${fieldIndex}.type`}
               control={control}
               render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <Select
-                    name={field.name}
-                    value={field.value}
-                    onValueChange={field.onChange}
-                  >
-                    <SelectTrigger className="w-[280px]">
-                      <SelectValue placeholder="Select a value type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectLabel>Simple type</SelectLabel>
-                        {fieldValueTypeSimple.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                      <SelectGroup>
-                        <SelectLabel>Complex type</SelectLabel>
-                        {fieldValueTypeComplex.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type.replace("-", " ")}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
+                <ValueTypeSelector field={field} fieldState={fieldState} />
               )}
             />
             {["reference", "one-of"].includes(
