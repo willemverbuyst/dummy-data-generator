@@ -7,8 +7,8 @@ import { ShowExampleButton } from "./ShowExampleButton";
 
 vi.mock("react-hook-form");
 vi.mock("@/zustand/store");
-vi.mock("@/business/generators/generateDummyData");
-vi.mock("@/business/exampleInput", () => ({
+vi.mock("@/lib/generators/generateDummyData");
+vi.mock("@/exampleInput", () => ({
   exampleInput: { some: "input" },
 }));
 

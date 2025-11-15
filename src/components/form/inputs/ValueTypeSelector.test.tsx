@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { ValueTypeSelector } from "./ValueTypeSelector";
 
 // Mock the business types
-vi.mock("@/business/types", () => ({
+vi.mock("@/types", () => ({
   fieldValueTypeSimple: ["string", "number", "boolean"],
   fieldValueTypeComplex: ["array-string", "object-nested"],
 }));
