@@ -27,6 +27,11 @@ export default mergeConfig(
               provider: playwright(),
               instances: [{ browser: "chromium" }],
             },
+            server: {
+              deps: {
+                inline: true,
+              },
+            },
           },
         },
       ],
