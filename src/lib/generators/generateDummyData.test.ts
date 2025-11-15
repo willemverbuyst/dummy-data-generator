@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { type DummyDataSchema } from "../types.ts";
+import { type DummyDataSchema } from "../../types.ts";
 import { generateDummyData } from "./generateDummyData.ts";
 
 describe("generateDummyData", () => {

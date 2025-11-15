@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { type DummyData } from "../types.ts";
+import { type DummyData } from "../../types.ts";
 
 export function generateReference({
   entity,

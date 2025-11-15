@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { type DummyData } from "../types.ts";
+import { type DummyData } from "../../types.ts";
 import { generateReference } from "./generateReference.ts";
 
 describe("generateReference", () => {
