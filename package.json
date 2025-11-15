@@ -59,5 +59,6 @@
     "vite": "^7.1.7",
     "vitest": "^4.0.8",
     "vitest-browser-react": "^2.0.2"
-  }
+  },
+  "packageManager": "pnpm@10.10.0"
 }
