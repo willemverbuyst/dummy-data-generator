@@ -6,12 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
     "test:unit": "vitest --project unit",
+    "format:check": "prettier --config .prettierrc --check \"src/*.*\"",
+    "lint:check": "eslint .",
+    "knip:check": "knip",
+    "type:check": "tsc",
+    "preview": "vite preview",
     "test:component": "vitest --project component --browser.headless",
-    "test:component:browser": "vitest --project component",
-    "knip": "knip"
+    "test:component:browser": "vitest --project component"
   },
   "dependencies": {
     "@faker-js/faker": "^10.1.0",
