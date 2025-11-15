@@ -32,8 +32,5 @@ jobs:
       - name: 🧪 Unit Tests
         run: pnpm test:unit
 
-      - name: 🖥️ Install Playwright Browsers
-        run: pnpm playwright install --with-deps chromium
-
       - name: 🧩 Component Tests
         run: pnpm test:component
