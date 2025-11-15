@@ -22,6 +22,7 @@ import { Input } from "../ui/input";
 import { AddFieldButton } from "./buttons/AddFieldButton";
 import { RemoveEntityButton } from "./buttons/RemoveEntityButton";
 import { RemoveFieldButton } from "./buttons/RemoveFieldButton";
+import { NumberInput } from "./inputs/NumberInput";
 
 export function FormItem({
   index,
@@ -70,24 +71,11 @@ export function FormItem({
           name={`schemas.${index}.numberOfRecords`}
           control={control}
           render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="form-dummy-data-number-of-records">
-                Number of Records
-              </FieldLabel>
-              <Input
-                {...field}
-                type="number"
-                min={1}
-                max={1000}
-                value={typeof field.value === "number" ? field.value : 1}
-                onChange={(e) => field.onChange(Number(e.target.value))}
-                id="form-dummy-data-number-of-records"
-                aria-invalid={fieldState.invalid}
-                autoComplete="off"
-              />
-
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
+            <NumberInput
+              field={field}
+              fieldState={fieldState}
+              label="Number of Records"
+            />
           )}
         />
         <RemoveEntityButton remove={removeSchema} index={index} />
