@@ -1,4 +1,4 @@
-import { generateDummyData } from "@/business/generators/generateDummyData";
+import { generateDummyData } from "@/lib/generators/generateDummyData";
 import { useDummyData } from "@/zustand/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";

@@ -1,5 +1,5 @@
-import { fieldValueTypeComplex, fieldValueTypeSimple } from "@/business/types";
 import { Field, FieldError } from "@/components/ui/field";
+import { fieldValueTypeComplex, fieldValueTypeSimple } from "@/lib/types";
 import {
   Select,
   SelectContent,

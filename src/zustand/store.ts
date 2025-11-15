@@ -1,4 +1,4 @@
-import type { DummyData } from "@/business/types";
+import type { DummyData } from "@/lib/types";
 import { create } from "zustand";
 
 export type State = {

@@ -1,4 +1,4 @@
-import { generateDummyData } from "@/business/generators/generateDummyData";
+import { generateDummyData } from "@/lib/generators/generateDummyData";
 import { useDummyData, type State } from "@/zustand/store";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { useFormContext } from "react-hook-form";
