@@ -1,4 +1,4 @@
-# Dummy Data Generator (wip)
+# Dummy Data Generator
 
 Tool to generate some json dummy data with linked entities.
 
