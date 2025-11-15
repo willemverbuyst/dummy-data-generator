@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import type { ReactNode } from "react";
 import { ValueTypeSelector } from "./ValueTypeSelector";
 
 // Mock the business types
@@ -9,45 +10,59 @@ vi.mock("@/types", () => ({
 
 // Mock the UI components
 vi.mock("@/components/ui/field", () => ({
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Field: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  FieldError: ({ errors }: any) => (
-    <div data-testid="field-error">{errors[0]?.message}</div>
+  Field: ({
+    children,
+    ...props
+  }: {
+    children: ReactNode;
+    [key: string]: unknown;
+  }) => <div {...props}>{children}</div>,
+  FieldError: ({ errors }: { errors?: Array<{ message?: string }> }) => (
+    <div data-testid="field-error">{errors?.[0]?.message}</div>
   ),
 }));
 
 vi.mock("@radix-ui/react-select", () => ({
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Select: ({ children, ...props }: any) => (
-    <div data-testid="select" {...props}>
-      {children}
-    </div>
-  ),
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  SelectContent: ({ children }: any) => (
+  Select: ({
+    children,
+    onValueChange,
+    ...props
+  }: {
+    children: ReactNode;
+    onValueChange?: (value: string) => void;
+    [key: string]: unknown;
+  }) => {
+    void onValueChange;
+    return (
+      <div data-testid="select" {...props}>
+        {children}
+      </div>
+    );
+  },
+  SelectContent: ({ children }: { children: ReactNode }) => (
     <div data-testid="select-content">{children}</div>
   ),
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  SelectGroup: ({ children }: any) => (
+  SelectGroup: ({ children }: { children: ReactNode }) => (
     <div data-testid="select-group">{children}</div>
   ),
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  SelectItem: ({ children, value }: any) => (
+  SelectItem: ({ children, value }: { children: ReactNode; value: string }) => (
     <div data-testid={`select-item-${value}`}>{children}</div>
   ),
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  SelectLabel: ({ children }: any) => (
+  SelectLabel: ({ children }: { children: ReactNode }) => (
     <div data-testid="select-label">{children}</div>
   ),
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  SelectTrigger: ({ children, className }: any) => (
+  SelectTrigger: ({
+    children,
+    className,
+  }: {
+    children: ReactNode;
+    className?: string;
+  }) => (
     <div data-testid="select-trigger" className={className}>
       {children}
     </div>
   ),
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  SelectValue: ({ placeholder }: any) => (
+  SelectValue: ({ placeholder }: { placeholder?: string }) => (
     <div data-testid="select-value">{placeholder}</div>
   ),
 }));
