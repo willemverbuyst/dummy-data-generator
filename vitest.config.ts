@@ -31,5 +31,8 @@ export default mergeConfig(
         },
       ],
     },
+    optimizeDeps: {
+      include: ["react/jsx-dev-runtime"],
+    },
   }),
 );
