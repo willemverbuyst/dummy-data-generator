@@ -6,12 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
     "test:unit": "vitest --project unit",
+    "format:check": "prettier --config .prettierrc --check \"src/*.*\"",
+    "format:fix": "prettier --config .prettierrc --write \"src/*.*\"",
+    "lint:check": "eslint .",
+    "knip:check": "knip",
+    "type:check": "tsc",
+    "preview": "vite preview",
     "test:component": "vitest --project component --browser.headless",
-    "test:component:browser": "vitest --project component",
-    "knip": "knip"
+    "test:component:browser": "vitest --project component"
   },
   "dependencies": {
     "@faker-js/faker": "^10.1.0",
@@ -36,6 +39,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
+    "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^24.6.0",
@@ -47,15 +51,15 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",
     "globals": "^16.4.0",
+    "happy-dom": "^20.0.10",
     "knip": "^5.69.1",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.7.1",
-    "ts-node": "^10.9.2",
     "tw-animate-css": "^1.4.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.2",
-    "vitest": "^4.0.8",
-    "vitest-browser-react": "^2.0.2"
-  }
+    "vitest": "^4.0.8"
+  },
+  "packageManager": "pnpm@10.10.0"
 }

@@ -1,6 +1,4 @@
-import { fireEvent, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
-import { render } from "vitest-browser-react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { defaultField } from "../formSchema";
 import { AddFieldButton } from "./AddFieldButton";
 

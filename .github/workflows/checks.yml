@@ -1,0 +1,61 @@
+name: Checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  code-checks:
+    name: Code checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v5
+
+      - name: 📦 Setup Node and PNPM
+        uses: pnpm/action-setup@v4
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: "./.nvmrc"
+          cache: "pnpm"
+
+      - name: 📥 Install dependencies
+        run: pnpm install
+
+      - name: 💅 Run formatter
+        run: pnpm format:check
+
+      - name: 🧪 Run linter
+        run: pnpm lint:check
+
+      - name: 🔍 Type check
+        run: pnpm type:check
+
+      - name: 🔨 Build check
+        run: pnpm build
+
+      - name: ✂️ Run knip
+        run: pnpm run knip:check
+
+  lint-actions:
+    name: Lint Actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: 💻 Checkout repo
+        uses: actions/checkout@v5
+
+      - name: ⬇️ Download actionlint
+        id: get_actionlint
+        run: bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+        shell: bash
+
+      - name: 🔍 Check workflow files
+        run: ${{ steps.get_actionlint.outputs.executable }} -color
+        shell: bash

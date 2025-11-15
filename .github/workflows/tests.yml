@@ -1,0 +1,36 @@
+name: Tests
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  code-checks:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v5
+
+      - name: 📦 Setup Node and PNPM
+        uses: pnpm/action-setup@v4
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: "./.nvmrc"
+          cache: "pnpm"
+
+      - name: 📥 Install dependencies
+        run: pnpm install
+
+      - name: 🧪 Unit Tests
+        run: pnpm test:unit
+
+      - name: 🧩 Component Tests
+        run: pnpm test:component

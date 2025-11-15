@@ -1,8 +1,7 @@
 import { useDummyData, type State } from "@/zustand/store";
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { useFormContext } from "react-hook-form";
-import { beforeEach, describe, expect, it, vi, type Mock } from "vitest";
-import { render } from "vitest-browser-react";
+import type { Mock } from "vitest";
 import { defaultSchema } from "../formSchema";
 import { ResetButton } from "./ResetButton";
 
