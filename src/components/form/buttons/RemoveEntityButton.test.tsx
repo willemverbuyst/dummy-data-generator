@@ -30,10 +30,11 @@ describe("RemoveEntityButton", () => {
   });
 
   it("calls remove with correct index when clicked", async () => {
+    const user = userEvent.setup();
     render(<RemoveEntityButton {...defaultProps} index={2} />);
 
     const button = screen.getByRole("button");
-    userEvent.click(button);
+    await user.click(button);
 
     await waitFor(() => {
       expect(mockRemove).toHaveBeenCalledWith(2);

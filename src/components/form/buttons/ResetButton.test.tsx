@@ -1,5 +1,6 @@
 import { useDummyData, type State } from "@/zustand/store";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { useFormContext } from "react-hook-form";
 import type { Mock } from "vitest";
 import { defaultSchema } from "../formSchema";
@@ -45,10 +46,11 @@ describe("ResetButton", () => {
   });
 
   it("calls all reset functions when clicked", async () => {
+    const user = userEvent.setup();
     render(<ResetButton />);
     const button = screen.getByRole("button", { name: "Reset" });
 
-    fireEvent.click(button);
+    await user.click(button);
 
     await waitFor(() => {
       expect(resetMock).toHaveBeenCalledWith({
@@ -60,10 +62,11 @@ describe("ResetButton", () => {
   });
 
   it("calls reset functions in correct order", async () => {
+    const user = userEvent.setup();
     render(<ResetButton />);
     const button = screen.getByRole("button", { name: "Reset" });
 
-    fireEvent.click(button);
+    await user.click(button);
 
     await waitFor(() => {
       expect(resetMock).toHaveBeenCalledTimes(1);
