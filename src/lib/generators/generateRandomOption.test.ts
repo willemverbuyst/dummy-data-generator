@@ -17,6 +17,22 @@ describe("generateRandomOption", () => {
     expect(validOptions.includes(result)).toBe(true);
   });
 
+  test("returns valid option when separated by a pipe", () => {
+    const result = generateRandomOption("red|blue|green|yellow");
+    const validOptions = ["red", "blue", "green", "yellow"];
+
+    expect(result).not.toBeUndefined();
+    expect(validOptions.includes(result)).toBe(true);
+  });
+
+  test("returns valid option when separated by commas and spaces", () => {
+    const result = generateRandomOption("red, blue, green, yellow");
+    const validOptions = ["red", "blue", "green", "yellow"];
+
+    expect(result).not.toBeUndefined();
+    expect(validOptions.includes(result)).toBe(true);
+  });
+
   test("returns single option", () => {
     const result = generateRandomOption("active");
     expect(result).toBe("active");

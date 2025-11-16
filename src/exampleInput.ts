@@ -6,7 +6,7 @@ export const exampleInput = [
       { key: "age", type: "age" },
       { key: "email", type: "email" },
       { key: "isActive", type: "boolean" },
-      { key: "sex", type: "one-of", value: "male,female,other" },
+      { key: "sex", type: "one-of", value: "male, female, other" },
     ],
     numberOfRecords: 3,
   },
