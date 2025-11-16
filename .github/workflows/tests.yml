@@ -34,3 +34,6 @@ jobs:
 
       - name: 🧩 Component Tests
         run: pnpm test:component
+
+      - name: 🪢 Integration Tests
+        run: pnpm test:integration
