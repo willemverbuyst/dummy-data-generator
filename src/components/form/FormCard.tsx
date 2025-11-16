@@ -11,7 +11,7 @@ import { ShowExampleButton } from "./buttons/ShowExampleButton";
 import { FormItem } from "./FormItem";
 import { defaultSchema, formSchema } from "./formSchema";
 
-export function SetUpSchemaCard() {
+export function FormCard() {
   const setDummyData = useDummyData((state) => state.setDummyData);
   const setIsGenerating = useDummyData((state) => state.setIsGenerating);
   const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
