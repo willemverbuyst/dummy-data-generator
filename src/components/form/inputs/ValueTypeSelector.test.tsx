@@ -22,7 +22,7 @@ vi.mock("@/components/ui/field", () => ({
   ),
 }));
 
-vi.mock("@radix-ui/react-select", () => ({
+vi.mock("@/components/ui/select", () => ({
   Select: ({
     children,
     onValueChange,
