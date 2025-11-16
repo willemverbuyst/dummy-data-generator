@@ -26,6 +26,18 @@ export default mergeConfig(
             },
           },
         },
+        {
+          test: {
+            globals: true,
+            name: "integration",
+            environment: "happy-dom",
+            setupFiles: ["./vitest.setup.ts"],
+            include: ["tests/**/*.test.tsx"],
+            alias: {
+              "@/": new URL("./src/", import.meta.url).pathname,
+            },
+          },
+        },
       ],
     },
   }),

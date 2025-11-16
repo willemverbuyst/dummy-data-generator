@@ -12,9 +12,13 @@
     "knip:check": "knip",
     "type:check": "tsc",
     "preview": "vite preview",
-    "test:unit": "vitest --project unit",
-    "test:component": "vitest --project component --browser.headless",
-    "test:component:browser": "vitest --project component"
+    "test:unit": "vitest --project unit --run",
+    "test:unit:watch": "vitest --project unit",
+    "test:component": "vitest --project component --browser.headless --run",
+    "test:component:watch": "vitest --project component --browser.headless",
+    "test:component:browser": "vitest --project component",
+    "test:integration": "vitest --project integration --run",
+    "test:integration:watch": "vitest --project integration"
   },
   "dependencies": {
     "@faker-js/faker": "^10.1.0",
