@@ -1,4 +1,3 @@
-import { playwright } from "@vitest/browser-playwright";
 import { defineConfig, mergeConfig } from "vitest/config";
 import viteConfig from "./vite.config";
 
@@ -9,23 +8,33 @@ export default mergeConfig(
       projects: [
         {
           test: {
+            globals: true,
             name: "unit",
             environment: "node",
-            include: ["src/business/**/*.test.ts"],
+            include: ["src/lib/**/*.test.ts"],
           },
         },
         {
           test: {
+            globals: true,
             name: "component",
             environment: "happy-dom",
+            setupFiles: ["./vitest.setup.ts"],
             include: ["src/components/**/*.test.tsx"],
             alias: {
               "@/": new URL("./src/", import.meta.url).pathname,
             },
-            browser: {
-              enabled: true,
-              provider: playwright(),
-              instances: [{ browser: "chromium" }],
+          },
+        },
+        {
+          test: {
+            globals: true,
+            name: "integration",
+            environment: "happy-dom",
+            setupFiles: ["./vitest.setup.ts"],
+            include: ["tests/**/*.test.tsx"],
+            alias: {
+              "@/": new URL("./src/", import.meta.url).pathname,
             },
           },
         },

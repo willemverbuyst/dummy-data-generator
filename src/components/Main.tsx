@@ -3,7 +3,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { SetUpSchemaCard } from "./form/SetUpSchemaCard";
+import { FormCard } from "./form/FormCard";
 import { OutputCard } from "./output/OutputCard";
 
 export function Main() {
@@ -18,7 +18,7 @@ export function Main() {
         <ResizableHandle className="bg-dark" />
         <ResizablePanel defaultSize={40}>
           <div className="h-full overflow-y-auto">
-            <SetUpSchemaCard />
+            <FormCard />
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>

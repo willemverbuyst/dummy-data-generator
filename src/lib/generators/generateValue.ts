@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { type FieldValueTypeSimple } from "../types.ts";
+import { type FieldValueTypeSimple } from "../../types.ts";
 
 export function generateValue(
   type: FieldValueTypeSimple,

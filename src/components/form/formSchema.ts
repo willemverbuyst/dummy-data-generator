@@ -18,7 +18,7 @@ export const formSchema = z.object({
                 .string()
                 .min(1, "Key is required")
                 .regex(/^[A-Za-z]+$/, "Key must be alphabetic only"),
-              type: z.string().min(1, "Value is required"),
+              type: z.string().min(1, "Value type is required"),
               value: z.union([z.string(), z.number()]).optional(),
             }),
           )

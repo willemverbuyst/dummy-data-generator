@@ -1,7 +1,5 @@
-import { screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { render } from "vitest-browser-react";
 import { RemoveEntityButton } from "./RemoveEntityButton";
 
 describe("RemoveEntityButton", () => {
@@ -32,10 +30,11 @@ describe("RemoveEntityButton", () => {
   });
 
   it("calls remove with correct index when clicked", async () => {
+    const user = userEvent.setup();
     render(<RemoveEntityButton {...defaultProps} index={2} />);
 
     const button = screen.getByRole("button");
-    userEvent.click(button);
+    await user.click(button);
 
     await waitFor(() => {
       expect(mockRemove).toHaveBeenCalledWith(2);
