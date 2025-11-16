@@ -3,7 +3,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { FormCard } from "./form/formCard";
+import { FormCard } from "./form/FormCard";
 import { OutputCard } from "./output/OutputCard";
 
 export function Main() {
