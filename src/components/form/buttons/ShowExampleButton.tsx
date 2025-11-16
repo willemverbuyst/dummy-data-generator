@@ -1,6 +1,6 @@
-import { exampleInput } from "@/business/exampleInput";
-import { generateDummyData } from "@/business/generators/generateDummyData";
 import { Button } from "@/components/ui/button";
+import { exampleInput } from "@/exampleInput";
+import { generateDummyData } from "@/lib/generators/generateDummyData";
 import { useDummyData } from "@/zustand/store";
 import { useFormContext } from "react-hook-form";
 

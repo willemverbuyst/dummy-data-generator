@@ -6,15 +6,20 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "test:unit": "vitest --project unit",
     "format:check": "prettier --config .prettierrc --check \"src/*.*\"",
     "format:fix": "prettier --config .prettierrc --write \"src/*.*\"",
     "lint:check": "eslint .",
     "knip:check": "knip",
     "type:check": "tsc",
     "preview": "vite preview",
-    "test:component": "vitest --project component --browser.headless",
-    "test:component:browser": "vitest --project component"
+    "test:unit": "vitest --project unit --run",
+    "test:unit:watch": "vitest --project unit",
+    "test:component": "vitest --project component --browser.headless --run",
+    "test:component:watch": "vitest --project component --browser.headless",
+    "test:component:browser": "vitest --project component",
+    "test:integration": "vitest --project integration --run",
+    "test:integration:watch": "vitest --project integration",
+    "test:all": "npm run test:unit && npm run test:component && npm run test:integration"
   },
   "dependencies": {
     "@faker-js/faker": "^10.1.0",

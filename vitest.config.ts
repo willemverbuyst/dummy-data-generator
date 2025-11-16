@@ -8,9 +8,10 @@ export default mergeConfig(
       projects: [
         {
           test: {
+            globals: true,
             name: "unit",
             environment: "node",
-            include: ["src/business/**/*.test.ts"],
+            include: ["src/lib/**/*.test.ts"],
           },
         },
         {
@@ -20,6 +21,18 @@ export default mergeConfig(
             environment: "happy-dom",
             setupFiles: ["./vitest.setup.ts"],
             include: ["src/components/**/*.test.tsx"],
+            alias: {
+              "@/": new URL("./src/", import.meta.url).pathname,
+            },
+          },
+        },
+        {
+          test: {
+            globals: true,
+            name: "integration",
+            environment: "happy-dom",
+            setupFiles: ["./vitest.setup.ts"],
+            include: ["tests/**/*.test.tsx"],
             alias: {
               "@/": new URL("./src/", import.meta.url).pathname,
             },

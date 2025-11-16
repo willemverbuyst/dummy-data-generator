@@ -1,4 +1,3 @@
-import { describe, expect, test } from "vitest";
 import { generateRandomOption } from "./generateRandomOption.ts";
 
 describe("generateRandomOption", () => {
@@ -12,6 +11,22 @@ describe("generateRandomOption", () => {
 
   test("returns valid option when separated by spaces", () => {
     const result = generateRandomOption("red blue green yellow");
+    const validOptions = ["red", "blue", "green", "yellow"];
+
+    expect(result).not.toBeUndefined();
+    expect(validOptions.includes(result)).toBe(true);
+  });
+
+  test("returns valid option when separated by a pipe", () => {
+    const result = generateRandomOption("red|blue|green|yellow");
+    const validOptions = ["red", "blue", "green", "yellow"];
+
+    expect(result).not.toBeUndefined();
+    expect(validOptions.includes(result)).toBe(true);
+  });
+
+  test("returns valid option when separated by commas and spaces", () => {
+    const result = generateRandomOption("red, blue, green, yellow");
     const validOptions = ["red", "blue", "green", "yellow"];
 
     expect(result).not.toBeUndefined();

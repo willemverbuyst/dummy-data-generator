@@ -1,14 +1,15 @@
-import { generateDummyData } from "@/business/generators/generateDummyData";
+import { generateDummyData } from "@/lib/generators/generateDummyData";
 import { useDummyData, type State } from "@/zustand/store";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { useFormContext } from "react-hook-form";
 import type { Mock } from "vitest";
 import { ShowExampleButton } from "./ShowExampleButton";
 
 vi.mock("react-hook-form");
 vi.mock("@/zustand/store");
-vi.mock("@/business/generators/generateDummyData");
-vi.mock("@/business/exampleInput", () => ({
+vi.mock("@/lib/generators/generateDummyData");
+vi.mock("@/exampleInput", () => ({
   exampleInput: { some: "input" },
 }));
 
@@ -51,10 +52,11 @@ describe("ShowExampleButton", () => {
   });
 
   it("calls all required functions when clicked", async () => {
+    const user = userEvent.setup();
     render(<ShowExampleButton />);
     const button = screen.getByRole("button", { name: "Example" });
 
-    fireEvent.click(button);
+    await user.click(button);
     expect(mockSetIsGenerating).toHaveBeenCalledWith(true);
 
     // Wait for React state updates to complete
@@ -71,10 +73,11 @@ describe("ShowExampleButton", () => {
   });
 
   it("calls functions in correct order", async () => {
+    const user = userEvent.setup();
     render(<ShowExampleButton />);
     const button = screen.getByRole("button", { name: "Example" });
 
-    fireEvent.click(button);
+    await user.click(button);
 
     expect(mockSetIsGenerating).toHaveBeenNthCalledWith(1, true);
 

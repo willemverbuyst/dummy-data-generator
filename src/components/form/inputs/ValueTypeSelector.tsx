@@ -1,4 +1,3 @@
-import { fieldValueTypeComplex, fieldValueTypeSimple } from "@/business/types";
 import { Field, FieldError } from "@/components/ui/field";
 import {
   Select,
@@ -8,12 +7,13 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@radix-ui/react-select";
+} from "@/components/ui/select";
+import { fieldValueTypeComplex, fieldValueTypeSimple } from "@/types";
 import type {
   ControllerFieldState,
   ControllerRenderProps,
-} from "node_modules/react-hook-form/dist/types/controller";
-import type { FieldValues } from "node_modules/react-hook-form/dist/types/fields";
+  FieldValues,
+} from "react-hook-form";
 
 export function ValueTypeSelector({
   field,

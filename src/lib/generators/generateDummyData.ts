@@ -3,7 +3,7 @@ import {
   type DummyDataItem,
   type DummyDataSchema,
   type FieldValueTypeSimple,
-} from "../types.ts";
+} from "../../types.ts";
 import { generateArray } from "./generateArray.ts";
 import { generateRandomOption } from "./generateRandomOption.ts";
 import { generateReference } from "./generateReference.ts";
