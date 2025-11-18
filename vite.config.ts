@@ -11,6 +11,7 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
+  base: "/dummy-data-generator",
   resolve: {
     alias: {
       "@/": new URL("./src/", import.meta.url).pathname,
