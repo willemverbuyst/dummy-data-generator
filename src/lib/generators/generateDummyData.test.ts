@@ -185,4 +185,38 @@ describe("generateDummyData", () => {
       });
     });
   });
+
+  test("should handle nested fields", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "Order",
+        numberOfRecords: 2,
+        fields: [
+          {
+            key: "shippingAddress",
+            type: "nested",
+            value: [
+              { key: "street", type: "string" },
+              { key: "city", type: "string" },
+              { key: "zipCode", type: "number" },
+            ],
+          },
+        ],
+      },
+    ];
+
+    const result = generateDummyData(schemas);
+    const orders = result.Orders!;
+
+    orders.forEach((order) => {
+      const address = order.shippingAddress as Record<
+        string,
+        string | number | boolean
+      >;
+      expect(address).toBeDefined();
+      expect(typeof address.street).toBe("string");
+      expect(typeof address.city).toBe("string");
+      expect(typeof address.zipCode).toBe("number");
+    });
+  });
 });
