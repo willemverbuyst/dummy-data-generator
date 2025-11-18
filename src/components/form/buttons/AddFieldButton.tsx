@@ -6,7 +6,7 @@ import { defaultField } from "../formSchema";
 export function AddFieldButton({
   append,
 }: {
-  append: UseFieldArrayAppend<FieldValues, `schemas.${number}.fields`>;
+  append: UseFieldArrayAppend<FieldValues, string>;
 }) {
   return (
     <Button

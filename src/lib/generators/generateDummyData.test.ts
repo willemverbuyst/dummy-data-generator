@@ -8,7 +8,7 @@ describe("generateDummyData", () => {
         entity: "User",
         numberOfRecords: 2,
         fields: [
-          { key: "name", type: "string" },
+          { key: "name", type: "name" },
           { key: "age", type: "number" },
           { key: "active", type: "boolean" },
         ],
@@ -134,7 +134,7 @@ describe("generateDummyData", () => {
       {
         entity: "Comment",
         numberOfRecords: 2,
-        fields: [{ key: "content", type: "long-string", value: 5 }],
+        fields: [{ key: "content", type: "string", value: 5 }],
       },
     ];
 
@@ -183,6 +183,40 @@ describe("generateDummyData", () => {
       (tags as string[]).forEach((tag) => {
         expect(typeof tag).toBe("string");
       });
+    });
+  });
+
+  test("should handle nested fields", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "Order",
+        numberOfRecords: 2,
+        fields: [
+          {
+            key: "shippingAddress",
+            type: "nested",
+            value: [
+              { key: "street", type: "street" },
+              { key: "city", type: "city" },
+              { key: "zipCode", type: "zip-code" },
+            ],
+          },
+        ],
+      },
+    ];
+
+    const result = generateDummyData(schemas);
+    const orders = result.Orders!;
+
+    orders.forEach((order) => {
+      const address = order.shippingAddress as Record<
+        string,
+        string | number | boolean
+      >;
+      expect(address).toBeDefined();
+      expect(typeof address.street).toBe("string");
+      expect(typeof address.city).toBe("string");
+      expect(typeof address.zipCode).toBe("string");
     });
   });
 });

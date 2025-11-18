@@ -1,6 +1,7 @@
 import {
   type DummyData,
   type DummyDataItem,
+  type DummyDataNestedItem,
   type DummyDataSchema,
   type FieldValueTypeSimple,
 } from "../../types.ts";
@@ -31,7 +32,7 @@ export function generateDummyData(schemas: DummyDataSchema[]) {
           }
         } else if (type === "one-of" && typeof value === "string") {
           item[key] = generateRandomOption(value);
-        } else if (type === "long-string" && typeof value === "number") {
+        } else if (type === "string" && typeof value === "number") {
           const generatedString = generateString(value);
           if (generatedString) {
             item[key] = generatedString;
@@ -41,6 +42,14 @@ export function generateDummyData(schemas: DummyDataSchema[]) {
           typeof value === "number"
         ) {
           item[key] = generateArray(type, value);
+        } else if (type === "nested" && Array.isArray(value)) {
+          const nestedItem: DummyDataNestedItem = {};
+          for (const field of value) {
+            nestedItem[field.key] = generateValue(
+              field.type as FieldValueTypeSimple,
+            );
+          }
+          item[key] = nestedItem;
         } else {
           item[key] = generateValue(type as FieldValueTypeSimple);
         }

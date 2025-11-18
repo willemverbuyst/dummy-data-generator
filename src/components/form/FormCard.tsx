@@ -2,6 +2,7 @@ import { generateDummyData } from "@/lib/generators/generateDummyData";
 import { useDummyData } from "@/zustand/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
+import type { Resolver } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 import { AddEntityButton } from "./buttons/AddEntityButton";
@@ -9,15 +10,15 @@ import { GenerateButton } from "./buttons/GenerateButton";
 import { ResetButton } from "./buttons/ResetButton";
 import { ShowExampleButton } from "./buttons/ShowExampleButton";
 import { FormItem } from "./FormItem";
-import { defaultSchema, formSchema } from "./formSchema";
+import { defaultSchema, formSchema, type FormSchema } from "./formSchema";
 
 export function FormCard() {
   const setDummyData = useDummyData((state) => state.setDummyData);
   const setIsGenerating = useDummyData((state) => state.setIsGenerating);
   const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
 
-  const methods = useForm({
-    resolver: zodResolver(formSchema),
+  const methods = useForm<FormSchema>({
+    resolver: zodResolver(formSchema) as Resolver<FormSchema>,
     defaultValues: {
       schemas: [defaultSchema],
     },
