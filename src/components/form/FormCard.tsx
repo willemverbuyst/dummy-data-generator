@@ -1,4 +1,3 @@
-import { generateDummyData } from "@/lib/generators/generateDummyData";
 import { useDummyData } from "@/zustand/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
@@ -48,8 +47,14 @@ export function FormCard() {
     name: "schemas",
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsGenerating(true);
+
+    // Dynamic import - only load the generator (and faker) when needed
+    const { generateDummyData } = await import(
+      "@/lib/generators/generateDummyData"
+    );
+
     setTimeout(() => {
       const dummyData = generateDummyData(data.schemas);
       setDummyData(dummyData);
