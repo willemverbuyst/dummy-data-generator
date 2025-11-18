@@ -1,6 +1,7 @@
 import {
   type DummyData,
   type DummyDataItem,
+  type DummyDataNestedItem,
   type DummyDataSchema,
   type FieldValueTypeSimple,
 } from "../../types.ts";
@@ -42,10 +43,7 @@ export function generateDummyData(schemas: DummyDataSchema[]) {
         ) {
           item[key] = generateArray(type, value);
         } else if (type === "nested" && Array.isArray(value)) {
-          const nestedItem: Record<
-            string,
-            string | number | boolean | string[]
-          > = {};
+          const nestedItem: DummyDataNestedItem = {};
           for (const field of value) {
             nestedItem[field.key] = generateValue(
               field.type as FieldValueTypeSimple,

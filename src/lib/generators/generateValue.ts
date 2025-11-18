@@ -1,9 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { type FieldValueTypeSimple } from "../../types.ts";
 
-export function generateValue(
-  type: FieldValueTypeSimple,
-): string | number | boolean | string[] {
+export function generateValue(type: FieldValueTypeSimple) {
   switch (type) {
     case "word":
       return faker.lorem.word();

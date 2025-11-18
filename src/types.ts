@@ -31,14 +31,11 @@ export type DummyDataSchema = {
   numberOfRecords: number;
 };
 
+export type DummyDataNestedItem = Record<string, string | number | boolean>;
+
 export type DummyDataItem = Record<
   string,
-  | string
-  | number
-  | boolean
-  | string[]
-  | number[]
-  | Record<string, string | number | boolean | string[] | number[]>
+  string | number | boolean | string[] | number[] | DummyDataNestedItem
 >;
 
 export type DummyData = Record<string, DummyDataItem[]>;
