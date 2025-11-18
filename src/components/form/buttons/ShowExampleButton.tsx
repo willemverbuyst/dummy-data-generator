@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { exampleInput } from "@/exampleInput";
 import { useDummyData } from "@/zustand/store";
 import { useFormContext } from "react-hook-form";
+import { toast } from "sonner";
 
 export function ShowExampleButton() {
   const setDummyData = useDummyData((state) => state.setDummyData);
@@ -27,6 +28,7 @@ export function ShowExampleButton() {
           reset({ schemas: exampleInput });
           setInSyncWithForm(true);
           setIsGenerating(false);
+          toast("Example dummy data has been generated");
         }, 300);
       }}
     >
