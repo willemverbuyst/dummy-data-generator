@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { exampleInput } from "@/exampleInput";
-import { generateDummyData } from "@/lib/generators/generateDummyData";
 import { useDummyData } from "@/zustand/store";
 import { useFormContext } from "react-hook-form";
 
@@ -14,8 +13,14 @@ export function ShowExampleButton() {
     <Button
       variant="outline"
       type="button"
-      onClick={() => {
+      onClick={async () => {
         setIsGenerating(true);
+
+        // Dynamic import - only load the generator (and faker) when needed
+        const { generateDummyData } = await import(
+          "@/lib/generators/generateDummyData"
+        );
+
         setTimeout(() => {
           const dummyData = generateDummyData(exampleInput);
           setDummyData(dummyData);
