@@ -11,6 +11,7 @@ import { RemoveFieldButton } from "./buttons/RemoveFieldButton";
 import { NumberInput } from "./inputs/NumberInput";
 import { TextInput } from "./inputs/TextInput";
 import { ValueTypeSelector } from "./inputs/ValueTypeSelector";
+import { NestedFormItem } from "./NestedFormItem";
 
 export function FormItem({
   index,
@@ -30,6 +31,7 @@ export function FormItem({
     control,
     name: `schemas.${index}.fields`,
   });
+
   return (
     <FieldGroup
       key={schemaId}
@@ -68,57 +70,63 @@ export function FormItem({
           <AddFieldButton append={appendField} />
         </div>
         {keyValueFields.map((field, fieldIndex) => (
-          <div key={field.id} className="flex w-full items-end gap-2">
-            <Controller
-              name={`schemas.${index}.fields.${fieldIndex}.key`}
-              control={control}
-              render={({ field, fieldState }) => (
-                <TextInput
-                  field={field}
-                  fieldState={fieldState}
-                  placeholder="e.g. name"
-                />
-              )}
-            />
-            <Controller
-              name={`schemas.${index}.fields.${fieldIndex}.type`}
-              control={control}
-              render={({ field, fieldState }) => (
-                <ValueTypeSelector field={field} fieldState={fieldState} />
-              )}
-            />
-            {["reference", "one-of"].includes(
-              watch(`schemas.${index}.fields.${fieldIndex}.type`),
-            ) && (
+          <div key={field.id}>
+            <div className="flex w-full items-end gap-2">
               <Controller
-                name={`schemas.${index}.fields.${fieldIndex}.value`}
+                name={`schemas.${index}.fields.${fieldIndex}.key`}
                 control={control}
                 render={({ field, fieldState }) => (
                   <TextInput
                     field={field}
                     fieldState={fieldState}
-                    placeholder="e.g. User"
+                    placeholder="e.g. name"
                   />
                 )}
               />
-            )}
-            {["string-array", "number-array", "long-string"].includes(
-              watch(`schemas.${index}.fields.${fieldIndex}.type`),
-            ) && (
               <Controller
-                name={`schemas.${index}.fields.${fieldIndex}.value`}
+                name={`schemas.${index}.fields.${fieldIndex}.type`}
                 control={control}
                 render={({ field, fieldState }) => (
-                  <NumberInput field={field} fieldState={fieldState} />
+                  <ValueTypeSelector field={field} fieldState={fieldState} />
                 )}
               />
-            )}
+              {["reference", "one-of"].includes(
+                watch(`schemas.${index}.fields.${fieldIndex}.type`),
+              ) && (
+                <Controller
+                  name={`schemas.${index}.fields.${fieldIndex}.value`}
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <TextInput
+                      field={field}
+                      fieldState={fieldState}
+                      placeholder="e.g. User"
+                    />
+                  )}
+                />
+              )}
+              {["string-array", "number-array", "long-string"].includes(
+                watch(`schemas.${index}.fields.${fieldIndex}.type`),
+              ) && (
+                <Controller
+                  name={`schemas.${index}.fields.${fieldIndex}.value`}
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <NumberInput field={field} fieldState={fieldState} />
+                  )}
+                />
+              )}
 
-            <RemoveFieldButton
-              remove={removeField}
-              index={fieldIndex}
-              disabled={keyValueFields.length === 1}
-            />
+              <RemoveFieldButton
+                remove={removeField}
+                index={fieldIndex}
+                disabled={keyValueFields.length === 1}
+              />
+            </div>
+
+            {["nested"].includes(
+              watch(`schemas.${index}.fields.${fieldIndex}.type`),
+            ) && <NestedFormItem index={index} fieldIndex={fieldIndex} />}
           </div>
         ))}
       </div>

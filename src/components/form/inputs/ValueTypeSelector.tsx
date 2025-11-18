@@ -18,9 +18,11 @@ import type {
 export function ValueTypeSelector({
   field,
   fieldState,
+  includeComplex = true,
 }: {
   field: ControllerRenderProps<FieldValues, string>;
   fieldState: ControllerFieldState;
+  includeComplex?: boolean;
 }) {
   return (
     <Field data-invalid={fieldState.invalid}>
@@ -41,14 +43,16 @@ export function ValueTypeSelector({
               </SelectItem>
             ))}
           </SelectGroup>
-          <SelectGroup>
-            <SelectLabel>Complex type</SelectLabel>
-            {fieldValueTypeComplex.map((type) => (
-              <SelectItem key={type} value={type}>
-                {type.replace("-", " ")}
-              </SelectItem>
-            ))}
-          </SelectGroup>
+          {includeComplex && (
+            <SelectGroup>
+              <SelectLabel>Complex type</SelectLabel>
+              {fieldValueTypeComplex.map((type) => (
+                <SelectItem key={type} value={type}>
+                  {type.replace("-", " ")}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          )}
         </SelectContent>
       </Select>
       {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

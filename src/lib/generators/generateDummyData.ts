@@ -41,6 +41,17 @@ export function generateDummyData(schemas: DummyDataSchema[]) {
           typeof value === "number"
         ) {
           item[key] = generateArray(type, value);
+        } else if (type === "nested" && Array.isArray(value)) {
+          const nestedItem: Record<
+            string,
+            string | number | boolean | string[]
+          > = {};
+          for (const field of value) {
+            nestedItem[field.key] = generateValue(
+              field.type as FieldValueTypeSimple,
+            );
+          }
+          item[key] = nestedItem;
         } else {
           item[key] = generateValue(type as FieldValueTypeSimple);
         }

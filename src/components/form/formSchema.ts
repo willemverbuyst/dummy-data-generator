@@ -1,4 +1,16 @@
+import type { Field } from "@/types";
 import z from "zod";
+
+const fieldSchema: z.ZodType<Field> = z.lazy(() =>
+  z.object({
+    key: z
+      .string()
+      .min(1, "Key is required")
+      .regex(/^[A-Za-z]+$/, "Key must be alphabetic only"),
+    type: z.string().min(1, "Value type is required"),
+    value: z.union([z.string(), z.number(), z.array(fieldSchema)]).optional(),
+  }),
+);
 
 export const formSchema = z.object({
   schemas: z
@@ -11,18 +23,7 @@ export const formSchema = z.object({
             /^[A-Z][a-z]*$/,
             "Must start with a capital letter and have lowercase letters only",
           ),
-        fields: z
-          .array(
-            z.object({
-              key: z
-                .string()
-                .min(1, "Key is required")
-                .regex(/^[A-Za-z]+$/, "Key must be alphabetic only"),
-              type: z.string().min(1, "Value type is required"),
-              value: z.union([z.string(), z.number()]).optional(),
-            }),
-          )
-          .nonempty("At least one field is required"),
+        fields: z.array(fieldSchema).nonempty("At least one field is required"),
         numberOfRecords: z
           .number()
           .min(1, "Number of records must be at least 1"),

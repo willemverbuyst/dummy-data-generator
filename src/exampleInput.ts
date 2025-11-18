@@ -7,6 +7,15 @@ export const exampleInput = [
       { key: "email", type: "email" },
       { key: "isActive", type: "boolean" },
       { key: "sex", type: "one-of", value: "male, female, other" },
+      {
+        key: "address",
+        type: "nested",
+        value: [
+          { key: "street", type: "string" },
+          { key: "city", type: "string" },
+          { key: "zipCode", type: "string" },
+        ],
+      },
     ],
     numberOfRecords: 3,
   },

@@ -14,19 +14,31 @@ export const fieldValueTypeComplex = [
   "long-string",
   "string-array",
   "number-array",
+  "nested",
 ] as const;
 
 export type FieldValueTypeSimple = (typeof fieldValueTypeSimple)[number];
 
+export type Field = {
+  key: string;
+  type: string;
+  value?: string | number | Field[];
+};
+
 export type DummyDataSchema = {
   entity: string;
-  fields: { key: string; type: string; value?: string | number }[];
+  fields: Field[];
   numberOfRecords: number;
 };
 
 export type DummyDataItem = Record<
   string,
-  string | number | boolean | string[] | number[]
+  | string
+  | number
+  | boolean
+  | string[]
+  | number[]
+  | Record<string, string | number | boolean | string[] | number[]>
 >;
 
 export type DummyData = Record<string, DummyDataItem[]>;
