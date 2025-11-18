@@ -1,4 +1,4 @@
-import type { Field } from "@/types";
+import { allFieldValueTypes, type Field } from "@/types";
 import z from "zod";
 
 const fieldSchema: z.ZodType<Field> = z.lazy(() =>
@@ -7,7 +7,7 @@ const fieldSchema: z.ZodType<Field> = z.lazy(() =>
       .string()
       .min(1, "Key is required")
       .regex(/^[A-Za-z]+$/, "Key must be alphabetic only"),
-    type: z.string().min(1, "Value type is required"),
+    type: z.enum(allFieldValueTypes),
     value: z.union([z.string(), z.number(), z.array(fieldSchema)]).optional(),
   }),
 );
@@ -49,7 +49,7 @@ export type FormSchema = z.infer<typeof formSchema>;
 export const defaultField: FormSchema["schemas"][number]["fields"][number] = {
   key: "",
   value: "",
-  type: "",
+  type: "name",
 };
 
 export const defaultSchema: FormSchema["schemas"][number] = {

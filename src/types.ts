@@ -1,27 +1,38 @@
 export const fieldValueTypeSimple = [
   "word",
-  "string",
   "number",
   "boolean",
   "email",
   "name",
   "age",
+  "state",
+  "street",
+  "city",
+  "zip-code",
+  "country",
+  "building-number",
 ] as const;
 
 export const fieldValueTypeComplex = [
   "reference",
   "one-of",
-  "long-string",
+  "string",
   "string-array",
   "number-array",
   "nested",
 ] as const;
 
+export const allFieldValueTypes = [
+  ...fieldValueTypeSimple,
+  ...fieldValueTypeComplex,
+] as const;
+
 export type FieldValueTypeSimple = (typeof fieldValueTypeSimple)[number];
+export type FieldValueTypeComplex = (typeof fieldValueTypeComplex)[number];
 
 export type Field = {
   key: string;
-  type: string;
+  type: FieldValueTypeSimple | FieldValueTypeComplex;
   value?: string | number | Field[];
 };
 

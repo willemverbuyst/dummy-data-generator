@@ -32,7 +32,7 @@ export function generateDummyData(schemas: DummyDataSchema[]) {
           }
         } else if (type === "one-of" && typeof value === "string") {
           item[key] = generateRandomOption(value);
-        } else if (type === "long-string" && typeof value === "number") {
+        } else if (type === "string" && typeof value === "number") {
           const generatedString = generateString(value);
           if (generatedString) {
             item[key] = generatedString;

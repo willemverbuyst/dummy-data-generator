@@ -8,7 +8,7 @@ describe("generateDummyData", () => {
         entity: "User",
         numberOfRecords: 2,
         fields: [
-          { key: "name", type: "string" },
+          { key: "name", type: "name" },
           { key: "age", type: "number" },
           { key: "active", type: "boolean" },
         ],
@@ -134,7 +134,7 @@ describe("generateDummyData", () => {
       {
         entity: "Comment",
         numberOfRecords: 2,
-        fields: [{ key: "content", type: "long-string", value: 5 }],
+        fields: [{ key: "content", type: "string", value: 5 }],
       },
     ];
 
@@ -196,9 +196,9 @@ describe("generateDummyData", () => {
             key: "shippingAddress",
             type: "nested",
             value: [
-              { key: "street", type: "string" },
-              { key: "city", type: "string" },
-              { key: "zipCode", type: "number" },
+              { key: "street", type: "street" },
+              { key: "city", type: "city" },
+              { key: "zipCode", type: "zip-code" },
             ],
           },
         ],
@@ -216,7 +216,7 @@ describe("generateDummyData", () => {
       expect(address).toBeDefined();
       expect(typeof address.street).toBe("string");
       expect(typeof address.city).toBe("string");
-      expect(typeof address.zipCode).toBe("number");
+      expect(typeof address.zipCode).toBe("string");
     });
   });
 });

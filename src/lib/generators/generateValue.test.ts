@@ -6,14 +6,6 @@ describe("generateValue", () => {
     expect(typeof result).toBe("string");
   });
 
-  test("string type", () => {
-    const result = generateValue("string");
-    expect(typeof result).toBe("string");
-    // Should generate 3 words
-    const words = (result as string).split(" ");
-    expect(words.length).toBe(3);
-  });
-
   test("number type", () => {
     const result = generateValue("number");
     expect(typeof result).toBe("number");

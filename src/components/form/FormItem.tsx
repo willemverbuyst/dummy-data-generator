@@ -105,7 +105,7 @@ export function FormItem({
                   )}
                 />
               )}
-              {["string-array", "number-array", "long-string"].includes(
+              {["string-array", "number-array", "string"].includes(
                 watch(`schemas.${index}.fields.${fieldIndex}.type`),
               ) && (
                 <Controller
