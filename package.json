@@ -18,7 +18,8 @@
     "test:component:watch": "vitest --project component --browser.headless",
     "test:integration": "vitest --project integration --run",
     "test:integration:watch": "vitest --project integration",
-    "test:all": "npm run test:unit && npm run test:component && npm run test:integration"
+    "test:all": "npm run test:unit && npm run test:component && npm run test:integration",
+    "test:coverage": "vitest --run --coverage"
   },
   "dependencies": {
     "@faker-js/faker": "^10.1.0",
@@ -53,6 +54,7 @@
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.4",
     "@vitest/browser-playwright": "^4.0.8",
+    "@vitest/coverage-v8": "4.0.9",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.36.0",
     "eslint-plugin-react-hooks": "^5.2.0",

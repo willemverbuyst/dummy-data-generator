@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
-import { ThemeProviderContext } from "./theme-provider-context";
-import type { Theme, ThemeProviderProps } from "./types";
+import { ThemeProviderContext } from "./ThemeProviderContext";
+import type { Theme } from "./types";
+
+export type ThemeProviderProps = {
+  children: React.ReactNode;
+  defaultTheme?: Theme;
+  storageKey?: string;
+};
 
 export function ThemeProvider({
   children,

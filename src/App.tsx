@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
 import { Main } from "@/components/Main";
-import { ThemeProvider } from "@/components/theme-provider/theme-provider";
+import { ThemeProvider } from "@/components/theme-provider/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 
 function App() {

@@ -1,6 +1,9 @@
 import { generateValue } from "./generateValue.ts";
 
-export function generateArray(arrayPattern: string, value: number) {
+export function generateArray(
+  arrayPattern: "string-array" | "number-array",
+  value: number,
+) {
   if (arrayPattern === "string-array") {
     const stringArray: string[] = [];
     for (let j = 0; j < value; j++) {

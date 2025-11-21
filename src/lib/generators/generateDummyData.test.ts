@@ -70,6 +70,34 @@ describe("generateDummyData", () => {
     expect(post?.userId).toBeDefined();
   });
 
+  test("should handle unknown reference fields", () => {
+    const consoleSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "User",
+        numberOfRecords: 1,
+        fields: [{ key: "name", type: "string" }],
+      },
+      {
+        entity: "Post",
+        numberOfRecords: 1,
+        fields: [
+          { key: "title", type: "string" },
+          { key: "userId", type: "reference", value: "UnknownEntity" },
+        ],
+      },
+    ];
+
+    const result = generateDummyData(schemas);
+
+    const post = result?.Posts?.[0];
+    expect(post).not.toHaveProperty("userId");
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Warning: No data found for referenced entity UnknownEntity",
+    );
+    consoleSpy.mockRestore();
+  });
+
   test("should generate unique IDs", () => {
     const schemas: DummyDataSchema[] = [
       {
@@ -147,6 +175,25 @@ describe("generateDummyData", () => {
       expect(typeof content).toBe("string");
       expect((content as string).split(" ").length).toBe(5);
     });
+  });
+
+  test("should handle empty string fields", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "Comment",
+        numberOfRecords: 1,
+        fields: [
+          { key: "title", type: "string", value: 1 },
+          { key: "content", type: "string", value: 0 },
+        ],
+      },
+    ];
+
+    const result = generateDummyData(schemas);
+    const comment = result?.Comments?.[0];
+
+    expect(comment).not.toHaveProperty("content");
+    expect(comment?.title).toBeDefined();
   });
 
   test("should handle array fields", () => {
