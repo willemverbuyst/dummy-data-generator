@@ -75,6 +75,56 @@ describe("NumberInput", () => {
     expect(input).toHaveValue("1");
   });
 
+  it("defaults to 1000 when value is greater than 1000", () => {
+    const fieldWithHighValue = { ...mockField, value: 1500 };
+    render(
+      <NumberInput
+        field={fieldWithHighValue}
+        fieldState={mockFieldState}
+        label="Test Number"
+      />,
+    );
+
+    const input = screen.getByRole("textbox");
+    expect(input).toHaveValue("1000");
+  });
+
+  it("calls onChange with 1000 when value is greater than 1000", () => {
+    const onChange = vi.fn();
+    const fieldWithOnChange = { ...mockField, onChange };
+
+    render(
+      <NumberInput
+        field={fieldWithOnChange}
+        fieldState={mockFieldState}
+        label="Test Number"
+      />,
+    );
+
+    const input = screen.getByRole("textbox");
+    fireEvent.change(input, { target: { value: "1500" } });
+
+    expect(onChange).toHaveBeenCalledWith(1000);
+  });
+
+  it("calls onChange with 1 when value is not a number", () => {
+    const onChange = vi.fn();
+    const fieldWithOnChange = { ...mockField, onChange };
+
+    render(
+      <NumberInput
+        field={fieldWithOnChange}
+        fieldState={mockFieldState}
+        label="Test Number"
+      />,
+    );
+
+    const input = screen.getByRole("textbox");
+    fireEvent.change(input, { target: { value: "invalid" } });
+
+    expect(onChange).toHaveBeenCalledWith(1);
+  });
+
   it("calls onChange with number when input changes", () => {
     const onChange = vi.fn();
     const fieldWithOnChange = { ...mockField, onChange };
@@ -162,5 +212,43 @@ describe("NumberInput", () => {
 
     fireEvent.click(plusButton);
     expect(onChange).toHaveBeenCalledWith(6);
+  });
+
+  it("does not decrement below 1", () => {
+    const onChange = vi.fn();
+    const fieldWithOnChange = { ...mockField, value: 1, onChange };
+
+    render(
+      <NumberInput
+        field={fieldWithOnChange}
+        fieldState={mockFieldState}
+        label="Test Number"
+      />,
+    );
+
+    const minusButton = screen.getByRole("button", { name: "-" });
+
+    fireEvent.click(minusButton);
+    expect(onChange).not.toHaveBeenCalledWith(0);
+    expect(onChange).toHaveBeenCalledWith(1);
+  });
+
+  it("does not increment above 1000", () => {
+    const onChange = vi.fn();
+    const fieldWithOnChange = { ...mockField, value: 1000, onChange };
+
+    render(
+      <NumberInput
+        field={fieldWithOnChange}
+        fieldState={mockFieldState}
+        label="Test Number"
+      />,
+    );
+
+    const plusButton = screen.getByRole("button", { name: "+" });
+
+    fireEvent.click(plusButton);
+    expect(onChange).not.toHaveBeenCalledWith(1001);
+    expect(onChange).toHaveBeenCalledWith(1000);
   });
 });
