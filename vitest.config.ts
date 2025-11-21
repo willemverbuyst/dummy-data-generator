@@ -5,6 +5,19 @@ export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
+      coverage: {
+        provider: "v8",
+        reporter: ["text", "json", "html"],
+        include: ["src/**/*.{ts,tsx}"],
+        exclude: [
+          "src/**/*.test.{ts,tsx}",
+          "src/components/ui/*.{ts,tsx}", // Shadcn UI components
+          "src/main.tsx",
+          "src/vite-env.d.ts",
+          "**/*.config.{ts,js}",
+          "**/types.ts",
+        ],
+      },
       projects: [
         {
           test: {
