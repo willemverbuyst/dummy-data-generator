@@ -71,6 +71,7 @@ describe("generateDummyData", () => {
   });
 
   test("should handle unknown reference fields", () => {
+    const consoleSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
     const schemas: DummyDataSchema[] = [
       {
         entity: "User",
@@ -91,6 +92,10 @@ describe("generateDummyData", () => {
 
     const post = result?.Posts?.[0];
     expect(post).not.toHaveProperty("userId");
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Warning: No data found for referenced entity UnknownEntity",
+    );
+    consoleSpy.mockRestore();
   });
 
   test("should generate unique IDs", () => {
