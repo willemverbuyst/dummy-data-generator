@@ -33,7 +33,7 @@ export default mergeConfig(
             name: "component",
             environment: "happy-dom",
             setupFiles: ["./vitest.setup.ts"],
-            include: ["src/components/**/*.test.tsx"],
+            include: ["src/components/**/*.test.{ts,tsx}"],
             alias: {
               "@/": new URL("./src/", import.meta.url).pathname,
             },
