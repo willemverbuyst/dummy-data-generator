@@ -14,11 +14,11 @@
     "preview": "vite preview",
     "test:unit": "vitest --project unit --run",
     "test:unit:watch": "vitest --project unit",
-    "test:component": "vitest --project component --browser.headless --run",
-    "test:component:watch": "vitest --project component --browser.headless",
+    "test:component": "vitest --project component --run",
+    "test:component:watch": "vitest --project component",
     "test:integration": "vitest --project integration --run",
     "test:integration:watch": "vitest --project integration",
-    "test:all": "npm run test:unit && npm run test:component && npm run test:integration",
+    "test:all": "pnpm run test:unit && pnpm run test:component && pnpm run test:integration",
     "test:coverage": "vitest --run --coverage"
   },
   "dependencies": {
