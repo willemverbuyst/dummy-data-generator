@@ -2,6 +2,7 @@ import {
   Controller,
   useFieldArray,
   useFormContext,
+  useWatch,
   type UseFieldArrayRemove,
 } from "react-hook-form";
 import { FieldGroup, FieldLabel } from "../ui/field";
@@ -22,7 +23,7 @@ export function FormItem({
   schemaId: string;
   removeSchema: UseFieldArrayRemove;
 }) {
-  const { watch, control } = useFormContext();
+  const { control } = useFormContext();
   const {
     fields: keyValueFields,
     append: appendField,
@@ -31,6 +32,13 @@ export function FormItem({
     control,
     name: `schemas.${index}.fields`,
   });
+
+  const type = useWatch({ name: "schemas.0.fields.0.type" });
+  const renderTextInput = ["reference", "one-of"].includes(type);
+  const renderNumberInput = ["string-array", "number-array", "string"].includes(
+    type,
+  );
+  const renderNestedForm = ["nested"].includes(type);
 
   return (
     <FieldGroup
@@ -90,9 +98,7 @@ export function FormItem({
                   <ValueTypeSelector field={field} fieldState={fieldState} />
                 )}
               />
-              {["reference", "one-of"].includes(
-                watch(`schemas.${index}.fields.${fieldIndex}.type`),
-              ) && (
+              {renderTextInput && (
                 <Controller
                   name={`schemas.${index}.fields.${fieldIndex}.value`}
                   control={control}
@@ -105,9 +111,7 @@ export function FormItem({
                   )}
                 />
               )}
-              {["string-array", "number-array", "string"].includes(
-                watch(`schemas.${index}.fields.${fieldIndex}.type`),
-              ) && (
+              {renderNumberInput && (
                 <Controller
                   name={`schemas.${index}.fields.${fieldIndex}.value`}
                   control={control}
@@ -124,9 +128,9 @@ export function FormItem({
               />
             </div>
 
-            {["nested"].includes(
-              watch(`schemas.${index}.fields.${fieldIndex}.type`),
-            ) && <NestedFormItem index={index} fieldIndex={fieldIndex} />}
+            {renderNestedForm && (
+              <NestedFormItem index={index} fieldIndex={fieldIndex} />
+            )}
           </div>
         ))}
       </div>
