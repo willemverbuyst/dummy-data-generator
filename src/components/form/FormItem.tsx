@@ -7,22 +7,22 @@ import {
 import { FieldGroup, FieldLabel } from "../ui/field";
 import { AddFieldButton } from "./buttons/AddFieldButton";
 import { RemoveEntityButton } from "./buttons/RemoveEntityButton";
-import { RemoveFieldButton } from "./buttons/RemoveFieldButton";
 import { NumberInput } from "./inputs/NumberInput";
 import { TextInput } from "./inputs/TextInput";
-import { ValueTypeSelector } from "./inputs/ValueTypeSelector";
-import { NestedFormItem } from "./NestedFormItem";
+import { KeyValueFields } from "./KeyValueFields";
 
 export function FormItem({
   index,
   schemaId,
   removeSchema,
+  schemasLength,
 }: {
   index: number;
   schemaId: string;
   removeSchema: UseFieldArrayRemove;
+  schemasLength: number;
 }) {
-  const { watch, control } = useFormContext();
+  const { control } = useFormContext();
   const {
     fields: keyValueFields,
     append: appendField,
@@ -61,7 +61,11 @@ export function FormItem({
             />
           )}
         />
-        <RemoveEntityButton remove={removeSchema} index={index} />
+        <RemoveEntityButton
+          remove={removeSchema}
+          index={index}
+          disabled={schemasLength === 1}
+        />
       </div>
 
       <div className="flex w-full flex-col gap-2">
@@ -70,64 +74,14 @@ export function FormItem({
           <AddFieldButton append={appendField} />
         </div>
         {keyValueFields.map((field, fieldIndex) => (
-          <div key={field.id}>
-            <div className="flex w-full items-end gap-2">
-              <Controller
-                name={`schemas.${index}.fields.${fieldIndex}.key`}
-                control={control}
-                render={({ field, fieldState }) => (
-                  <TextInput
-                    field={field}
-                    fieldState={fieldState}
-                    placeholder="e.g. name"
-                  />
-                )}
-              />
-              <Controller
-                name={`schemas.${index}.fields.${fieldIndex}.type`}
-                control={control}
-                render={({ field, fieldState }) => (
-                  <ValueTypeSelector field={field} fieldState={fieldState} />
-                )}
-              />
-              {["reference", "one-of"].includes(
-                watch(`schemas.${index}.fields.${fieldIndex}.type`),
-              ) && (
-                <Controller
-                  name={`schemas.${index}.fields.${fieldIndex}.value`}
-                  control={control}
-                  render={({ field, fieldState }) => (
-                    <TextInput
-                      field={field}
-                      fieldState={fieldState}
-                      placeholder="e.g. User"
-                    />
-                  )}
-                />
-              )}
-              {["string-array", "number-array", "string"].includes(
-                watch(`schemas.${index}.fields.${fieldIndex}.type`),
-              ) && (
-                <Controller
-                  name={`schemas.${index}.fields.${fieldIndex}.value`}
-                  control={control}
-                  render={({ field, fieldState }) => (
-                    <NumberInput field={field} fieldState={fieldState} />
-                  )}
-                />
-              )}
-
-              <RemoveFieldButton
-                remove={removeField}
-                index={fieldIndex}
-                disabled={keyValueFields.length === 1}
-              />
-            </div>
-
-            {["nested"].includes(
-              watch(`schemas.${index}.fields.${fieldIndex}.type`),
-            ) && <NestedFormItem index={index} fieldIndex={fieldIndex} />}
-          </div>
+          <KeyValueFields
+            key={field.id}
+            index={index}
+            fieldIndex={fieldIndex}
+            field={field}
+            keyValueFieldsLength={keyValueFields.length}
+            removeField={removeField}
+          />
         ))}
       </div>
     </FieldGroup>

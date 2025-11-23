@@ -160,7 +160,12 @@ function TestWrapper({
 
   return (
     <FormProvider {...methods}>
-      <FormItem index={index} schemaId={schemaId} removeSchema={removeSchema} />
+      <FormItem
+        index={index}
+        schemaId={schemaId}
+        removeSchema={removeSchema}
+        schemasLength={1}
+      />
     </FormProvider>
   );
 }

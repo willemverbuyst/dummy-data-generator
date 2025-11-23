@@ -8,9 +8,11 @@ import { TrashIcon } from "lucide-react";
 import type { UseFieldArrayRemove } from "react-hook-form";
 
 export function RemoveEntityButton({
+  disabled,
   remove,
   index,
 }: {
+  disabled: boolean;
   remove: UseFieldArrayRemove;
   index: number;
 }) {
@@ -21,6 +23,7 @@ export function RemoveEntityButton({
           variant="outline"
           size="sm"
           type="button"
+          disabled={disabled}
           onClick={() => remove(index)}
         >
           <TrashIcon />

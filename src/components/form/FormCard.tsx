@@ -79,6 +79,7 @@ export function FormCard() {
               schemaId={schema.id}
               index={index}
               removeSchema={removeSchema}
+              schemasLength={schemas.length}
             />
           ))}
         </div>

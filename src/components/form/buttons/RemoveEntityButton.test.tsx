@@ -5,6 +5,7 @@ import { RemoveEntityButton } from "./RemoveEntityButton";
 describe("RemoveEntityButton", () => {
   const mockRemove = vi.fn();
   const defaultProps = {
+    disabled: false,
     remove: mockRemove,
     index: 0,
   };
@@ -40,6 +41,30 @@ describe("RemoveEntityButton", () => {
       expect(mockRemove).toHaveBeenCalledWith(2);
       expect(mockRemove).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it("is disabled when disabled prop is true", () => {
+    render(<RemoveEntityButton {...defaultProps} disabled={true} />);
+
+    const button = screen.getByRole("button");
+    expect(button).toBeDisabled();
+  });
+
+  it("does not call remove when disabled and clicked", async () => {
+    const user = userEvent.setup();
+    render(<RemoveEntityButton {...defaultProps} disabled={true} />);
+
+    const button = screen.getByRole("button");
+    await user.click(button);
+
+    expect(mockRemove).not.toHaveBeenCalled();
+  });
+
+  it("is enabled when disabled prop is false", () => {
+    render(<RemoveEntityButton {...defaultProps} disabled={false} />);
+
+    const button = screen.getByRole("button");
+    expect(button).not.toBeDisabled();
   });
 
   it("shows tooltip on hover", async () => {
