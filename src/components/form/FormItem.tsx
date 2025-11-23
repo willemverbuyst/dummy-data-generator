@@ -15,10 +15,12 @@ export function FormItem({
   index,
   schemaId,
   removeSchema,
+  schemasLength,
 }: {
   index: number;
   schemaId: string;
   removeSchema: UseFieldArrayRemove;
+  schemasLength: number;
 }) {
   const { control } = useFormContext();
   const {
@@ -59,7 +61,11 @@ export function FormItem({
             />
           )}
         />
-        <RemoveEntityButton remove={removeSchema} index={index} />
+        <RemoveEntityButton
+          remove={removeSchema}
+          index={index}
+          disabled={schemasLength === 1}
+        />
       </div>
 
       <div className="flex w-full flex-col gap-2">
