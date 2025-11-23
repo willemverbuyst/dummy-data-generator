@@ -82,11 +82,11 @@ export function FormCard() {
               schemasLength={schemas.length}
             />
           ))}
+          <AddEntityButton append={appendSchema} />
         </div>
 
         <div className="bg-background shadow-l m-2 flex flex-col gap-2 rounded-md p-4">
           <ShowExampleButton />
-          <AddEntityButton append={appendSchema} />
           <ResetButton />
           <GenerateButton />
         </div>
