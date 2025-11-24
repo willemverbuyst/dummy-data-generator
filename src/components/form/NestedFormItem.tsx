@@ -27,7 +27,10 @@ export function NestedFormItem({
     <div className="shadow-l m-4 flex flex-col gap-2 rounded-md border-2 p-2">
       <div className="flex w-full items-end justify-between">
         <FieldLabel>Nested Fields</FieldLabel>
-        <AddFieldButton append={appendNestedField} />
+        <AddFieldButton
+          append={appendNestedField}
+          title={`entity-${index + 1}-field-${fieldIndex + 1}-add-nested-field`}
+        />
       </div>
       {nestedKeyValueFields.map((field, nestedFieldIndex) => (
         <div key={field.id} className="flex w-full items-end gap-2">
@@ -39,6 +42,8 @@ export function NestedFormItem({
                 field={field}
                 fieldState={fieldState}
                 placeholder="e.g. name"
+                label={`Entity ${index + 1} Key ${fieldIndex + 1} Nested Key ${nestedFieldIndex + 1}`}
+                hideLabel
               />
             )}
           />

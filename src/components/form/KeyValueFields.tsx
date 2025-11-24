@@ -44,6 +44,8 @@ export function KeyValueFields({
               field={field}
               fieldState={fieldState}
               placeholder="e.g. name"
+              label={`entity ${index + 1} key ${fieldIndex + 1}`}
+              hideLabel
             />
           )}
         />
@@ -63,6 +65,8 @@ export function KeyValueFields({
                 field={field}
                 fieldState={fieldState}
                 placeholder="e.g. User"
+                label={`entity ${index + 1} key ${fieldIndex + 1} value`}
+                hideLabel
               />
             )}
           />

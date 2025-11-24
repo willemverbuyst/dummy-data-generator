@@ -5,9 +5,7 @@ export const exampleInput: DummyDataSchema[] = [
     entity: "User",
     fields: [
       { key: "name", type: "name" },
-
       { key: "email", type: "email" },
-
       {
         key: "address",
         type: "nested",
