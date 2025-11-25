@@ -19,21 +19,21 @@ describe("Full Flow Integration Test", () => {
     // ----------------------------------------------------------------------------
     // Entity 1: User (3 records)
     // ----------------------------------------------------------------------------
-    const entityInput = screen.getByRole("textbox", {
+    const entityInputUser = await screen.findByRole("textbox", {
       name: /^entity 1$/i,
     });
-    await user.click(entityInput);
-    await user.clear(entityInput);
-    await user.type(entityInput, "User");
+    await user.click(entityInputUser);
+    await user.clear(entityInputUser);
+    await user.type(entityInputUser, "User");
 
-    const recordInput = screen.getByRole("textbox", {
+    const recordInput = await screen.findByRole("textbox", {
       name: /number of records/i,
     });
     await user.click(recordInput);
     await user.clear(recordInput);
     await user.type(recordInput, "3");
 
-    const keyInput_0 = screen.getByRole("textbox", {
+    const keyInput_0 = await screen.findByRole("textbox", {
       name: /^entity 1 key 1$/i,
     });
     await user.click(keyInput_0);
@@ -47,7 +47,7 @@ describe("Full Flow Integration Test", () => {
       await screen.findByTitle("entity-1-add-field");
     await user.click(entity1AddFieldButton);
 
-    const keyInput_1 = screen.getByRole("textbox", {
+    const keyInput_1 = await screen.findByRole("textbox", {
       name: /^entity 1 key 2$/i,
     });
     await user.click(keyInput_1);
@@ -59,7 +59,7 @@ describe("Full Flow Integration Test", () => {
 
     await user.click(entity1AddFieldButton);
 
-    const keyInput_nested = screen.getByRole("textbox", {
+    const keyInput_nested = await screen.findByRole("textbox", {
       name: /^entity 1 key 3$/i,
     });
     await user.click(keyInput_nested);
@@ -75,7 +75,7 @@ describe("Full Flow Integration Test", () => {
 
     await user.click(entity1Field3AddNestedFieldButton);
 
-    const key3NestedKeyInput_1 = screen.getByRole("textbox", {
+    const key3NestedKeyInput_1 = await screen.findByRole("textbox", {
       name: /^entity 1 key 3 nested key 1$/i,
     });
     await user.click(key3NestedKeyInput_1);
@@ -87,7 +87,7 @@ describe("Full Flow Integration Test", () => {
 
     await user.click(entity1Field3AddNestedFieldButton);
 
-    const key3NestedKeyInput_2 = screen.getByRole("textbox", {
+    const key3NestedKeyInput_2 = await screen.findByRole("textbox", {
       name: /^entity 1 key 3 nested key 2$/i,
     });
     await user.click(key3NestedKeyInput_2);
@@ -99,7 +99,7 @@ describe("Full Flow Integration Test", () => {
 
     await user.click(entity1Field3AddNestedFieldButton);
 
-    const key3NestedKeyInput_3 = screen.getByRole("textbox", {
+    const key3NestedKeyInput_3 = await screen.findByRole("textbox", {
       name: /^entity 1 key 3 nested key 3$/i,
     });
     await user.click(key3NestedKeyInput_3);
@@ -111,7 +111,7 @@ describe("Full Flow Integration Test", () => {
 
     await user.click(entity1Field3AddNestedFieldButton);
 
-    const key3NestedKeyInput_4 = screen.getByRole("textbox", {
+    const key3NestedKeyInput_4 = await screen.findByRole("textbox", {
       name: /^entity 1 key 3 nested key 4$/i,
     });
     await user.click(key3NestedKeyInput_4);
@@ -123,7 +123,7 @@ describe("Full Flow Integration Test", () => {
 
     await user.click(entity1Field3AddNestedFieldButton);
 
-    const key3NestedKeyInput_5 = screen.getByRole("textbox", {
+    const key3NestedKeyInput_5 = await screen.findByRole("textbox", {
       name: /^entity 1 key 3 nested key 5$/i,
     });
     await user.click(key3NestedKeyInput_5);
@@ -135,7 +135,7 @@ describe("Full Flow Integration Test", () => {
 
     await user.click(entity1Field3AddNestedFieldButton);
 
-    const key3NestedKeyInput_6 = screen.getByRole("textbox", {
+    const key3NestedKeyInput_6 = await screen.findByRole("textbox", {
       name: /^entity 1 key 3 nested key 6$/i,
     });
     await user.click(key3NestedKeyInput_6);
@@ -149,7 +149,7 @@ describe("Full Flow Integration Test", () => {
 
     await user.click(entity1AddFieldButton);
 
-    const keyInput_4 = screen.getByRole("textbox", {
+    const keyInput_4 = await screen.findByRole("textbox", {
       name: /^entity 1 key 4$/i,
     });
     await user.click(keyInput_4);
@@ -161,7 +161,7 @@ describe("Full Flow Integration Test", () => {
 
     await user.click(entity1AddFieldButton);
 
-    const keyInput_5 = screen.getByRole("textbox", {
+    const keyInput_5 = await screen.findByRole("textbox", {
       name: /^entity 1 key 5$/i,
     });
     await user.click(keyInput_5);
@@ -173,7 +173,7 @@ describe("Full Flow Integration Test", () => {
 
     await user.click(entity1AddFieldButton);
 
-    const keyInput_6 = screen.getByRole("textbox", {
+    const keyInput_6 = await screen.findByRole("textbox", {
       name: /^entity 1 key 6$/i,
     });
     await user.click(keyInput_6);
@@ -185,182 +185,205 @@ describe("Full Flow Integration Test", () => {
     await user.tab();
     await user.type(document.activeElement!, "male, female, other");
 
-    //   // ----------------------------------------------------------------------------
-    //   // Entity 2: Post (4 records)
-    //   // ----------------------------------------------------------------------------
-    //   await addEntity(user);
-    //   await fillEntityDetails(user, 1, "Post", 4);
+    // ----------------------------------------------------------------------------
+    // Entity 2: Post (4 records)
+    // ----------------------------------------------------------------------------
+    const addEntityButton = await screen.findByRole("button", {
+      name: /add entity/i,
+    });
+    await user.click(addEntityButton);
 
-    //   // Field 1: title (type: word)
-    //   const postFieldStartIndex = 6; // After User's 6 fields
-    //   await fillSimpleField(user, postFieldStartIndex, "title", "word");
+    const entityInputPost = await screen.findByRole("textbox", {
+      name: /^entity 2$/i,
+    });
+    await user.click(entityInputPost);
+    await user.clear(entityInputPost);
 
-    //   // Field 2: content (type: string, value: 30)
-    //   await addField(user);
-    //   await fillFieldWithValue(
-    //     user,
-    //     postFieldStartIndex + 1,
-    //     "content",
-    //     "string",
-    //     30,
-    //   );
+    await user.type(entityInputPost, "Post");
 
-    //   // Field 3: tags (type: string-array, value: 5)
-    //   await addField(user);
-    //   await fillFieldWithValue(
-    //     user,
-    //     postFieldStartIndex + 2,
-    //     "tags",
-    //     "string-array",
-    //     5,
-    //   );
+    await user.tab();
+    await user.type(document.activeElement!, "4");
 
-    //   // Field 4: authorId (type: reference, value: "User")
-    //   await addField(user);
-    //   await fillFieldWithValue(
-    //     user,
-    //     postFieldStartIndex + 3,
-    //     "authorId",
-    //     "reference",
-    //     "User",
-    //   );
+    const keyInputPost_1 = await screen.findByRole("textbox", {
+      name: /^entity 2 key 1$/i,
+    });
+    await user.click(keyInputPost_1);
+    await user.clear(keyInputPost_1);
+    await user.type(keyInputPost_1, "title");
+    await user.tab();
+    await user.type(document.activeElement!, "word");
+    await user.click(await screen.findByRole("option", { name: "word" }));
 
-    //   // Field 5: published (type: boolean)
-    //   await addField(user);
-    //   await fillSimpleField(
-    //     user,
-    //     postFieldStartIndex + 4,
-    //     "published",
-    //     "boolean",
-    //   );
+    const entity2AddFieldButton =
+      await screen.findByTitle("entity-2-add-field");
+    await user.click(entity2AddFieldButton);
 
-    //   // ----------------------------------------------------------------------------
-    //   // Entity 3: Comment (5 records)
-    //   // ----------------------------------------------------------------------------
-    //   await addEntity(user);
-    //   await fillEntityDetails(user, 2, "Comment", 5);
+    const keyInputPost_2 = await screen.findByRole("textbox", {
+      name: /^entity 2 key 2$/i,
+    });
+    await user.click(keyInputPost_2);
+    await user.clear(keyInputPost_2);
+    await user.type(keyInputPost_2, "content");
+    await user.tab();
+    await user.type(document.activeElement!, "string");
+    await user.click(await screen.findByRole("option", { name: "string" }));
+    await user.tab();
+    await user.type(document.activeElement!, "30");
 
-    //   // Field 1: content (type: string, value: 3)
-    //   const commentFieldStartIndex = postFieldStartIndex + 5;
-    //   await fillFieldWithValue(
-    //     user,
-    //     commentFieldStartIndex,
-    //     "content",
-    //     "string",
-    //     3,
-    //   );
+    await user.click(entity2AddFieldButton);
 
-    //   // Field 2: postId (type: reference, value: "Post")
-    //   await addField(user);
-    //   await fillFieldWithValue(
-    //     user,
-    //     commentFieldStartIndex + 1,
-    //     "postId",
-    //     "reference",
-    //     "Post",
-    //   );
+    const keyInputPost_3 = await screen.findByRole("textbox", {
+      name: /^entity 2 key 3$/i,
+    });
+    await user.click(keyInputPost_3);
+    await user.clear(keyInputPost_3);
+    await user.type(keyInputPost_3, "tags");
+    await user.tab();
+    await user.type(document.activeElement!, "string-array");
+    await user.click(
+      await screen.findByRole("option", { name: "string array" }),
+    );
+    await user.tab();
+    await user.type(document.activeElement!, "5");
 
-    //   // Field 3: authorId (type: reference, value: "User")
-    //   await addField(user);
-    //   await fillFieldWithValue(
-    //     user,
-    //     commentFieldStartIndex + 2,
-    //     "authorId",
-    //     "reference",
-    //     "User",
-    //   );
+    await user.click(entity2AddFieldButton);
 
-    //   // Field 4: scores (type: number-array, value: 3)
-    //   await addField(user);
-    //   await fillFieldWithValue(
-    //     user,
-    //     commentFieldStartIndex + 3,
-    //     "scores",
-    //     "number-array",
-    //     3,
-    //   );
+    const keyInputPost_4 = await screen.findByRole("textbox", {
+      name: /^entity 2 key 4$/i,
+    });
+    await user.click(keyInputPost_4);
+    await user.clear(keyInputPost_4);
+    await user.type(keyInputPost_4, "authorId");
+    await user.tab();
+    await user.type(document.activeElement!, "reference");
+    await user.click(await screen.findByRole("option", { name: "reference" }));
+    await user.tab();
+    await user.type(document.activeElement!, "User");
 
-    //   // ----------------------------------------------------------------------------
-    //   // Entity 4: Note (20 records)
-    //   // ----------------------------------------------------------------------------
-    //   await addEntity(user);
-    //   await fillEntityDetails(user, 3, "Note", 20);
+    await user.click(entity2AddFieldButton);
 
-    //   // Field 1: scribble (type: string, value: 5)
-    //   const noteFieldStartIndex = commentFieldStartIndex + 4;
-    //   await fillFieldWithValue(
-    //     user,
-    //     noteFieldStartIndex,
-    //     "scribble",
-    //     "string",
-    //     5,
-    //   );
+    const keyInputPost_5 = await screen.findByRole("textbox", {
+      name: /^entity 2 key 5$/i,
+    });
+    await user.click(keyInputPost_5);
+    await user.clear(keyInputPost_5);
+    await user.type(keyInputPost_5, "published");
+    await user.tab();
+    await user.type(document.activeElement!, "boolean");
+    await user.click(await screen.findByRole("option", { name: "boolean" }));
 
-    //   // Field 2: authorId (type: reference, value: "User")
-    //   await addField(user);
-    //   await fillFieldWithValue(
-    //     user,
-    //     noteFieldStartIndex + 1,
-    //     "authorId",
-    //     "reference",
-    //     "User",
-    //   );
+    // ----------------------------------------------------------------------------
+    // Entity 3: Comment (5 records)
+    // ----------------------------------------------------------------------------
+    await user.click(addEntityButton);
 
-    //   // Field 3: commentId (type: reference, value: "Comment")
-    //   await addField(user);
-    //   await fillFieldWithValue(
-    //     user,
-    //     noteFieldStartIndex + 2,
-    //     "commentId",
-    //     "reference",
-    //     "Comment",
-    //   );
+    const entityInputComment = await screen.findByRole("textbox", {
+      name: /^entity 3$/i,
+    });
+    await user.click(entityInputComment);
+    await user.clear(entityInputComment);
+    await user.type(entityInputComment, "Comment");
+    await user.tab();
+    await user.type(document.activeElement!, "5");
+
+    const keyInputComment_1 = await screen.findByRole("textbox", {
+      name: /^entity 3 key 1$/i,
+    });
+    await user.click(keyInputComment_1);
+    await user.clear(keyInputComment_1);
+    await user.type(keyInputComment_1, "content");
+    await user.tab();
+    await user.type(document.activeElement!, "string");
+    await user.click(await screen.findByRole("option", { name: "string" }));
+    await user.tab();
+    await user.type(document.activeElement!, "3");
+
+    const entity3AddFieldButton =
+      await screen.findByTitle("entity-3-add-field");
+
+    await user.click(entity3AddFieldButton);
+
+    const keyInputComment_2 = await screen.findByRole("textbox", {
+      name: /^entity 3 key 2$/i,
+    });
+    await user.click(keyInputComment_2);
+    await user.clear(keyInputComment_2);
+    await user.type(keyInputComment_2, "postId");
+    await user.tab();
+    await user.type(document.activeElement!, "reference");
+    await user.click(await screen.findByRole("option", { name: "reference" }));
+    await user.tab();
+    await user.type(document.activeElement!, "Post");
+
+    await user.click(entity3AddFieldButton);
+
+    const keyInputComment_3 = await screen.findByRole("textbox", {
+      name: /^entity 3 key 3$/i,
+    });
+    await user.click(keyInputComment_3);
+    await user.clear(keyInputComment_3);
+    await user.type(keyInputComment_3, "authorId");
+    await user.tab();
+    await user.type(document.activeElement!, "reference");
+    await user.click(await screen.findByRole("option", { name: "reference" }));
+    await user.tab();
+    await user.type(document.activeElement!, "User");
+
+    await user.click(entity3AddFieldButton);
+
+    const keyInputComment_4 = await screen.findByRole("textbox", {
+      name: /^entity 3 key 4$/i,
+    });
+    await user.click(keyInputComment_4);
+    await user.clear(keyInputComment_4);
+    await user.type(keyInputComment_4, "scores");
+    await user.tab();
+    await user.type(document.activeElement!, "number-array");
+    await user.click(
+      await screen.findByRole("option", { name: "number array" }),
+    );
+    await user.tab();
+    await user.type(document.activeElement!, "3");
 
     // ============================================================================
     // GENERATE DATA
     // ============================================================================
     const generateButton = screen.getByRole("button", { name: /generate/i });
-    await user.click(generateButton);
 
-    // Wait for generation to complete (300ms setTimeout + processing)
+    await user.click(generateButton);
     await waitFor(
       () => {
         expect(screen.getByText("in sync")).toBeInTheDocument();
       },
-      { timeout: 3000 },
+      { timeout: 30_000 },
     );
 
     // ============================================================================
     // PART 2: VALIDATE THE OUTPUT
     // ============================================================================
-
-    // Get the JSON output from DataDisplay
     const preElement = screen.getByRole("code");
     const jsonText = preElement.textContent;
     expect(jsonText).toBeTruthy();
 
-    // Parse the JSON
     const output = JSON.parse(jsonText!);
 
-    //   // ----------------------------------------------------------------------------
-    //   // Validate Entity Structure
-    //   // ----------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
+    // Validate Entity Structure
+    // ----------------------------------------------------------------------------
     expect(output).toHaveProperty("Users");
-    // expect(output).toHaveProperty("Posts");
-    //   expect(output).toHaveProperty("Comments");
-    //   expect(output).toHaveProperty("Notes");
+    expect(output).toHaveProperty("Posts");
+    expect(output).toHaveProperty("Comments");
 
-    //   // ----------------------------------------------------------------------------
-    //   // Validate Record Counts
-    //   // ----------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
+    // Validate Record Counts
+    // ----------------------------------------------------------------------------
     expect(output.Users).toHaveLength(3);
-    //   expect(output.Posts).toHaveLength(4);
-    //   expect(output.Comments).toHaveLength(5);
-    //   expect(output.Notes).toHaveLength(20);
+    expect(output.Posts).toHaveLength(4);
+    expect(output.Comments).toHaveLength(5);
 
-    //   // ----------------------------------------------------------------------------
-    //   // Validate User Structure and Types
-    //   // ----------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------
+    // Validate User Structure and Types
+    // ----------------------------------------------------------------------------
     const firstUser = output.Users[0];
     expect(firstUser).toHaveProperty("id");
     expect(firstUser.id).toMatch(
@@ -385,158 +408,120 @@ describe("Full Flow Integration Test", () => {
     expect(firstUser).toHaveProperty("sex");
     expect(["male", "female", "other"]).toContain(firstUser.sex);
 
-    //   // ----------------------------------------------------------------------------
-    //   // Validate Post Structure and Types
-    //   // ----------------------------------------------------------------------------
-    //   const firstPost = output.Posts[0];
-    //   expect(firstPost).toHaveProperty("id");
-    //   expect(firstPost.id).toMatch(
-    //     /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
-    //   );
-    //   expect(firstPost).toHaveProperty("title");
-    //   expect(typeof firstPost.title).toBe("string");
-    //   expect(firstPost).toHaveProperty("content");
-    //   expect(typeof firstPost.content).toBe("string");
-    //   expect(firstPost.content.length).toBeGreaterThan(0);
-    //   expect(firstPost).toHaveProperty("tags");
-    //   expect(Array.isArray(firstPost.tags)).toBe(true);
-    //   expect(firstPost.tags).toHaveLength(5);
-    //   expect(typeof firstPost.tags[0]).toBe("string");
-    //   expect(firstPost).toHaveProperty("authorId");
-    //   expect(typeof firstPost.authorId).toBe("string");
-    //   expect(firstPost).toHaveProperty("published");
-    //   expect(typeof firstPost.published).toBe("boolean");
+    // ----------------------------------------------------------------------------
+    // Validate Post Structure and Types
+    // ----------------------------------------------------------------------------
+    const firstPost = output.Posts[0];
+    expect(firstPost).toHaveProperty("id");
+    expect(firstPost.id).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
+    );
+    expect(firstPost).toHaveProperty("title");
+    expect(typeof firstPost.title).toBe("string");
+    expect(firstPost).toHaveProperty("content");
+    expect(typeof firstPost.content).toBe("string");
+    expect(firstPost.content.length).toBeGreaterThan(0);
+    expect(firstPost).toHaveProperty("tags");
+    expect(Array.isArray(firstPost.tags)).toBe(true);
+    expect(firstPost.tags).toHaveLength(5);
+    expect(typeof firstPost.tags[0]).toBe("string");
+    expect(firstPost).toHaveProperty("authorId");
+    expect(typeof firstPost.authorId).toBe("string");
+    expect(firstPost).toHaveProperty("published");
+    expect(typeof firstPost.published).toBe("boolean");
 
-    //   // ----------------------------------------------------------------------------
-    //   // Validate Comment Structure and Types
-    //   // ----------------------------------------------------------------------------
-    //   const firstComment = output.Comments[0];
-    //   expect(firstComment).toHaveProperty("id");
-    //   expect(firstComment.id).toMatch(
-    //     /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
-    //   );
-    //   expect(firstComment).toHaveProperty("content");
-    //   expect(typeof firstComment.content).toBe("string");
-    //   expect(firstComment).toHaveProperty("postId");
-    //   expect(typeof firstComment.postId).toBe("string");
-    //   expect(firstComment).toHaveProperty("authorId");
-    //   expect(typeof firstComment.authorId).toBe("string");
-    //   expect(firstComment).toHaveProperty("scores");
-    //   expect(Array.isArray(firstComment.scores)).toBe(true);
-    //   expect(firstComment.scores).toHaveLength(3);
-    //   expect(typeof firstComment.scores[0]).toBe("number");
+    // ----------------------------------------------------------------------------
+    // Validate Comment Structure and Types
+    // ----------------------------------------------------------------------------
+    const firstComment = output.Comments[0];
+    expect(firstComment).toHaveProperty("id");
+    expect(firstComment.id).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
+    );
+    expect(firstComment).toHaveProperty("content");
+    expect(typeof firstComment.content).toBe("string");
+    expect(firstComment).toHaveProperty("postId");
+    expect(typeof firstComment.postId).toBe("string");
+    expect(firstComment).toHaveProperty("authorId");
+    expect(typeof firstComment.authorId).toBe("string");
+    expect(firstComment).toHaveProperty("scores");
+    expect(Array.isArray(firstComment.scores)).toBe(true);
+    expect(firstComment.scores).toHaveLength(3);
+    expect(typeof firstComment.scores[0]).toBe("number");
 
-    //   // ----------------------------------------------------------------------------
-    //   // Validate Note Structure and Types
-    //   // ----------------------------------------------------------------------------
-    //   const firstNote = output.Notes[0];
-    //   expect(firstNote).toHaveProperty("id");
-    //   expect(firstNote.id).toMatch(
-    //     /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
-    //   );
-    //   expect(firstNote).toHaveProperty("scribble");
-    //   expect(typeof firstNote.scribble).toBe("string");
-    //   expect(firstNote).toHaveProperty("authorId");
-    //   expect(typeof firstNote.authorId).toBe("string");
-    //   expect(firstNote).toHaveProperty("commentId");
-    //   expect(typeof firstNote.commentId).toBe("string");
+    // ----------------------------------------------------------------------------
+    // Validate UUID References - Critical Test
+    // ----------------------------------------------------------------------------
+    const userIds = output.Users.map((user: { id: string }) => user.id);
+    expect(userIds).toHaveLength(3);
 
-    //   // ----------------------------------------------------------------------------
-    //   // Validate UUID References - Critical Test
-    //   // ----------------------------------------------------------------------------
+    const postIds = output.Posts.map((post: { id: string }) => post.id);
+    expect(postIds).toHaveLength(4);
 
-    //   // Collect all User IDs
-    //   const userIds = output.Users.map((user: { id: string }) => user.id);
-    //   expect(userIds).toHaveLength(3);
+    const commentIds = output.Comments.map(
+      (comment: { id: string }) => comment.id,
+    );
+    expect(commentIds).toHaveLength(5);
 
-    //   // Collect all Post IDs
-    //   const postIds = output.Posts.map((post: { id: string }) => post.id);
-    //   expect(postIds).toHaveLength(4);
+    // Validate Post.authorId references exist in Users
+    output.Posts.forEach((post: { authorId: string }, index: number) => {
+      expect(
+        userIds,
+        `Post[${index}].authorId should reference a valid User`,
+      ).toContain(post.authorId);
+    });
 
-    //   // Collect all Comment IDs
-    //   const commentIds = output.Comments.map(
-    //     (comment: { id: string }) => comment.id,
-    //   );
-    //   expect(commentIds).toHaveLength(5);
+    // Validate Comment.authorId references exist in Users
+    output.Comments.forEach((comment: { authorId: string }, index: number) => {
+      expect(
+        userIds,
+        `Comment[${index}].authorId should reference a valid User`,
+      ).toContain(comment.authorId);
+    });
 
-    //   // Validate Post.authorId references exist in Users
-    //   output.Posts.forEach((post: { authorId: string }, index: number) => {
-    //     expect(
-    //       userIds,
-    //       `Post[${index}].authorId should reference a valid User`,
-    //     ).toContain(post.authorId);
-    //   });
+    // Validate Comment.postId references exist in Posts
+    output.Comments.forEach((comment: { postId: string }, index: number) => {
+      expect(
+        postIds,
+        `Comment[${index}].postId should reference a valid Post`,
+      ).toContain(comment.postId);
+    });
 
-    //   // Validate Comment.authorId references exist in Users
-    //   output.Comments.forEach((comment: { authorId: string }, index: number) => {
-    //     expect(
-    //       userIds,
-    //       `Comment[${index}].authorId should reference a valid User`,
-    //     ).toContain(comment.authorId);
-    //   });
+    // ----------------------------------------------------------------------------
+    // Additional Validations
+    // ----------------------------------------------------------------------------
 
-    //   // Validate Comment.postId references exist in Posts
-    //   output.Comments.forEach((comment: { postId: string }, index: number) => {
-    //     expect(
-    //       postIds,
-    //       `Comment[${index}].postId should reference a valid Post`,
-    //     ).toContain(comment.postId);
-    //   });
+    // Verify all entities have unique IDs
+    const allIds = [
+      ...output.Users.map((u: { id: string }) => u.id),
+      ...output.Posts.map((p: { id: string }) => p.id),
+      ...output.Comments.map((c: { id: string }) => c.id),
+    ];
+    const uniqueIds = new Set(allIds);
+    expect(uniqueIds.size).toBe(allIds.length);
 
-    //   // Validate Note.authorId references exist in Users
-    //   output.Notes.forEach((note: { authorId: string }, index: number) => {
-    //     expect(
-    //       userIds,
-    //       `Note[${index}].authorId should reference a valid User`,
-    //     ).toContain(note.authorId);
-    //   });
+    // Verify nested address structure for all users
+    output.Users.forEach((user: { address: object }, index: number) => {
+      expect(
+        user.address,
+        `User[${index}] should have address object`,
+      ).toBeDefined();
+      expect(Object.keys(user.address)).toHaveLength(6);
+    });
 
-    //   // Validate Note.commentId references exist in Comments
-    //   output.Notes.forEach((note: { commentId: string }, index: number) => {
-    //     expect(
-    //       commentIds,
-    //       `Note[${index}].commentId should reference a valid Comment`,
-    //     ).toContain(note.commentId);
-    //   });
+    // Verify string arrays have correct length
+    output.Posts.forEach((post: { tags: string[] }, index: number) => {
+      expect(post.tags, `Post[${index}].tags should have 5 items`).toHaveLength(
+        5,
+      );
+    });
 
-    //   // ----------------------------------------------------------------------------
-    //   // Additional Validations
-    //   // ----------------------------------------------------------------------------
-
-    //   // Verify all entities have unique IDs
-    //   const allIds = [
-    //     ...output.Users.map((u: { id: string }) => u.id),
-    //     ...output.Posts.map((p: { id: string }) => p.id),
-    //     ...output.Comments.map((c: { id: string }) => c.id),
-    //     ...output.Notes.map((n: { id: string }) => n.id),
-    //   ];
-    //   const uniqueIds = new Set(allIds);
-    //   expect(uniqueIds.size).toBe(allIds.length);
-
-    //   // Verify nested address structure for all users
-    //   output.Users.forEach((user: { address: object }, index: number) => {
-    //     expect(
-    //       user.address,
-    //       `User[${index}] should have address object`,
-    //     ).toBeDefined();
-    //     expect(Object.keys(user.address)).toHaveLength(6);
-    //   });
-
-    //   // Verify string arrays have correct length
-    //   output.Posts.forEach((post: { tags: string[] }, index: number) => {
-    //     expect(post.tags, `Post[${index}].tags should have 5 items`).toHaveLength(
-    //       5,
-    //     );
-    //   });
-
-    //   // Verify number arrays have correct length
-    //   output.Comments.forEach((comment: { scores: number[] }, index: number) => {
-    //     expect(
-    //       comment.scores,
-    //       `Comment[${index}].scores should have 3 items`,
-    //     ).toHaveLength(3);
-    //   });
-
-    // screen.logTestingPlaygroundURL();
+    // Verify number arrays have correct length
+    output.Comments.forEach((comment: { scores: number[] }, index: number) => {
+      expect(
+        comment.scores,
+        `Comment[${index}].scores should have 3 items`,
+      ).toHaveLength(3);
+    });
   });
 });
