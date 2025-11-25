@@ -2,6 +2,10 @@ import App from "@/App";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
+import {
+  findByRoleClickClearType,
+  findByRoleClickClearTypeTabSelect,
+} from "./test-utils";
 
 describe("Full Flow Integration Test", () => {
   it("should fill the form with example data, generate output, and validate structure and references", async () => {
@@ -19,169 +23,154 @@ describe("Full Flow Integration Test", () => {
     // ----------------------------------------------------------------------------
     // Entity 1: User (3 records)
     // ----------------------------------------------------------------------------
-    const entityInputUser = await screen.findByRole("textbox", {
-      name: /^entity 1$/i,
-    });
-    await user.click(entityInputUser);
-    await user.clear(entityInputUser);
-    await user.type(entityInputUser, "User");
 
-    const recordInput = await screen.findByRole("textbox", {
-      name: /number of records/i,
-    });
-    await user.click(recordInput);
-    await user.clear(recordInput);
-    await user.type(recordInput, "3");
-
-    const keyInput_0 = await screen.findByRole("textbox", {
-      name: /^entity 1 key 1$/i,
-    });
-    await user.click(keyInput_0);
-    await user.clear(keyInput_0);
-    await user.type(keyInput_0, "name");
-    await user.tab();
-    await user.type(document.activeElement!, "name");
-    await user.click(await screen.findByRole("option", { name: "name" }));
+    await findByRoleClickClearType(user, "textbox", /^entity 1$/i, "User");
+    await findByRoleClickClearType(user, "textbox", /number of records/i, "3");
+    await findByRoleClickClearTypeTabSelect(
+      user,
+      "textbox",
+      /^entity 1 key 1$/i,
+      "name",
+      "name",
+    );
 
     const entity1AddFieldButton =
       await screen.findByTitle("entity-1-add-field");
     await user.click(entity1AddFieldButton);
 
-    const keyInput_1 = await screen.findByRole("textbox", {
-      name: /^entity 1 key 2$/i,
-    });
-    await user.click(keyInput_1);
-    await user.clear(keyInput_1);
-    await user.type(keyInput_1, "email");
-    await user.tab();
-    await user.type(document.activeElement!, "email");
-    await user.click(await screen.findByRole("option", { name: "email" }));
+    await findByRoleClickClearTypeTabSelect(
+      user,
+      "textbox",
+      /^entity 1 key 2$/i,
+      "email",
+      "email",
+    );
 
     await user.click(entity1AddFieldButton);
 
-    const keyInput_nested = await screen.findByRole("textbox", {
-      name: /^entity 1 key 3$/i,
-    });
-    await user.click(keyInput_nested);
-    await user.clear(keyInput_nested);
-    await user.type(keyInput_nested, "address");
-    await user.tab();
-    await user.type(document.activeElement!, "nested");
-    await user.click(await screen.findByRole("option", { name: "nested" }));
+    await findByRoleClickClearTypeTabSelect(
+      user,
+      "textbox",
+      /^entity 1 key 3$/i,
+      "address",
+      "nested",
+    );
 
     const entity1Field3AddNestedFieldButton = await screen.findByTitle(
       "entity-1-field-3-add-nested-field",
     );
 
-    await user.click(entity1Field3AddNestedFieldButton);
+    // line 84 - 143
+    // (
+    //   [
+    //     ["street", "street", 1],
+    //     ["city", "city", 2],
+    //     ["zipCode", "zip code", 3],
+    //     ["country", "country", 4],
+    //     ["state", "state", 5],
+    //     ["buildingNumber", "building number", 6],
+    //   ] as const
+    // ).forEach(async ([key, value, index]) => {
+    //   await user.click(entity1Field3AddNestedFieldButton);
 
-    const key3NestedKeyInput_1 = await screen.findByRole("textbox", {
-      name: /^entity 1 key 3 nested key 1$/i,
-    });
-    await user.click(key3NestedKeyInput_1);
-    await user.clear(key3NestedKeyInput_1);
-    await user.type(key3NestedKeyInput_1, "street");
-    await user.tab();
-    await user.type(document.activeElement!, "street");
-    await user.click(await screen.findByRole("option", { name: "street" }));
-
-    await user.click(entity1Field3AddNestedFieldButton);
-
-    const key3NestedKeyInput_2 = await screen.findByRole("textbox", {
-      name: /^entity 1 key 3 nested key 2$/i,
-    });
-    await user.click(key3NestedKeyInput_2);
-    await user.clear(key3NestedKeyInput_2);
-    await user.type(key3NestedKeyInput_2, "city");
-    await user.tab();
-    await user.type(document.activeElement!, "city");
-    await user.click(await screen.findByRole("option", { name: "city" }));
+    //   await findByRoleClickClearTypeTabSelect(
+    //     user,
+    //     "textbox",
+    //     `Entity 1 Key 3 Nested Key ${index}`,
+    //     key,
+    //     value,
+    //   );
+    // });
 
     await user.click(entity1Field3AddNestedFieldButton);
 
-    const key3NestedKeyInput_3 = await screen.findByRole("textbox", {
-      name: /^entity 1 key 3 nested key 3$/i,
-    });
-    await user.click(key3NestedKeyInput_3);
-    await user.clear(key3NestedKeyInput_3);
-    await user.type(key3NestedKeyInput_3, "zipCode");
-    await user.tab();
-    await user.type(document.activeElement!, "zip-code");
-    await user.click(await screen.findByRole("option", { name: "zip-code" }));
+    await findByRoleClickClearTypeTabSelect(
+      user,
+      "textbox",
+      "Entity 1 Key 3 Nested Key 1",
+      "street",
+      "street",
+    );
 
     await user.click(entity1Field3AddNestedFieldButton);
 
-    const key3NestedKeyInput_4 = await screen.findByRole("textbox", {
-      name: /^entity 1 key 3 nested key 4$/i,
-    });
-    await user.click(key3NestedKeyInput_4);
-    await user.clear(key3NestedKeyInput_4);
-    await user.type(key3NestedKeyInput_4, "country");
-    await user.tab();
-    await user.type(document.activeElement!, "country");
-    await user.click(await screen.findByRole("option", { name: "country" }));
+    await findByRoleClickClearTypeTabSelect(
+      user,
+      "textbox",
+      /^entity 1 key 3 nested key 2$/i,
+      "city",
+      "city",
+    );
 
     await user.click(entity1Field3AddNestedFieldButton);
 
-    const key3NestedKeyInput_5 = await screen.findByRole("textbox", {
-      name: /^entity 1 key 3 nested key 5$/i,
-    });
-    await user.click(key3NestedKeyInput_5);
-    await user.clear(key3NestedKeyInput_5);
-    await user.type(key3NestedKeyInput_5, "state");
-    await user.tab();
-    await user.type(document.activeElement!, "state");
-    await user.click(await screen.findByRole("option", { name: "state" }));
+    await findByRoleClickClearTypeTabSelect(
+      user,
+      "textbox",
+      /^entity 1 key 3 nested key 3$/i,
+      "zipCode",
+      "zip code",
+    );
 
     await user.click(entity1Field3AddNestedFieldButton);
 
-    const key3NestedKeyInput_6 = await screen.findByRole("textbox", {
-      name: /^entity 1 key 3 nested key 6$/i,
-    });
-    await user.click(key3NestedKeyInput_6);
-    await user.clear(key3NestedKeyInput_6);
-    await user.type(key3NestedKeyInput_6, "buildingNumber");
-    await user.tab();
-    await user.type(document.activeElement!, "building-number");
-    await user.click(
-      await screen.findByRole("option", { name: "building-number" }),
+    await findByRoleClickClearTypeTabSelect(
+      user,
+      "textbox",
+      /^entity 1 key 3 nested key 4$/i,
+      "country",
+      "country",
+    );
+
+    await user.click(entity1Field3AddNestedFieldButton);
+
+    await findByRoleClickClearTypeTabSelect(
+      user,
+      "textbox",
+      /^entity 1 key 3 nested key 5$/i,
+      "state",
+      "state",
+    );
+
+    await user.click(entity1Field3AddNestedFieldButton);
+
+    await findByRoleClickClearTypeTabSelect(
+      user,
+      "textbox",
+      /^entity 1 key 3 nested key 6$/i,
+      "buildingNumber",
+      "building number",
     );
 
     await user.click(entity1AddFieldButton);
 
-    const keyInput_4 = await screen.findByRole("textbox", {
-      name: /^entity 1 key 4$/i,
-    });
-    await user.click(keyInput_4);
-    await user.clear(keyInput_4);
-    await user.type(keyInput_4, "age");
-    await user.tab();
-    await user.type(document.activeElement!, "age");
-    await user.click(await screen.findByRole("option", { name: "age" }));
+    await findByRoleClickClearTypeTabSelect(
+      user,
+      "textbox",
+      /^entity 1 key 4$/i,
+      "age",
+      "age",
+    );
 
     await user.click(entity1AddFieldButton);
 
-    const keyInput_5 = await screen.findByRole("textbox", {
-      name: /^entity 1 key 5$/i,
-    });
-    await user.click(keyInput_5);
-    await user.clear(keyInput_5);
-    await user.type(keyInput_5, "isActive");
-    await user.tab();
-    await user.type(document.activeElement!, "boolean");
-    await user.click(await screen.findByRole("option", { name: "boolean" }));
+    await findByRoleClickClearTypeTabSelect(
+      user,
+      "textbox",
+      /^entity 1 key 5$/i,
+      "isActive",
+      "boolean",
+    );
 
     await user.click(entity1AddFieldButton);
 
-    const keyInput_6 = await screen.findByRole("textbox", {
-      name: /^entity 1 key 6$/i,
-    });
-    await user.click(keyInput_6);
-    await user.clear(keyInput_6);
-    await user.type(keyInput_6, "sex");
-    await user.tab();
-    await user.type(document.activeElement!, "one-of");
-    await user.click(await screen.findByRole("option", { name: "one of" }));
+    await findByRoleClickClearTypeTabSelect(
+      user,
+      "textbox",
+      /^entity 1 key 6$/i,
+      "sex",
+      "one of",
+    );
     await user.tab();
     await user.type(document.activeElement!, "male, female, other");
 
