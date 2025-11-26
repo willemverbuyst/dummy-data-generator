@@ -251,73 +251,58 @@ describe("Full Flow Integration Test", () => {
     // ----------------------------------------------------------------------------
     await user.click(addEntityButton);
 
-    const entityInputComment = await screen.findByRole("textbox", {
-      name: /^entity 3$/i,
-    });
-    await user.click(entityInputComment);
-    await user.clear(entityInputComment);
-    await user.type(entityInputComment, "Comment");
-    await user.tab();
-    await user.type(document.activeElement!, "5");
+    await findByRoleClickClearTypeTabType(
+      user,
+      "textbox",
+      /^entity 3$/i,
+      "Comment",
+      "5",
+    );
 
-    const keyInputComment_1 = await screen.findByRole("textbox", {
-      name: /^entity 3 key 1$/i,
-    });
-    await user.click(keyInputComment_1);
-    await user.clear(keyInputComment_1);
-    await user.type(keyInputComment_1, "content");
-    await user.tab();
-    await user.type(document.activeElement!, "string");
-    await user.click(await screen.findByRole("option", { name: "string" }));
-    await user.tab();
-    await user.type(document.activeElement!, "3");
+    await findByRoleClickClearTypeTabSelectType(
+      user,
+      "textbox",
+      /^entity 3 key 1$/i,
+      "content",
+      "string",
+      "3",
+    );
 
     const entity3AddFieldButton =
       await screen.findByTitle("entity-3-add-field");
 
     await user.click(entity3AddFieldButton);
 
-    const keyInputComment_2 = await screen.findByRole("textbox", {
-      name: /^entity 3 key 2$/i,
-    });
-    await user.click(keyInputComment_2);
-    await user.clear(keyInputComment_2);
-    await user.type(keyInputComment_2, "postId");
-    await user.tab();
-    await user.type(document.activeElement!, "reference");
-    await user.click(await screen.findByRole("option", { name: "reference" }));
-    await user.tab();
-    await user.type(document.activeElement!, "Post");
-
-    await user.click(entity3AddFieldButton);
-
-    const keyInputComment_3 = await screen.findByRole("textbox", {
-      name: /^entity 3 key 3$/i,
-    });
-    await user.click(keyInputComment_3);
-    await user.clear(keyInputComment_3);
-    await user.type(keyInputComment_3, "authorId");
-    await user.tab();
-    await user.type(document.activeElement!, "reference");
-    await user.click(await screen.findByRole("option", { name: "reference" }));
-    await user.tab();
-    await user.type(document.activeElement!, "User");
-
-    await user.click(entity3AddFieldButton);
-
-    const keyInputComment_4 = await screen.findByRole("textbox", {
-      name: /^entity 3 key 4$/i,
-    });
-    await user.click(keyInputComment_4);
-    await user.clear(keyInputComment_4);
-    await user.type(keyInputComment_4, "scores");
-    await user.tab();
-    await user.type(document.activeElement!, "number-array");
-    await user.click(
-      await screen.findByRole("option", { name: "number array" }),
+    await findByRoleClickClearTypeTabSelectType(
+      user,
+      "textbox",
+      /^entity 3 key 2$/i,
+      "postId",
+      "reference",
+      "Post",
     );
-    await user.tab();
-    await user.type(document.activeElement!, "3");
+
+    await user.click(entity3AddFieldButton);
+
+    await findByRoleClickClearTypeTabSelectType(
+      user,
+      "textbox",
+      /^entity 3 key 3$/i,
+      "authorId",
+      "reference",
+      "User",
+    );
+
+    await user.click(entity3AddFieldButton);
+
+    await findByRoleClickClearTypeTabSelectType(
+      user,
+      "textbox",
+      /^entity 3 key 4$/i,
+      "scores",
+      "number array",
+      "3",
+    );
 
     // ============================================================================
     // GENERATE DATA
