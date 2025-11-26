@@ -67,87 +67,24 @@ describe("Full Flow Integration Test", () => {
       "entity-1-field-3-add-nested-field",
     );
 
-    // line 84 - 143
-    // (
-    //   [
-    //     ["street", "street", 1],
-    //     ["city", "city", 2],
-    //     ["zipCode", "zip code", 3],
-    //     ["country", "country", 4],
-    //     ["state", "state", 5],
-    //     ["buildingNumber", "building number", 6],
-    //   ] as const
-    // ).forEach(async ([key, value, index]) => {
-    //   await user.click(entity1Field3AddNestedFieldButton);
-
-    //   await findByRoleClickClearTypeTabSelect(
-    //     user,
-    //     "textbox",
-    //     `Entity 1 Key 3 Nested Key ${index}`,
-    //     key,
-    //     value,
-    //   );
-    // });
-
-    await user.click(entity1Field3AddNestedFieldButton);
-
-    await findByRoleClickClearTypeTabSelect(
-      user,
-      "textbox",
-      /^entity 1 key 3 nested key 1$/i,
-      "street",
-      "street",
-    );
-
-    await user.click(entity1Field3AddNestedFieldButton);
-
-    await findByRoleClickClearTypeTabSelect(
-      user,
-      "textbox",
-      /^entity 1 key 3 nested key 2$/i,
-      "city",
-      "city",
-    );
-
-    await user.click(entity1Field3AddNestedFieldButton);
-
-    await findByRoleClickClearTypeTabSelect(
-      user,
-      "textbox",
-      /^entity 1 key 3 nested key 3$/i,
-      "zipCode",
-      "zip code",
-    );
-
-    await user.click(entity1Field3AddNestedFieldButton);
-
-    await findByRoleClickClearTypeTabSelect(
-      user,
-      "textbox",
-      /^entity 1 key 3 nested key 4$/i,
-      "country",
-      "country",
-    );
-
-    await user.click(entity1Field3AddNestedFieldButton);
-
-    await findByRoleClickClearTypeTabSelect(
-      user,
-      "textbox",
-      /^entity 1 key 3 nested key 5$/i,
-      "state",
-      "state",
-    );
-
-    await user.click(entity1Field3AddNestedFieldButton);
-
-    await findByRoleClickClearTypeTabSelect(
-      user,
-      "textbox",
-      /^entity 1 key 3 nested key 6$/i,
-      "buildingNumber",
-      "building number",
-    );
+    // nested fields within address
+    for (const [key, value, index] of [
+      ["street", "street", 1],
+      ["city", "city", 2],
+      ["zipCode", "zip code", 3],
+      ["country", "country", 4],
+      ["state", "state", 5],
+      ["buildingNumber", "building number", 6],
+    ] as const) {
+      await user.click(entity1Field3AddNestedFieldButton);
+      await findByRoleClickClearTypeTabSelect(
+        user,
+        "textbox",
+        `Entity 1 Key 3 Nested Key ${index}`,
+        key,
+        value,
+      );
+    }
 
     await user.click(entity1AddFieldButton);
 
