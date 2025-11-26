@@ -38,3 +38,32 @@ export async function findByRoleClickClearTypeTabSelect(
   const optionElement = await screen.findByRole("option", { name: option });
   await user.click(optionElement);
 }
+
+export async function findByRoleClickClearTypeTabType(
+  user: UserEvent,
+  role: string,
+  name: RegExp | string,
+  value1: string,
+  value2: string,
+) {
+  await findByRoleClickClearType(user, role, name, value1);
+  await user.tab();
+  await user.type(document.activeElement!, value2);
+}
+
+export async function findByRoleClickClearTypeTabSelectType(
+  user: UserEvent,
+  role: string,
+  name: RegExp | string,
+  value1: string,
+  option: string,
+  value2: string,
+) {
+  await findByRoleClickClearType(user, role, name, value1);
+  await user.tab();
+  await user.type(document.activeElement!, option);
+  const optionElement = await screen.findByRole("option", { name: option });
+  await user.click(optionElement);
+  await user.tab();
+  await user.type(document.activeElement!, value2);
+}
