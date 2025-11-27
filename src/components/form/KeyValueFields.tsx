@@ -85,7 +85,7 @@ export function KeyValueFields({
           remove={removeField}
           index={fieldIndex}
           disabled={keyValueFieldsLength === 1}
-          title={`entity-${index + 1}-remove-field`}
+          title={`entity-${index + 1}-remove-field-${fieldIndex + 1}`}
         />
       </div>
 
