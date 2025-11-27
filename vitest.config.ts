@@ -44,7 +44,7 @@ export default mergeConfig(
             globals: true,
             name: "integration",
             environment: "happy-dom",
-            setupFiles: ["./vitest.setup.ts"],
+            setupFiles: ["./vitest.setup.integration.ts"],
             include: ["tests/**/*.test.tsx"],
             alias: {
               "@/": new URL("./src/", import.meta.url).pathname,
