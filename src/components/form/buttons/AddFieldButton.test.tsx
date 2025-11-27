@@ -6,7 +6,7 @@ import { AddFieldButton } from "./AddFieldButton";
 describe("AddFieldButton", () => {
   it("renders button with correct attribute", () => {
     const mockAppend = vi.fn();
-    render(<AddFieldButton append={mockAppend} />);
+    render(<AddFieldButton append={mockAppend} title="add field" />);
 
     const button = screen.getByRole("button");
     expect(button).toHaveAttribute("type", "button");
@@ -14,7 +14,7 @@ describe("AddFieldButton", () => {
 
   it("renders the button with PlusIcon", () => {
     const mockAppend = vi.fn();
-    render(<AddFieldButton append={mockAppend} />);
+    render(<AddFieldButton append={mockAppend} title="add field" />);
 
     const button = screen.getByRole("button");
     expect(button.querySelector("svg")).toBeInTheDocument();
@@ -24,7 +24,7 @@ describe("AddFieldButton", () => {
   it("calls append with defaultField when clicked", async () => {
     const user = userEvent.setup();
     const mockAppend = vi.fn();
-    render(<AddFieldButton append={mockAppend} />);
+    render(<AddFieldButton append={mockAppend} title="add field" />);
 
     const button = screen.getByRole("button");
     await user.click(button);
@@ -36,7 +36,7 @@ describe("AddFieldButton", () => {
   it("calls append multiple times when clicked multiple times", async () => {
     const user = userEvent.setup();
     const mockAppend = vi.fn();
-    render(<AddFieldButton append={mockAppend} />);
+    render(<AddFieldButton append={mockAppend} title="add field" />);
 
     const button = screen.getByRole("button");
     await user.click(button);
@@ -44,5 +44,13 @@ describe("AddFieldButton", () => {
     await user.click(button);
 
     expect(mockAppend).toHaveBeenCalledTimes(3);
+  });
+
+  it("has accessible title", () => {
+    const mockAppend = vi.fn();
+    render(<AddFieldButton append={mockAppend} title="add field" />);
+
+    const button = screen.getByRole("button", { name: "add field" });
+    expect(button).toBeInTheDocument();
   });
 });
