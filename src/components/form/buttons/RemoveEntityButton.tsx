@@ -11,10 +11,12 @@ export function RemoveEntityButton({
   disabled,
   remove,
   index,
+  title,
 }: {
   disabled: boolean;
   remove: UseFieldArrayRemove;
   index: number;
+  title: string;
 }) {
   return (
     <Tooltip>
@@ -25,6 +27,7 @@ export function RemoveEntityButton({
           type="button"
           disabled={disabled}
           onClick={() => remove(index)}
+          title={title}
         >
           <TrashIcon />
         </Button>

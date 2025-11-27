@@ -6,10 +6,12 @@ export function RemoveFieldButton({
   disabled,
   remove,
   index,
+  title,
 }: {
   disabled: boolean;
   remove: UseFieldArrayRemove;
   index: number;
+  title: string;
 }) {
   return (
     <Button
@@ -18,6 +20,7 @@ export function RemoveFieldButton({
       type="button"
       disabled={disabled}
       onClick={() => remove(index)}
+      title={title}
     >
       <MinusIcon />
     </Button>

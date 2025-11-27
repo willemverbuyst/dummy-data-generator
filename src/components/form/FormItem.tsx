@@ -66,6 +66,7 @@ export function FormItem({
           remove={removeSchema}
           index={index}
           disabled={schemasLength === 1}
+          title={`remove-entity-${index + 1}`}
         />
       </div>
 

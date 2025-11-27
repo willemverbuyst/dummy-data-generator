@@ -8,6 +8,7 @@ describe("RemoveEntityButton", () => {
     disabled: false,
     remove: mockRemove,
     index: 0,
+    title: "remove-entity",
   };
 
   beforeEach(() => {

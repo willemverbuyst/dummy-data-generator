@@ -63,6 +63,7 @@ export function NestedFormItem({
             remove={removeNestedField}
             index={nestedFieldIndex}
             disabled={false}
+            title={`entity-${index + 1}-field-${fieldIndex + 1}-remove-nested-field`}
           />
         </div>
       ))}
