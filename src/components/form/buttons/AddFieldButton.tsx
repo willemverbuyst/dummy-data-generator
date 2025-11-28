@@ -5,8 +5,10 @@ import { defaultField } from "../formSchema";
 
 export function AddFieldButton({
   append,
+  title,
 }: {
   append: UseFieldArrayAppend<FieldValues, string>;
+  title: string;
 }) {
   return (
     <Button
@@ -14,6 +16,7 @@ export function AddFieldButton({
       size="sm"
       type="button"
       onClick={() => append(defaultField)}
+      title={title}
     >
       <PlusIcon />
     </Button>

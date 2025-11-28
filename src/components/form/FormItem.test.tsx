@@ -222,7 +222,9 @@ describe("FormItem", () => {
   it("should render existing fields", () => {
     render(<TestWrapper />);
 
-    const textInputs = screen.getAllByTestId("text-input");
+    const textInputs = screen.getAllByTestId(
+      /text-input-entity [0-9] key [0-9]/,
+    );
     const valueTypeSelectors = screen.getAllByTestId("value-type-selector");
 
     // Should have 2 field keys (name, email)
@@ -233,7 +235,9 @@ describe("FormItem", () => {
   it("should render field values correctly", () => {
     render(<TestWrapper />);
 
-    const textInputs = screen.getAllByTestId("text-input");
+    const textInputs = screen.getAllByTestId(
+      /text-input-entity [0-9] key [0-9]/,
+    );
 
     expect(textInputs[0]).toHaveValue("name");
     expect(textInputs[1]).toHaveValue("email");
@@ -278,7 +282,9 @@ describe("FormItem", () => {
     await user.click(addButton);
 
     // Should now have 3 fields
-    const textInputs = screen.getAllByTestId("text-input");
+    const textInputs = screen.getAllByTestId(
+      /text-input-entity [0-9] key [0-9]/,
+    );
     expect(textInputs).toHaveLength(3);
   });
 
@@ -290,7 +296,9 @@ describe("FormItem", () => {
     await user.click(removeButton);
 
     // Should now have 1 field (email remains)
-    const textInputs = screen.getAllByTestId("text-input");
+    const textInputs = screen.getAllByTestId(
+      /text-input-entity [0-9] key [0-9]/,
+    );
     expect(textInputs).toHaveLength(1);
     expect(textInputs[0]).toHaveValue("email");
   });
@@ -303,7 +311,9 @@ describe("FormItem", () => {
     await user.selectOptions(selectors[0], "reference");
 
     // Should show an additional text input for reference value
-    const textInputs = screen.getAllByTestId("text-input");
+    const textInputs = screen.getAllByTestId(
+      /text-input-entity [0-9] key [0-9]/,
+    );
     expect(textInputs).toHaveLength(3); // name, email, reference value
   });
 
@@ -315,7 +325,9 @@ describe("FormItem", () => {
     await user.selectOptions(selectors[0], "one-of");
 
     // Should show an additional text input for one-of value
-    const textInputs = screen.getAllByTestId("text-input");
+    const textInputs = screen.getAllByTestId(
+      /text-input-entity [0-9] key [0-9]/,
+    );
     expect(textInputs).toHaveLength(3); // name, email, one-of value
   });
 
@@ -392,7 +404,9 @@ describe("FormItem", () => {
     render(<TestWrapper />);
     const user = userEvent.setup();
 
-    const textInputs = screen.getAllByTestId("text-input");
+    const textInputs = screen.getAllByTestId(
+      /text-input-entity [0-9] key [0-9]/,
+    );
     await user.clear(textInputs[0]);
     await user.type(textInputs[0], "username");
 
@@ -415,7 +429,9 @@ describe("FormItem", () => {
   it("should render placeholder for field key input", () => {
     render(<TestWrapper />);
 
-    const textInputs = screen.getAllByTestId("text-input");
+    const textInputs = screen.getAllByTestId(
+      /text-input-entity [0-9] key [0-9]/,
+    );
     expect(textInputs[0]).toHaveAttribute("placeholder", "e.g. name");
   });
 });

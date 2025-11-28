@@ -47,6 +47,7 @@ export function FormItem({
               fieldState={fieldState}
               placeholder="Enter entity name"
               label={`Entity ${index + 1}`}
+              hideLabel
             />
           )}
         />
@@ -65,13 +66,17 @@ export function FormItem({
           remove={removeSchema}
           index={index}
           disabled={schemasLength === 1}
+          title={`remove-entity-${index + 1}`}
         />
       </div>
 
       <div className="flex w-full flex-col gap-2">
         <div className="flex w-full items-end justify-between">
           <FieldLabel>Fields</FieldLabel>
-          <AddFieldButton append={appendField} />
+          <AddFieldButton
+            append={appendField}
+            title={`entity-${index + 1}-add-field`}
+          />
         </div>
         {keyValueFields.map((field, fieldIndex) => (
           <KeyValueFields

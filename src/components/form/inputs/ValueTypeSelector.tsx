@@ -39,7 +39,7 @@ export function ValueTypeSelector({
             <SelectLabel>Simple type</SelectLabel>
             {fieldValueTypeSimple.map((type) => (
               <SelectItem key={type} value={type}>
-                {type}
+                {type.replace("-", " ")}
               </SelectItem>
             ))}
           </SelectGroup>

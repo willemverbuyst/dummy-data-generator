@@ -13,6 +13,7 @@ export function AddEntityButton({
       variant="secondary"
       onClick={() => append(defaultSchema)}
       className="bg-background shadow-l m-2 ml-auto rounded-md p-4"
+      title="add-entity"
     >
       Add Entity
     </Button>
