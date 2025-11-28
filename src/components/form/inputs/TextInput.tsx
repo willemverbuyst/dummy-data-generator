@@ -1,5 +1,6 @@
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import clsx from "clsx";
 import type {
   ControllerFieldState,
   ControllerRenderProps,
@@ -11,15 +12,19 @@ export function TextInput({
   fieldState,
   label,
   placeholder,
+  hideLabel = false,
 }: {
   field: ControllerRenderProps<FieldValues, string>;
   fieldState: ControllerFieldState;
-  label?: string;
+  label: string;
   placeholder?: string;
+  hideLabel?: boolean;
 }) {
   return (
     <Field data-invalid={fieldState.invalid}>
-      {label && <FieldLabel htmlFor={field.name}>{label}</FieldLabel>}
+      <FieldLabel htmlFor={field.name} className={clsx(hideLabel && "hidden")}>
+        {label}
+      </FieldLabel>
       <Input
         {...field}
         id={field.name}

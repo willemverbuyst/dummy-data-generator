@@ -17,4 +17,28 @@ export default defineConfig({
       "@/": new URL("./src/", import.meta.url).pathname,
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor-react": ["react", "react-dom", "react-hook-form"],
+          "vendor-ui": [
+            "@radix-ui/react-label",
+            "@radix-ui/react-select",
+            "@radix-ui/react-separator",
+            "@radix-ui/react-slot",
+            "@radix-ui/react-tooltip",
+            "sonner",
+          ],
+          "vendor-utils": [
+            "zod",
+            "zustand",
+            "clsx",
+            "tailwind-merge",
+            "class-variance-authority",
+          ],
+        },
+      },
+    },
+  },
 });

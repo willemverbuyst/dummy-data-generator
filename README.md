@@ -1,5 +1,13 @@
 # Dummy Data Generator
 
-Tool to generate json dummy data with linked entities.
+[![Checks](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/checks.yml/badge.svg)](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/checks.yml) [![Tests](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/tests.yml/badge.svg)](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/tests.yml) [![Publish to GitHub Pages](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/gh-pages.yml)
 
-![screenshot](./screenshot.png)
+Tool to generate json dummy data.
+
+With linked entities and nested objects
+
+![screenshot 1](./screenshot_1.png)
+
+![screenshot 1](./screenshot_2.png)
+
+The tool makes use of [faker.js](https://fakerjs.dev/guide/).

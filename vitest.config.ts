@@ -5,6 +5,19 @@ export default mergeConfig(
   viteConfig,
   defineConfig({
     test: {
+      coverage: {
+        provider: "v8",
+        reporter: ["text", "json", "html"],
+        include: ["src/**/*.{ts,tsx}"],
+        exclude: [
+          "src/**/*.test.{ts,tsx}",
+          "src/components/ui/*.{ts,tsx}", // Shadcn UI components
+          "src/main.tsx",
+          "src/vite-env.d.ts",
+          "**/*.config.{ts,js}",
+          "**/types.ts",
+        ],
+      },
       projects: [
         {
           test: {
@@ -20,7 +33,7 @@ export default mergeConfig(
             name: "component",
             environment: "happy-dom",
             setupFiles: ["./vitest.setup.ts"],
-            include: ["src/components/**/*.test.tsx"],
+            include: ["src/components/**/*.test.{ts,tsx}"],
             alias: {
               "@/": new URL("./src/", import.meta.url).pathname,
             },
@@ -31,11 +44,12 @@ export default mergeConfig(
             globals: true,
             name: "integration",
             environment: "happy-dom",
-            setupFiles: ["./vitest.setup.ts"],
+            setupFiles: ["./vitest.setup.integration.ts"],
             include: ["tests/**/*.test.tsx"],
             alias: {
               "@/": new URL("./src/", import.meta.url).pathname,
             },
+            testTimeout: 30_000,
           },
         },
       ],

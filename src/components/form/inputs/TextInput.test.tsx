@@ -19,7 +19,13 @@ describe("TextInput", () => {
   };
 
   it("renders input with correct attributes", () => {
-    render(<TextInput field={mockField} fieldState={mockFieldState} />);
+    render(
+      <TextInput
+        field={mockField}
+        fieldState={mockFieldState}
+        label="Test Label"
+      />,
+    );
 
     const input = screen.getByRole("textbox");
     expect(input).toBeInTheDocument();
@@ -42,12 +48,43 @@ describe("TextInput", () => {
     expect(label).toHaveAttribute("for", "testField");
   });
 
+  it("hides label when hideLabel is true", () => {
+    render(
+      <TextInput
+        field={mockField}
+        fieldState={mockFieldState}
+        label="Test Label"
+        hideLabel={true}
+      />,
+    );
+
+    const label = screen.getByText("Test Label");
+    expect(label).toBeInTheDocument();
+    expect(label).toHaveClass("hidden");
+  });
+
+  it("shows label when hideLabel is false", () => {
+    render(
+      <TextInput
+        field={mockField}
+        fieldState={mockFieldState}
+        label="Test Label"
+        hideLabel={false}
+      />,
+    );
+
+    const label = screen.getByText("Test Label");
+    expect(label).toBeInTheDocument();
+    expect(label).not.toHaveClass("hidden");
+  });
+
   it("renders placeholder when provided", () => {
     render(
       <TextInput
         field={mockField}
         fieldState={mockFieldState}
         placeholder="Enter text"
+        label="Test Label"
       />,
     );
 
@@ -62,7 +99,13 @@ describe("TextInput", () => {
       error: { type: "required", message: "This field is required" },
     };
 
-    render(<TextInput field={mockField} fieldState={invalidFieldState} />);
+    render(
+      <TextInput
+        field={mockField}
+        fieldState={invalidFieldState}
+        label="Test Label"
+      />,
+    );
 
     const field = screen.getByRole("textbox").closest("[data-invalid]");
     const input = screen.getByRole("textbox");
@@ -78,13 +121,25 @@ describe("TextInput", () => {
       error: { type: "required", message: "This field is required" },
     };
 
-    render(<TextInput field={mockField} fieldState={invalidFieldState} />);
+    render(
+      <TextInput
+        field={mockField}
+        fieldState={invalidFieldState}
+        label="Test Label"
+      />,
+    );
 
     expect(screen.getByText("This field is required")).toBeInTheDocument();
   });
 
   it("does not show error when field is valid", () => {
-    render(<TextInput field={mockField} fieldState={mockFieldState} />);
+    render(
+      <TextInput
+        field={mockField}
+        fieldState={mockFieldState}
+        label="Test Label"
+      />,
+    );
 
     const field = screen.getByRole("textbox").closest("[data-invalid]");
     const input = screen.getByRole("textbox");

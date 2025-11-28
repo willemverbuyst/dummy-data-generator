@@ -1,9 +1,9 @@
-import { generateDummyData } from "@/lib/generators/generateDummyData";
 import { useDummyData } from "@/zustand/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import type { Resolver } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { AddEntityButton } from "./buttons/AddEntityButton";
 import { GenerateButton } from "./buttons/GenerateButton";
@@ -48,13 +48,20 @@ export function FormCard() {
     name: "schemas",
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsGenerating(true);
+
+    // Dynamic import - only load the generator (and faker) when needed
+    const { generateDummyData } = await import(
+      "@/lib/generators/generateDummyData"
+    );
+
     setTimeout(() => {
       const dummyData = generateDummyData(data.schemas);
       setDummyData(dummyData);
       setInSyncWithForm(true);
       setIsGenerating(false);
+      toast("Dummy data has been generated");
     }, 300);
   }
 
@@ -72,13 +79,14 @@ export function FormCard() {
               schemaId={schema.id}
               index={index}
               removeSchema={removeSchema}
+              schemasLength={schemas.length}
             />
           ))}
+          <AddEntityButton append={appendSchema} />
         </div>
 
         <div className="bg-background shadow-l m-2 flex flex-col gap-2 rounded-md p-4">
           <ShowExampleButton />
-          <AddEntityButton append={appendSchema} />
           <ResetButton />
           <GenerateButton />
         </div>
