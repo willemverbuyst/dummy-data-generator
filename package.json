@@ -10,7 +10,7 @@
     "format:fix": "prettier --config .prettierrc --write \"src/*.*\"",
     "lint:check": "eslint .",
     "knip:check": "knip",
-    "type:check": "pnpm type:check:app && pnpm type:check:test",
+    "type:check": "npm run type:check:app && npm run type:check:test",
     "type:check:app": "tsc --project tsconfig.app.json --noEmit",
     "type:check:test": "tsc --project tsconfig.test.json --noEmit",
     "preview": "vite preview",
@@ -20,7 +20,7 @@
     "test:component:watch": "vitest --project component",
     "test:integration": "vitest --project integration --run",
     "test:integration:watch": "vitest --project integration",
-    "test:all": "pnpm run test:unit && pnpm run test:component && pnpm run test:integration",
+    "test:all": "npm run test:unit && npm run test:component && npm run test:integration",
     "test:coverage": "vitest --run --coverage"
   },
   "dependencies": {
@@ -55,7 +55,6 @@
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.4",
-    "@vitest/browser-playwright": "^4.0.13",
     "@vitest/coverage-v8": "4.0.9",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.36.0",
@@ -71,6 +70,5 @@
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.2",
     "vitest": "^4.0.8"
-  },
-  "packageManager": "pnpm@10.10.0"
+  }
 }

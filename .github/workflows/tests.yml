@@ -9,31 +9,23 @@ permissions:
   pull-requests: write
 
 jobs:
-  code-checks:
-    name: Tests
-    runs-on: ubuntu-latest
+  unit:
+    name: 🧪 Unit
+    uses: ./.github/workflows/node-ci.yml
+    with:
+      run-command: |
+        npm run test:unit
 
-    steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v6
+  component:
+    name: 🧩 Component
+    uses: ./.github/workflows/node-ci.yml
+    with:
+      run-command: |
+        npm run test:component
 
-      - name: 📦 Setup Node and PNPM
-        uses: pnpm/action-setup@v4
-
-      - name: 🔧 Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: "./.nvmrc"
-          cache: "pnpm"
-
-      - name: 📥 Install dependencies
-        run: pnpm install
-
-      - name: 🧪 Unit Tests
-        run: pnpm test:unit
-
-      - name: 🧩 Component Tests
-        run: pnpm test:component
-
-      - name: 🪢 Integration Tests
-        run: pnpm test:integration
+  integration:
+    name: 🪢 Integration
+    uses: ./.github/workflows/node-ci.yml
+    with:
+      run-command: |
+        npm run test:integration

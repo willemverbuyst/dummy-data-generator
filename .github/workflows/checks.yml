@@ -4,45 +4,39 @@ on:
   pull_request:
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pull-requests: write
-
 jobs:
-  code-checks:
-    name: Code checks
-    runs-on: ubuntu-latest
+  format:
+    name: 💅 Format
+    uses: ./.github/workflows/node-ci.yml
+    with:
+      run-command: |
+        npm run format:check
+  lint:
+    name: 🧪 Lint
+    uses: ./.github/workflows/node-ci.yml
+    with:
+      run-command: |
+        npm run lint:check
 
-    steps:
-      - name: ⬇️ Checkout code
-        uses: actions/checkout@v6
+  type:
+    name: 🔍 Type
+    uses: ./.github/workflows/node-ci.yml
+    with:
+      run-command: |
+        npm run type:check
+  build:
+    name: 🔨 Build
+    uses: ./.github/workflows/node-ci.yml
+    with:
+      run-command: |
+        npm run build
 
-      - name: 📦 Setup Node and PNPM
-        uses: pnpm/action-setup@v4
-
-      - name: 🔧 Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: "./.nvmrc"
-          cache: "pnpm"
-
-      - name: 📥 Install dependencies
-        run: pnpm install
-
-      - name: 💅 Run formatter
-        run: pnpm format:check
-
-      - name: 🧪 Run linter
-        run: pnpm lint:check
-
-      - name: 🔍 Type check
-        run: pnpm type:check
-
-      - name: 🔨 Build check
-        run: pnpm build
-
-      - name: ✂️ Run knip
-        run: pnpm run knip:check
+  knip:
+    name: ✂️ Knip
+    uses: ./.github/workflows/node-ci.yml
+    with:
+      run-command: |
+        npm run knip:check
 
   lint-actions:
     name: Lint Actions
