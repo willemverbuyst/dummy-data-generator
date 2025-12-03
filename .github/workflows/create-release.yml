@@ -50,7 +50,7 @@ jobs:
         id: bump_version
         run: |
           old=${{ steps.get_tag.outputs.latest_tag }}
-          IFS='.' read -r major minor patch <<<"${old#v}"
+          IFS='.' read -r major minor <<<"${old#v}"
           new_tag="v$major.$((minor + 1)).0"
           echo "new_tag=$new_tag" >> "$GITHUB_OUTPUT"
           echo "New version: $new_tag"
