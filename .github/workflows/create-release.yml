@@ -44,14 +44,14 @@ jobs:
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
 
-      # Bump patch version only if there are new commits
-      - name: Bump patch version
+      # Bump minor version only if there are new commits
+      - name: Bump minor version
         if: steps.check_commits.outputs.skip == 'false'
         id: bump_version
         run: |
           old=${{ steps.get_tag.outputs.latest_tag }}
           IFS='.' read -r major minor patch <<<"${old#v}"
-          new_tag="v$major.$minor.$((patch + 1))"
+          new_tag="v$major.$((minor + 1)).0"
           echo "new_tag=$new_tag" >> "$GITHUB_OUTPUT"
           echo "New version: $new_tag"
 
