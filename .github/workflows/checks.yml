@@ -39,7 +39,7 @@ jobs:
         npm run knip:check
 
   lint-actions:
-    name: Lint Actions
+    name: 🧪 Lint Actions
     runs-on: ubuntu-latest
     steps:
       - name: 💻 Checkout repo
