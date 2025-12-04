@@ -26,6 +26,9 @@
             { "type": "perf", "section": "Performance", "hidden": false },
             { "type": "test", "hidden": true }
           ]
+        },
+        "writerOpts": {
+          "commitPartial": "./commit.hbs"
         }
       }
     ],
