@@ -4,8 +4,6 @@ on:
   schedule:
     - cron: "0 8 * * 1" # Every Monday at 08:00 UTC
   workflow_dispatch:
-    branches:
-      - main
 
 jobs:
   merge-develop-to-main:
