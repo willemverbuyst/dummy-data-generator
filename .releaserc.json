@@ -28,7 +28,7 @@
           ]
         },
         "writerOpts": {
-          "commitPartial": "* {{commit.subject}} – {{author.name}}"
+          "commitPartial": "* {{header}} – {{author.name}}"
         }
       }
     ],
