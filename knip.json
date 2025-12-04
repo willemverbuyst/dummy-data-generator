@@ -5,5 +5,6 @@
     "type": true
   },
   "ignore": ["src/components/ui/**"],
-  "tags": ["-lintignore"]
+  "tags": ["-lintignore"],
+  "ignoreDependencies": ["conventional-changelog-conventionalcommits"]
 }
