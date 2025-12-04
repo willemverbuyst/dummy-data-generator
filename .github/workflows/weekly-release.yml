@@ -1,4 +1,4 @@
-name: Weekly Release
+name: Weekly Release & Deployment
 
 on:
   schedule:
@@ -12,6 +12,11 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -72,3 +77,15 @@ jobs:
           semantic_version: ^24
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build project for GitHub Pages
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
