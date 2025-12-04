@@ -26,9 +26,6 @@
             { "type": "perf", "section": "Performance", "hidden": false },
             { "type": "test", "hidden": true }
           ]
-        },
-        "writerOpts": {
-          "commitPartial": "* {{subject}} by @{{committer.name}}"
         }
       }
     ],
