@@ -1,6 +1,6 @@
 # Dummy Data Generator
 
-[![Checks](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/checks.yml/badge.svg)](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/checks.yml) [![Tests](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/tests.yml/badge.svg)](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/tests.yml) [![Publish to GitHub Pages](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/gh-pages.yml)
+[![Checks](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/checks.yml/badge.svg)](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/checks.yml) [![Tests](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/tests.yml/badge.svg)](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/tests.yml) [![Weekly Release](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/weekly-release.yml/badge.svg)](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/weekly-release.yml)
 
 Tool to generate json dummy data.
 
