@@ -35,9 +35,7 @@
         "successComment": false,
         "failComment": false,
         "releasedLabels": false,
-        "addReleases": "bottom",
-        "releaseNameTemplate": "v${nextRelease.version}",
-        "releaseBodyTemplate": "{{> header}}\n\n{{> commits}}\n\n{{> footer}}"
+        "addReleases": "bottom"
       }
     ]
   ]
