@@ -2,30 +2,15 @@
   "branches": ["main"],
   "plugins": [
     [
-      "@semantic-release/commit-analyzer",
+      "@bobvanderlinden/semantic-release-pull-request-analyzer",
       {
-        "preset": "conventionalcommits",
-        "releaseRules": [
-          { "type": "chore", "scope": "deps", "release": "patch" },
-          { "type": "chore", "scope": "deps-dev", "release": false }
-        ]
-      }
-    ],
-    [
-      "@semantic-release/release-notes-generator",
-      {
-        "preset": "conventionalcommits",
-        "presetConfig": {
-          "types": [
-            { "type": "feat", "section": "Features" },
-            { "type": "fix", "section": "Bug Fixes" },
-            { "type": "chore", "section": "Dependencies", "hidden": false },
-            { "type": "docs", "section": "Documentation", "hidden": true },
-            { "type": "style", "hidden": true },
-            { "type": "refactor", "hidden": true },
-            { "type": "perf", "section": "Performance", "hidden": false },
-            { "type": "test", "hidden": true }
-          ]
+        "labels": {
+          "change": "minor",
+          "feature": "minor",
+          "enhancement": "minor",
+          "fix": "patch",
+          "technical-change": "patch",
+          "dependencies": "patch"
         }
       }
     ],
@@ -33,10 +18,9 @@
       "@semantic-release/github",
       {
         "successComment": false,
-        "failComment": false,
-        "releasedLabels": false,
-        "addReleases": "bottom"
+        "failComment": false
       }
-    ]
+    ],
+    "@semantic-release/git"
   ]
 }

@@ -36,13 +36,13 @@ jobs:
           echo "Current branch: $(git branch --show-current)"
           echo "Latest commit on main: $(git rev-parse HEAD)"
           echo "Latest commit on develop: $(git rev-parse origin/develop)"
-          
+
           # Check if there are any differences
           if git diff --quiet HEAD origin/develop; then
             echo "No changes to merge from develop"
             exit 0
           fi
-          
+
           # Attempt merge
           if git merge origin/develop --no-edit; then
             echo "Merge successful"
@@ -75,6 +75,10 @@ jobs:
         uses: cycjimmy/semantic-release-action@v4
         with:
           semantic_version: ^24
+          extra_plugins: |
+            @semantic-release/github@10.3.5
+            @semantic-release/git@10.0.1
+            @bobvanderlinden/semantic-release-pull-request-analyzer@1.0.4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
