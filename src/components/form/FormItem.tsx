@@ -33,10 +33,7 @@ export function FormItem({
   });
 
   return (
-    <FieldGroup
-      key={schemaId}
-      className="bg-background shadow-l m-2 rounded-md p-4"
-    >
+    <FieldGroup key={schemaId} className="bg-background m-2 rounded-md p-4">
       <div className="flex w-full items-end gap-2">
         <Controller
           name={`schemas.${index}.entity`}
@@ -47,7 +44,6 @@ export function FormItem({
               fieldState={fieldState}
               placeholder="Enter entity name"
               label={`Entity ${index + 1}`}
-              hideLabel
             />
           )}
         />

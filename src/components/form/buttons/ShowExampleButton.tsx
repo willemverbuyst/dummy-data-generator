@@ -12,15 +12,14 @@ export function ShowExampleButton() {
 
   return (
     <Button
-      variant="outline"
+      variant="secondary"
       type="button"
       onClick={async () => {
         setIsGenerating(true);
 
         // Dynamic import - only load the generator (and faker) when needed
-        const { generateDummyData } = await import(
-          "@/lib/generators/generateDummyData"
-        );
+        const { generateDummyData } =
+          await import("@/lib/generators/generateDummyData");
 
         setTimeout(() => {
           const dummyData = generateDummyData(exampleInput);

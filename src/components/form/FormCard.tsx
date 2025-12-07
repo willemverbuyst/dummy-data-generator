@@ -52,9 +52,8 @@ export function FormCard() {
     setIsGenerating(true);
 
     // Dynamic import - only load the generator (and faker) when needed
-    const { generateDummyData } = await import(
-      "@/lib/generators/generateDummyData"
-    );
+    const { generateDummyData } =
+      await import("@/lib/generators/generateDummyData");
 
     setTimeout(() => {
       const dummyData = generateDummyData(data.schemas);
@@ -85,10 +84,12 @@ export function FormCard() {
           <AddEntityButton append={appendSchema} />
         </div>
 
-        <div className="bg-background shadow-l m-2 flex flex-col gap-2 rounded-md p-4">
+        <div className="bg-background m-2 flex flex-col gap-10 rounded-md p-4">
           <ShowExampleButton />
-          <ResetButton />
-          <GenerateButton />
+          <div className="flex flex-col gap-2">
+            <ResetButton />
+            <GenerateButton />
+          </div>
         </div>
       </form>
     </FormProvider>
