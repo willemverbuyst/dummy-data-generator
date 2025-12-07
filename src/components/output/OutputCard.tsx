@@ -7,7 +7,7 @@ export function OutputCard() {
   const isGenerating = useDummyData((state) => state.isGenerating);
 
   return (
-    <div className="bg-background shadow-l relative m-2 rounded-md p-4">
+    <div className="bg-background relative m-2 rounded-md p-4">
       {isGenerating ? (
         <Spinner />
       ) : (

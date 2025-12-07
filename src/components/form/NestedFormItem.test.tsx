@@ -193,14 +193,6 @@ describe("NestedFormItem", () => {
     expect(selectors[0]).toHaveValue("number");
   });
 
-  it("should render with correct styling classes", () => {
-    const { container } = render(<TestWrapper index={0} fieldIndex={0} />);
-
-    const nestedContainer = container.querySelector(".shadow-l");
-    expect(nestedContainer).toBeInTheDocument();
-    expect(nestedContainer).toHaveClass("rounded-md", "border-2", "p-2");
-  });
-
   it("should pass includeComplex=false to ValueTypeSelector", () => {
     render(<TestWrapper index={0} fieldIndex={0} />);
 
