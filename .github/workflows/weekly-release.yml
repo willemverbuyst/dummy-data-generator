@@ -1,4 +1,4 @@
-name: Weekly Release & Deployment
+name: Weekly Release
 
 on:
   schedule:
