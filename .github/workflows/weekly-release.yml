@@ -1,4 +1,4 @@
-name: Weekly Release & Deployment
+name: Weekly Release
 
 on:
   schedule:
@@ -16,7 +16,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+      # url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -64,7 +64,7 @@ jobs:
           echo "Main is now at: $(git rev-parse HEAD)"
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
 
@@ -82,14 +82,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build project for GitHub Pages
-        run: npm run build
+      # - name: Build project for GitHub Pages
+      #   run: npm run build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: ./dist
+      # - name: Upload artifact
+      #   uses: actions/upload-pages-artifact@v4
+      #   with:
+      #     path: ./dist
 
-      - name: Deploy to GitHub Pages
-        id: deploy
-        uses: actions/deploy-pages@v4
+      # - name: Deploy to GitHub Pages
+      #   id: deploy
+      #   uses: actions/deploy-pages@v4
