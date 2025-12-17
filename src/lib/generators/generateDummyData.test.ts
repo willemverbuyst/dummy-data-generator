@@ -108,8 +108,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
-    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
-    const users = result.Users!;
+    const users = result.Users;
 
     const ids = users.map((user) => user.id);
     const uniqueIds = new Set(ids);
@@ -149,8 +148,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
-    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
-    const tags = result.Tags!;
+    const tags = result.Tags;
 
     tags.forEach((tag) => {
       const name = tag.name;
@@ -169,8 +167,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
-    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
-    const comments = result.Comments!;
+    const comments = result.Comments;
 
     comments.forEach((comment) => {
       const content = comment.content;
@@ -212,8 +209,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
-    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
-    const products = result.Products!;
+    const products = result.Products;
 
     products.forEach((product) => {
       const tags = product.tags;
@@ -257,8 +253,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
-    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
-    const orders = result.Orders!;
+    const orders = result.Orders;
 
     orders.forEach((order) => {
       const address = order.shippingAddress as Record<
