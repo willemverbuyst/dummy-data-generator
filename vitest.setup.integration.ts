@@ -8,19 +8,19 @@ import { afterAll, beforeAll } from "vitest";
 // See: https://github.com/radix-ui/primitives/issues/1816
 const originalError = console.error;
 beforeAll(() => {
-  console.error = (...args: Parameters<typeof console.error>) => {
-    const message = args[0]?.toString() || "";
-    if (
-      message.includes("not wrapped in act(...)") ||
-      message.includes("Warning: An update to") ||
-      message.includes("A component suspended inside an `act` scope")
-    ) {
-      return;
-    }
-    originalError.call(console, ...args);
-  };
+	console.error = (...args: Parameters<typeof console.error>) => {
+		const message = args[0]?.toString() || "";
+		if (
+			message.includes("not wrapped in act(...)") ||
+			message.includes("Warning: An update to") ||
+			message.includes("A component suspended inside an `act` scope")
+		) {
+			return;
+		}
+		originalError.call(console, ...args);
+	};
 });
 
 afterAll(() => {
-  console.error = originalError;
+	console.error = originalError;
 });
