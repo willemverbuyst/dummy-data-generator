@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import {
-  type ControllerFieldState,
-  type ControllerRenderProps,
-  type FieldValues,
+import type {
+  ControllerFieldState,
+  ControllerRenderProps,
+  FieldValues,
 } from "react-hook-form";
 
 export function NumberInput({
@@ -23,14 +23,14 @@ export function NumberInput({
         <Input
           {...field}
           value={
-            isNaN(Number(field.value))
+            Number.isNaN(Number(field.value))
               ? 1
               : Number(field.value) > 1000
                 ? 1000
                 : Number(field.value)
           }
           onChange={(e) => {
-            const value = isNaN(Number(e.target.value))
+            const value = Number.isNaN(Number(e.target.value))
               ? 1
               : Number(e.target.value) > 1000
                 ? 1000

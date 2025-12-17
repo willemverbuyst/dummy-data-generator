@@ -34,6 +34,8 @@ export async function findByRoleClickClearTypeTabSelect(
 ) {
   await findByRoleClickClearType(user, role, name, value);
   await user.tab();
+
+  // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
   await user.type(document.activeElement!, option);
   const optionElement = await screen.findByRole("option", { name: option });
   await user.click(optionElement);
@@ -48,6 +50,7 @@ export async function findByRoleClickClearTypeTabType(
 ) {
   await findByRoleClickClearType(user, role, name, value1);
   await user.tab();
+  // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
   await user.type(document.activeElement!, value2);
 }
 
@@ -61,9 +64,11 @@ export async function findByRoleClickClearTypeTabSelectType(
 ) {
   await findByRoleClickClearType(user, role, name, value1);
   await user.tab();
+  // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
   await user.type(document.activeElement!, option);
   const optionElement = await screen.findByRole("option", { name: option });
   await user.click(optionElement);
   await user.tab();
+  // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
   await user.type(document.activeElement!, value2);
 }

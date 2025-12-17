@@ -1,4 +1,4 @@
-import { type DummyDataSchema } from "../../types.ts";
+import type { DummyDataSchema } from "../../types.ts";
 import { generateDummyData } from "./generateDummyData.ts";
 
 describe("generateDummyData", () => {
@@ -108,6 +108,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
+    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
     const users = result.Users!;
 
     const ids = users.map((user) => user.id);
@@ -148,6 +149,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
+    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
     const tags = result.Tags!;
 
     tags.forEach((tag) => {
@@ -167,6 +169,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
+    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
     const comments = result.Comments!;
 
     comments.forEach((comment) => {
@@ -209,6 +212,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
+    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
     const products = result.Products!;
 
     products.forEach((product) => {
@@ -253,6 +257,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
+    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
     const orders = result.Orders!;
 
     orders.forEach((order) => {

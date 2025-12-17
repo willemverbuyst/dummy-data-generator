@@ -85,6 +85,7 @@ describe("Delete Flow Integration Test", () => {
     const jsonText = preElement.textContent;
     expect(jsonText).toBeTruthy();
 
+    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
     const output = JSON.parse(jsonText!);
 
     expect(output).toHaveProperty("Users");

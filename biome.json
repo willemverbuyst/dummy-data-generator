@@ -24,5 +24,12 @@
     "formatter": {
       "quoteStyle": "double"
     }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "off"
+      }
+    }
   }
 }

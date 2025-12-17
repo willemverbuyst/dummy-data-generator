@@ -1,9 +1,9 @@
-import {
-  type DummyData,
-  type DummyDataItem,
-  type DummyDataNestedItem,
-  type DummyDataSchema,
-  type FieldValueTypeSimple,
+import type {
+  DummyData,
+  DummyDataItem,
+  DummyDataNestedItem,
+  DummyDataSchema,
+  FieldValueTypeSimple,
 } from "../../types.ts";
 import { generateArray } from "./generateArray.ts";
 import { generateRandomOption } from "./generateRandomOption.ts";
