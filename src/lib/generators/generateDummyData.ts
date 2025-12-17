@@ -1,9 +1,9 @@
-import {
-  type DummyData,
-  type DummyDataItem,
-  type DummyDataNestedItem,
-  type DummyDataSchema,
-  type FieldValueTypeSimple,
+import type {
+  DummyData,
+  DummyDataItem,
+  DummyDataNestedItem,
+  DummyDataSchema,
+  FieldValueTypeSimple,
 } from "../../types.ts";
 import { generateArray } from "./generateArray.ts";
 import { generateRandomOption } from "./generateRandomOption.ts";
@@ -14,7 +14,7 @@ import { generateValue } from "./generateValue.ts";
 export function generateDummyData(schemas: DummyDataSchema[]) {
   const dummyData: DummyData = {};
   schemas.forEach((schema) => {
-    if (!schema.entity || schema.numberOfRecords <= 0) return undefined;
+    if (!schema.entity || schema.numberOfRecords <= 0) return;
     const entityKey = `${schema.entity}s`;
     dummyData[entityKey] = [];
 

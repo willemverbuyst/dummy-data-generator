@@ -1,4 +1,4 @@
-import { type DummyDataSchema } from "../../types.ts";
+import type { DummyDataSchema } from "../../types.ts";
 import { generateDummyData } from "./generateDummyData.ts";
 
 describe("generateDummyData", () => {
@@ -108,7 +108,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
-    const users = result.Users!;
+    const users = result.Users;
 
     const ids = users.map((user) => user.id);
     const uniqueIds = new Set(ids);
@@ -148,7 +148,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
-    const tags = result.Tags!;
+    const tags = result.Tags;
 
     tags.forEach((tag) => {
       const name = tag.name;
@@ -167,7 +167,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
-    const comments = result.Comments!;
+    const comments = result.Comments;
 
     comments.forEach((comment) => {
       const content = comment.content;
@@ -209,7 +209,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
-    const products = result.Products!;
+    const products = result.Products;
 
     products.forEach((product) => {
       const tags = product.tags;
@@ -253,7 +253,7 @@ describe("generateDummyData", () => {
     ];
 
     const result = generateDummyData(schemas);
-    const orders = result.Orders!;
+    const orders = result.Orders;
 
     orders.forEach((order) => {
       const address = order.shippingAddress as Record<

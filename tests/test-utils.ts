@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/react";
-import { type UserEvent } from "@testing-library/user-event";
+import type { UserEvent } from "@testing-library/user-event";
 
 export async function clickClearType(
   user: UserEvent,
@@ -34,7 +34,12 @@ export async function findByRoleClickClearTypeTabSelect(
 ) {
   await findByRoleClickClearType(user, role, name, value);
   await user.tab();
-  await user.type(document.activeElement!, option);
+
+  if (!document.activeElement) {
+    throw new Error("No active element after tabbing");
+  }
+
+  await user.type(document.activeElement, option);
   const optionElement = await screen.findByRole("option", { name: option });
   await user.click(optionElement);
 }
@@ -48,7 +53,12 @@ export async function findByRoleClickClearTypeTabType(
 ) {
   await findByRoleClickClearType(user, role, name, value1);
   await user.tab();
-  await user.type(document.activeElement!, value2);
+
+  if (!document.activeElement) {
+    throw new Error("No active element after tabbing");
+  }
+
+  await user.type(document.activeElement, value2);
 }
 
 export async function findByRoleClickClearTypeTabSelectType(
@@ -61,9 +71,19 @@ export async function findByRoleClickClearTypeTabSelectType(
 ) {
   await findByRoleClickClearType(user, role, name, value1);
   await user.tab();
-  await user.type(document.activeElement!, option);
+
+  if (!document.activeElement) {
+    throw new Error("No active element after tabbing");
+  }
+
+  await user.type(document.activeElement, option);
   const optionElement = await screen.findByRole("option", { name: option });
   await user.click(optionElement);
   await user.tab();
-  await user.type(document.activeElement!, value2);
+
+  if (!document.activeElement) {
+    throw new Error("No active element after tabbing");
+  }
+
+  await user.type(document.activeElement, value2);
 }

@@ -17,6 +17,7 @@ vi.mock("./buttons/RemoveFieldButton", () => ({
     title: string;
   }) => (
     <button
+      type="button"
       onClick={() => remove(index)}
       disabled={disabled}
       title={title}

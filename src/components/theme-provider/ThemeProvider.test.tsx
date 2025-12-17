@@ -10,8 +10,12 @@ function ThemeConsumer() {
   return (
     <div>
       <div data-testid="current-theme">{theme}</div>
-      <button onClick={() => setTheme("dark")}>Set Dark</button>
-      <button onClick={() => setTheme("light")}>Set Light</button>
+      <button type="button" onClick={() => setTheme("dark")}>
+        Set Dark
+      </button>
+      <button type="button" onClick={() => setTheme("light")}>
+        Set Light
+      </button>
     </div>
   );
 }

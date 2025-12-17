@@ -85,7 +85,11 @@ describe("Delete Flow Integration Test", () => {
     const jsonText = preElement.textContent;
     expect(jsonText).toBeTruthy();
 
-    const output = JSON.parse(jsonText!);
+    if (!jsonText) {
+      throw new Error("No JSON text found in output");
+    }
+
+    const output = JSON.parse(jsonText);
 
     expect(output).toHaveProperty("Users");
     expect(output).not.toHaveProperty("Posts");

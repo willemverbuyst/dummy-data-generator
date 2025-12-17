@@ -1,15 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { FormProvider, useForm, type Resolver } from "react-hook-form";
+import { FormProvider, type Resolver, useForm } from "react-hook-form";
 import { describe, expect, it, vi } from "vitest";
 import { FormItem } from "./FormItem";
-import { formSchema, type FormSchema } from "./formSchema";
+import { type FormSchema, formSchema } from "./formSchema";
 
 // Mock child components
 vi.mock("./buttons/AddFieldButton", () => ({
   AddFieldButton: ({ append }: { append: () => void }) => (
-    <button onClick={append} data-testid="add-field-button">
+    <button type="button" onClick={append} data-testid="add-field-button">
       Add Field
     </button>
   ),
@@ -23,7 +23,11 @@ vi.mock("./buttons/RemoveEntityButton", () => ({
     remove: (index: number) => void;
     index: number;
   }) => (
-    <button onClick={() => remove(index)} data-testid="remove-entity-button">
+    <button
+      type="button"
+      onClick={() => remove(index)}
+      data-testid="remove-entity-button"
+    >
       Remove Entity
     </button>
   ),
@@ -40,6 +44,7 @@ vi.mock("./buttons/RemoveFieldButton", () => ({
     disabled: boolean;
   }) => (
     <button
+      type="button"
       onClick={() => remove(index)}
       disabled={disabled}
       data-testid={`remove-field-${index}`}
@@ -61,8 +66,9 @@ vi.mock("./inputs/TextInput", () => ({
     label?: string;
   }) => (
     <div>
-      {label && <label>{label}</label>}
+      {label && <label htmlFor="test-input">{label}</label>}
       <input
+        id="test-input"
         value={field.value}
         onChange={(e) => field.onChange(e.target.value)}
         placeholder={placeholder}
@@ -82,8 +88,9 @@ vi.mock("./inputs/NumberInput", () => ({
     label?: string;
   }) => (
     <div>
-      {label && <label>{label}</label>}
+      {label && <label htmlFor="test-input">{label}</label>}
       <input
+        id="test-input"
         type="number"
         value={field.value}
         onChange={(e) => field.onChange(Number(e.target.value))}

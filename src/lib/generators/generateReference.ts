@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { type DummyData } from "../../types.ts";
+import type { DummyData } from "../../types.ts";
 
 export function generateReference({
   entity,
@@ -8,7 +8,7 @@ export function generateReference({
   entity: string;
   dummyData: DummyData;
 }) {
-  const refEntity = entity + "s";
+  const refEntity = `${entity}s`;
   const refData = dummyData[refEntity];
 
   if (refData && refData.length > 0) {

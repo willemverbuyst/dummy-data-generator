@@ -12,7 +12,7 @@ export function ShowExampleButton() {
 
   return (
     <Button
-      variant="outline"
+      variant="secondary"
       type="button"
       onClick={async () => {
         setIsGenerating(true);

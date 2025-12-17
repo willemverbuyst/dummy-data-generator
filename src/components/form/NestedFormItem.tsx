@@ -24,7 +24,7 @@ export function NestedFormItem({
   });
 
   return (
-    <div className="shadow-l m-4 flex flex-col gap-2 rounded-md border-2 p-2">
+    <div className="bg-light m-4 flex flex-col gap-2 rounded-md p-2">
       <div className="flex w-full items-end justify-between">
         <FieldLabel>Nested Fields</FieldLabel>
         <AddFieldButton
