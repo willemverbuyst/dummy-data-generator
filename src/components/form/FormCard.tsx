@@ -4,13 +4,13 @@ import { useEffect } from "react";
 import type { Resolver } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
+import type { z } from "zod";
 import { AddEntityButton } from "./buttons/AddEntityButton";
 import { GenerateButton } from "./buttons/GenerateButton";
 import { ResetButton } from "./buttons/ResetButton";
 import { ShowExampleButton } from "./buttons/ShowExampleButton";
 import { FormItem } from "./FormItem";
-import { defaultSchema, formSchema, type FormSchema } from "./formSchema";
+import { defaultSchema, type FormSchema, formSchema } from "./formSchema";
 
 export function FormCard() {
 	const setDummyData = useDummyData((state) => state.setDummyData);

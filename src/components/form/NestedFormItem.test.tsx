@@ -3,13 +3,13 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FormProvider, useForm, type Resolver } from "react-hook-form";
 import { describe, expect, it, vi } from "vitest";
-import { NestedFormItem } from "./NestedFormItem";
 import { formSchema, type FormSchema } from "./formSchema";
+import { NestedFormItem } from "./NestedFormItem";
 
 // Mock the button components
 vi.mock("./buttons/AddFieldButton", () => ({
 	AddFieldButton: ({ append }: { append: () => void }) => (
-		<button onClick={append} data-testid="add-nested-field">
+		<button type="button" onClick={append} data-testid="add-nested-field">
 			Add Field
 		</button>
 	),
@@ -24,7 +24,11 @@ vi.mock("./buttons/RemoveFieldButton", () => ({
 		index: number;
 		disabled: boolean;
 	}) => (
-		<button onClick={() => remove(index)} data-testid={`remove-field-${index}`}>
+		<button
+			type="button"
+			onClick={() => remove(index)}
+			data-testid={`remove-field-${index}`}
+		>
 			Remove
 		</button>
 	),

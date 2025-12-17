@@ -14,7 +14,7 @@ import { generateValue } from "./generateValue.ts";
 export function generateDummyData(schemas: DummyDataSchema[]) {
 	const dummyData: DummyData = {};
 	schemas.forEach((schema) => {
-		if (!schema.entity || schema.numberOfRecords <= 0) return undefined;
+		if (!schema.entity || schema.numberOfRecords <= 0) return;
 		const entityKey = `${schema.entity}s`;
 		dummyData[entityKey] = [];
 
