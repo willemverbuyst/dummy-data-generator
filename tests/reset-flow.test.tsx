@@ -75,8 +75,11 @@ describe("Reset Flow Integration Test", () => {
     const jsonText = preElement.textContent;
     expect(jsonText).toBeTruthy();
 
-    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
-    const output = JSON.parse(jsonText!);
+    if (!jsonText) {
+      throw new Error("No JSON text found in output");
+    }
+
+    const output = JSON.parse(jsonText);
 
     expect(output).toHaveProperty("Users");
     expect(output).toHaveProperty("Posts");
