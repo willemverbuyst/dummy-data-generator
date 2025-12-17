@@ -2,9 +2,7 @@
 
 [![Checks](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/checks.yml/badge.svg)](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/checks.yml) [![Tests](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/tests.yml/badge.svg)](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/tests.yml) [![Release](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/release.yml/badge.svg)](https://github.com/willemverbuyst/dummy-data-generator/actions/workflows/release.yml)
 
-Tool to generate json dummy data.
-
-With linked entities and nested objects
+A tool to generate json dummy data with linked entities and nested objects.
 
 ![screenshot](./screenshot.png)
 
