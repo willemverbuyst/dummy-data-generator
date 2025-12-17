@@ -5,26 +5,26 @@ import { ThemeProviderContext } from "./ThemeProviderContext";
 import { useTheme } from "./useTheme";
 
 describe("useTheme", () => {
-  it("should throw error when used outside ThemeProvider", () => {
-    expect(() => {
-      renderHook(() => useTheme());
-    }).toThrow("useTheme must be used within a ThemeProvider");
-  });
+	it("should throw error when used outside ThemeProvider", () => {
+		expect(() => {
+			renderHook(() => useTheme());
+		}).toThrow("useTheme must be used within a ThemeProvider");
+	});
 
-  it("should return context value when used within ThemeProvider", () => {
-    const mockContextValue: React.ContextType<typeof ThemeProviderContext> = {
-      theme: "light",
-      setTheme: () => {},
-    };
+	it("should return context value when used within ThemeProvider", () => {
+		const mockContextValue: React.ContextType<typeof ThemeProviderContext> = {
+			theme: "light",
+			setTheme: () => {},
+		};
 
-    const wrapper = ({ children }: { children: ReactNode }) => (
-      <ThemeProviderContext.Provider value={mockContextValue}>
-        {children}
-      </ThemeProviderContext.Provider>
-    );
+		const wrapper = ({ children }: { children: ReactNode }) => (
+			<ThemeProviderContext.Provider value={mockContextValue}>
+				{children}
+			</ThemeProviderContext.Provider>
+		);
 
-    const { result } = renderHook(() => useTheme(), { wrapper });
+		const { result } = renderHook(() => useTheme(), { wrapper });
 
-    expect(result.current).toBe(mockContextValue);
-  });
+		expect(result.current).toBe(mockContextValue);
+	});
 });
