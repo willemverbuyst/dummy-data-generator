@@ -10,11 +10,8 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
-      pages: write
       id-token: write
-    environment:
-      name: github-pages
-      # url: ${{ steps.deploy.outputs.page_url }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
