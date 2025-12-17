@@ -1,8 +1,6 @@
-name: Weekly Release
+name: Release
 
 on:
-  schedule:
-    - cron: "0 8 * * 1" # Every Monday at 08:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -81,15 +79,3 @@ jobs:
             @bobvanderlinden/semantic-release-pull-request-analyzer@1.0.4
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Build project for GitHub Pages
-      #   run: npm run build
-
-      # - name: Upload artifact
-      #   uses: actions/upload-pages-artifact@v4
-      #   with:
-      #     path: ./dist
-
-      # - name: Deploy to GitHub Pages
-      #   id: deploy
-      #   uses: actions/deploy-pages@v4
