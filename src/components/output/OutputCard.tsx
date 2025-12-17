@@ -4,18 +4,18 @@ import { DataDisplay } from "./DataDisplay";
 import { InSyncBadge } from "./InSyncBadge";
 
 export function OutputCard() {
-	const isGenerating = useDummyData((state) => state.isGenerating);
+  const isGenerating = useDummyData((state) => state.isGenerating);
 
-	return (
-		<div className="bg-background relative m-2 rounded-md p-4">
-			{isGenerating ? (
-				<Spinner />
-			) : (
-				<>
-					<InSyncBadge />
-					<DataDisplay />
-				</>
-			)}
-		</div>
-	);
+  return (
+    <div className="bg-background relative m-2 rounded-md p-4">
+      {isGenerating ? (
+        <Spinner />
+      ) : (
+        <>
+          <InSyncBadge />
+          <DataDisplay />
+        </>
+      )}
+    </div>
+  );
 }

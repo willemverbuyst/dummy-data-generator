@@ -1,269 +1,274 @@
-import { type DummyDataSchema } from "../../types.ts";
+import type { DummyDataSchema } from "../../types.ts";
 import { generateDummyData } from "./generateDummyData.ts";
 
 describe("generateDummyData", () => {
-	test("should generate data for single entity", () => {
-		const schemas: DummyDataSchema[] = [
-			{
-				entity: "User",
-				numberOfRecords: 2,
-				fields: [
-					{ key: "name", type: "name" },
-					{ key: "age", type: "number" },
-					{ key: "active", type: "boolean" },
-				],
-			},
-		];
+  test("should generate data for single entity", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "User",
+        numberOfRecords: 2,
+        fields: [
+          { key: "name", type: "name" },
+          { key: "age", type: "number" },
+          { key: "active", type: "boolean" },
+        ],
+      },
+    ];
 
-		const result = generateDummyData(schemas);
+    const result = generateDummyData(schemas);
 
-		expect(result.Users).toBeDefined();
-		expect(result.Users?.length).toBe(2);
+    expect(result.Users).toBeDefined();
+    expect(result.Users?.length).toBe(2);
 
-		const firstItem = result.Users?.[0];
-		expect(firstItem?.id).toBeDefined();
-		expect(firstItem?.name).toBeDefined();
-		expect(firstItem?.age).toBeDefined();
-		expect(firstItem?.active).toBeDefined();
-	});
+    const firstItem = result.Users?.[0];
+    expect(firstItem?.id).toBeDefined();
+    expect(firstItem?.name).toBeDefined();
+    expect(firstItem?.age).toBeDefined();
+    expect(firstItem?.active).toBeDefined();
+  });
 
-	test("should generate data for multiple entities", () => {
-		const schemas: DummyDataSchema[] = [
-			{
-				entity: "User",
-				numberOfRecords: 1,
-				fields: [{ key: "name", type: "string" }],
-			},
-			{
-				entity: "Post",
-				numberOfRecords: 2,
-				fields: [{ key: "title", type: "string" }],
-			},
-		];
+  test("should generate data for multiple entities", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "User",
+        numberOfRecords: 1,
+        fields: [{ key: "name", type: "string" }],
+      },
+      {
+        entity: "Post",
+        numberOfRecords: 2,
+        fields: [{ key: "title", type: "string" }],
+      },
+    ];
 
-		const result = generateDummyData(schemas);
+    const result = generateDummyData(schemas);
 
-		expect(result.Users?.length).toBe(1);
-		expect(result.Posts?.length).toBe(2);
-	});
+    expect(result.Users?.length).toBe(1);
+    expect(result.Posts?.length).toBe(2);
+  });
 
-	test("should handle reference fields", () => {
-		const schemas: DummyDataSchema[] = [
-			{
-				entity: "User",
-				numberOfRecords: 1,
-				fields: [{ key: "name", type: "string" }],
-			},
-			{
-				entity: "Post",
-				numberOfRecords: 1,
-				fields: [
-					{ key: "title", type: "string" },
-					{ key: "userId", type: "reference", value: "User" },
-				],
-			},
-		];
+  test("should handle reference fields", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "User",
+        numberOfRecords: 1,
+        fields: [{ key: "name", type: "string" }],
+      },
+      {
+        entity: "Post",
+        numberOfRecords: 1,
+        fields: [
+          { key: "title", type: "string" },
+          { key: "userId", type: "reference", value: "User" },
+        ],
+      },
+    ];
 
-		const result = generateDummyData(schemas);
+    const result = generateDummyData(schemas);
 
-		const post = result?.Posts?.[0];
-		expect(post?.userId).toBeDefined();
-	});
+    const post = result?.Posts?.[0];
+    expect(post?.userId).toBeDefined();
+  });
 
-	test("should handle unknown reference fields", () => {
-		const consoleSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
-		const schemas: DummyDataSchema[] = [
-			{
-				entity: "User",
-				numberOfRecords: 1,
-				fields: [{ key: "name", type: "string" }],
-			},
-			{
-				entity: "Post",
-				numberOfRecords: 1,
-				fields: [
-					{ key: "title", type: "string" },
-					{ key: "userId", type: "reference", value: "UnknownEntity" },
-				],
-			},
-		];
+  test("should handle unknown reference fields", () => {
+    const consoleSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "User",
+        numberOfRecords: 1,
+        fields: [{ key: "name", type: "string" }],
+      },
+      {
+        entity: "Post",
+        numberOfRecords: 1,
+        fields: [
+          { key: "title", type: "string" },
+          { key: "userId", type: "reference", value: "UnknownEntity" },
+        ],
+      },
+    ];
 
-		const result = generateDummyData(schemas);
+    const result = generateDummyData(schemas);
 
-		const post = result?.Posts?.[0];
-		expect(post).not.toHaveProperty("userId");
-		expect(consoleSpy).toHaveBeenCalledWith(
-			"Warning: No data found for referenced entity UnknownEntity",
-		);
-		consoleSpy.mockRestore();
-	});
+    const post = result?.Posts?.[0];
+    expect(post).not.toHaveProperty("userId");
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Warning: No data found for referenced entity UnknownEntity",
+    );
+    consoleSpy.mockRestore();
+  });
 
-	test("should generate unique IDs", () => {
-		const schemas: DummyDataSchema[] = [
-			{
-				entity: "User",
-				numberOfRecords: 3,
-				fields: [{ key: "name", type: "string" }],
-			},
-		];
+  test("should generate unique IDs", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "User",
+        numberOfRecords: 3,
+        fields: [{ key: "name", type: "string" }],
+      },
+    ];
 
-		const result = generateDummyData(schemas);
-		const users = result.Users!;
+    const result = generateDummyData(schemas);
+    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
+    const users = result.Users!;
 
-		const ids = users.map((user) => user.id);
-		const uniqueIds = new Set(ids);
+    const ids = users.map((user) => user.id);
+    const uniqueIds = new Set(ids);
 
-		expect(ids.length).toBe(uniqueIds.size);
-	});
+    expect(ids.length).toBe(uniqueIds.size);
+  });
 
-	test("should handle empty schemas", () => {
-		const schemas: DummyDataSchema[] = [];
+  test("should handle empty schemas", () => {
+    const schemas: DummyDataSchema[] = [];
 
-		const result = generateDummyData(schemas);
+    const result = generateDummyData(schemas);
 
-		expect(Object.keys(result).length).toBe(0);
-	});
+    expect(Object.keys(result).length).toBe(0);
+  });
 
-	test("should handle zero number of records", () => {
-		const schemas: DummyDataSchema[] = [
-			{
-				entity: "User",
-				numberOfRecords: 0,
-				fields: [{ key: "name", type: "string" }],
-			},
-		];
+  test("should handle zero number of records", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "User",
+        numberOfRecords: 0,
+        fields: [{ key: "name", type: "string" }],
+      },
+    ];
 
-		const result = generateDummyData(schemas);
+    const result = generateDummyData(schemas);
 
-		expect(result.Users?.length).toBeUndefined();
-	});
+    expect(result.Users?.length).toBeUndefined();
+  });
 
-	test("should handle random option", () => {
-		const schemas: DummyDataSchema[] = [
-			{
-				entity: "Tag",
-				numberOfRecords: 3,
-				fields: [{ key: "name", type: "one-of", value: "red,green,blue" }],
-			},
-		];
+  test("should handle random option", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "Tag",
+        numberOfRecords: 3,
+        fields: [{ key: "name", type: "one-of", value: "red,green,blue" }],
+      },
+    ];
 
-		const result = generateDummyData(schemas);
-		const tags = result.Tags!;
+    const result = generateDummyData(schemas);
+    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
+    const tags = result.Tags!;
 
-		tags.forEach((tag) => {
-			const name = tag.name;
-			expect(name).toBeDefined();
-			expect(["red", "green", "blue"].includes(name as string)).toBe(true);
-		});
-	});
+    tags.forEach((tag) => {
+      const name = tag.name;
+      expect(name).toBeDefined();
+      expect(["red", "green", "blue"].includes(name as string)).toBe(true);
+    });
+  });
 
-	test("should handle string fields", () => {
-		const schemas: DummyDataSchema[] = [
-			{
-				entity: "Comment",
-				numberOfRecords: 2,
-				fields: [{ key: "content", type: "string", value: 5 }],
-			},
-		];
+  test("should handle string fields", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "Comment",
+        numberOfRecords: 2,
+        fields: [{ key: "content", type: "string", value: 5 }],
+      },
+    ];
 
-		const result = generateDummyData(schemas);
-		const comments = result.Comments!;
+    const result = generateDummyData(schemas);
+    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
+    const comments = result.Comments!;
 
-		comments.forEach((comment) => {
-			const content = comment.content;
-			expect(content).toBeDefined();
-			expect(typeof content).toBe("string");
-			expect((content as string).split(" ").length).toBe(5);
-		});
-	});
+    comments.forEach((comment) => {
+      const content = comment.content;
+      expect(content).toBeDefined();
+      expect(typeof content).toBe("string");
+      expect((content as string).split(" ").length).toBe(5);
+    });
+  });
 
-	test("should handle empty string fields", () => {
-		const schemas: DummyDataSchema[] = [
-			{
-				entity: "Comment",
-				numberOfRecords: 1,
-				fields: [
-					{ key: "title", type: "string", value: 1 },
-					{ key: "content", type: "string", value: 0 },
-				],
-			},
-		];
+  test("should handle empty string fields", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "Comment",
+        numberOfRecords: 1,
+        fields: [
+          { key: "title", type: "string", value: 1 },
+          { key: "content", type: "string", value: 0 },
+        ],
+      },
+    ];
 
-		const result = generateDummyData(schemas);
-		const comment = result?.Comments?.[0];
+    const result = generateDummyData(schemas);
+    const comment = result?.Comments?.[0];
 
-		expect(comment).not.toHaveProperty("content");
-		expect(comment?.title).toBeDefined();
-	});
+    expect(comment).not.toHaveProperty("content");
+    expect(comment?.title).toBeDefined();
+  });
 
-	test("should handle array fields", () => {
-		const schemas: DummyDataSchema[] = [
-			{
-				entity: "Product",
-				numberOfRecords: 2,
-				fields: [
-					{ key: "tags", type: "string-array", value: 3 },
-					{ key: "items", type: "number-array", value: 2 },
-				],
-			},
-		];
+  test("should handle array fields", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "Product",
+        numberOfRecords: 2,
+        fields: [
+          { key: "tags", type: "string-array", value: 3 },
+          { key: "items", type: "number-array", value: 2 },
+        ],
+      },
+    ];
 
-		const result = generateDummyData(schemas);
-		const products = result.Products!;
+    const result = generateDummyData(schemas);
+    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
+    const products = result.Products!;
 
-		products.forEach((product) => {
-			const tags = product.tags;
-			const items = product.items;
+    products.forEach((product) => {
+      const tags = product.tags;
+      const items = product.items;
 
-			// Validate items array
-			expect(items).toBeDefined();
-			expect(Array.isArray(items)).toBe(true);
-			expect((items as number[]).length).toBe(2);
-			(items as number[]).forEach((item) => {
-				expect(typeof item).toBe("number");
-			});
+      // Validate items array
+      expect(items).toBeDefined();
+      expect(Array.isArray(items)).toBe(true);
+      expect((items as number[]).length).toBe(2);
+      (items as number[]).forEach((item) => {
+        expect(typeof item).toBe("number");
+      });
 
-			// Validate tags array
-			expect(tags).toBeDefined();
-			expect(Array.isArray(tags)).toBe(true);
-			expect((tags as string[]).length).toBe(3);
-			(tags as string[]).forEach((tag) => {
-				expect(typeof tag).toBe("string");
-			});
-		});
-	});
+      // Validate tags array
+      expect(tags).toBeDefined();
+      expect(Array.isArray(tags)).toBe(true);
+      expect((tags as string[]).length).toBe(3);
+      (tags as string[]).forEach((tag) => {
+        expect(typeof tag).toBe("string");
+      });
+    });
+  });
 
-	test("should handle nested fields", () => {
-		const schemas: DummyDataSchema[] = [
-			{
-				entity: "Order",
-				numberOfRecords: 2,
-				fields: [
-					{
-						key: "shippingAddress",
-						type: "nested",
-						value: [
-							{ key: "street", type: "street" },
-							{ key: "city", type: "city" },
-							{ key: "zipCode", type: "zip-code" },
-						],
-					},
-				],
-			},
-		];
+  test("should handle nested fields", () => {
+    const schemas: DummyDataSchema[] = [
+      {
+        entity: "Order",
+        numberOfRecords: 2,
+        fields: [
+          {
+            key: "shippingAddress",
+            type: "nested",
+            value: [
+              { key: "street", type: "street" },
+              { key: "city", type: "city" },
+              { key: "zipCode", type: "zip-code" },
+            ],
+          },
+        ],
+      },
+    ];
 
-		const result = generateDummyData(schemas);
-		const orders = result.Orders!;
+    const result = generateDummyData(schemas);
+    // biome-ignore lint/style/noNonNullAssertion: <-- IGNORE --->
+    const orders = result.Orders!;
 
-		orders.forEach((order) => {
-			const address = order.shippingAddress as Record<
-				string,
-				string | number | boolean
-			>;
-			expect(address).toBeDefined();
-			expect(typeof address.street).toBe("string");
-			expect(typeof address.city).toBe("string");
-			expect(typeof address.zipCode).toBe("string");
-		});
-	});
+    orders.forEach((order) => {
+      const address = order.shippingAddress as Record<
+        string,
+        string | number | boolean
+      >;
+      expect(address).toBeDefined();
+      expect(typeof address.street).toBe("string");
+      expect(typeof address.city).toBe("string");
+      expect(typeof address.zipCode).toBe("string");
+    });
+  });
 });

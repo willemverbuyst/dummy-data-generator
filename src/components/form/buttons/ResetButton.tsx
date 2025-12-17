@@ -4,23 +4,23 @@ import { useFormContext } from "react-hook-form";
 import { defaultSchema } from "../formSchema";
 
 export function ResetButton() {
-	const clearDummyData = useDummyData((state) => state.clearDummyData);
-	const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
-	const { reset } = useFormContext();
+  const clearDummyData = useDummyData((state) => state.clearDummyData);
+  const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
+  const { reset } = useFormContext();
 
-	return (
-		<Button
-			type="button"
-			variant="destructive"
-			onClick={() => {
-				reset({
-					schemas: [defaultSchema],
-				});
-				clearDummyData();
-				setInSyncWithForm(true);
-			}}
-		>
-			Reset
-		</Button>
-	);
+  return (
+    <Button
+      type="button"
+      variant="destructive"
+      onClick={() => {
+        reset({
+          schemas: [defaultSchema],
+        });
+        clearDummyData();
+        setInSyncWithForm(true);
+      }}
+    >
+      Reset
+    </Button>
+  );
 }
