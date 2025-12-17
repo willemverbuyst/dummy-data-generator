@@ -13,86 +13,86 @@ import { FormItem } from "./FormItem";
 import { defaultSchema, type FormSchema, formSchema } from "./formSchema";
 
 export function FormCard() {
-	const setDummyData = useDummyData((state) => state.setDummyData);
-	const setIsGenerating = useDummyData((state) => state.setIsGenerating);
-	const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
+  const setDummyData = useDummyData((state) => state.setDummyData);
+  const setIsGenerating = useDummyData((state) => state.setIsGenerating);
+  const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
 
-	const methods = useForm<FormSchema>({
-		resolver: zodResolver(formSchema) as Resolver<FormSchema>,
-		defaultValues: {
-			schemas: [defaultSchema],
-		},
-	});
+  const methods = useForm<FormSchema>({
+    resolver: zodResolver(formSchema) as Resolver<FormSchema>,
+    defaultValues: {
+      schemas: [defaultSchema],
+    },
+  });
 
-	const { subscribe, handleSubmit, control } = methods;
+  const { subscribe, handleSubmit, control } = methods;
 
-	useEffect(() => {
-		const callback = subscribe({
-			formState: {
-				touchedFields: true,
-			},
-			callback: () => {
-				setInSyncWithForm(false);
-			},
-		});
+  useEffect(() => {
+    const callback = subscribe({
+      formState: {
+        touchedFields: true,
+      },
+      callback: () => {
+        setInSyncWithForm(false);
+      },
+    });
 
-		return () => callback();
-	}, [subscribe, setInSyncWithForm]);
+    return () => callback();
+  }, [subscribe, setInSyncWithForm]);
 
-	const {
-		fields: schemas,
-		remove: removeSchema,
-		append: appendSchema,
-	} = useFieldArray({
-		control,
-		name: "schemas",
-	});
+  const {
+    fields: schemas,
+    remove: removeSchema,
+    append: appendSchema,
+  } = useFieldArray({
+    control,
+    name: "schemas",
+  });
 
-	async function onSubmit(data: z.infer<typeof formSchema>) {
-		setIsGenerating(true);
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    setIsGenerating(true);
 
-		// Dynamic import - only load the generator (and faker) when needed
-		const { generateDummyData } = await import(
-			"@/lib/generators/generateDummyData"
-		);
+    // Dynamic import - only load the generator (and faker) when needed
+    const { generateDummyData } = await import(
+      "@/lib/generators/generateDummyData"
+    );
 
-		setTimeout(() => {
-			const dummyData = generateDummyData(data.schemas);
-			setDummyData(dummyData);
-			setInSyncWithForm(true);
-			setIsGenerating(false);
-			toast("Dummy data has been generated");
-		}, 300);
-	}
+    setTimeout(() => {
+      const dummyData = generateDummyData(data.schemas);
+      setDummyData(dummyData);
+      setInSyncWithForm(true);
+      setIsGenerating(false);
+      toast("Dummy data has been generated");
+    }, 300);
+  }
 
-	return (
-		<FormProvider {...methods}>
-			<form
-				id="form-dummy-data"
-				onSubmit={handleSubmit(onSubmit)}
-				className="flex w-full justify-between gap-4"
-			>
-				<div className="flex w-full flex-col gap-1">
-					{schemas.map((schema, index) => (
-						<FormItem
-							key={schema.id}
-							schemaId={schema.id}
-							index={index}
-							removeSchema={removeSchema}
-							schemasLength={schemas.length}
-						/>
-					))}
-					<AddEntityButton append={appendSchema} />
-				</div>
+  return (
+    <FormProvider {...methods}>
+      <form
+        id="form-dummy-data"
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex w-full justify-between gap-4"
+      >
+        <div className="flex w-full flex-col gap-1">
+          {schemas.map((schema, index) => (
+            <FormItem
+              key={schema.id}
+              schemaId={schema.id}
+              index={index}
+              removeSchema={removeSchema}
+              schemasLength={schemas.length}
+            />
+          ))}
+          <AddEntityButton append={appendSchema} />
+        </div>
 
-				<div className="bg-background m-2 flex flex-col gap-10 rounded-md p-4">
-					<ShowExampleButton />
-					<div className="flex flex-col gap-2">
-						<ResetButton />
-						<GenerateButton />
-					</div>
-				</div>
-			</form>
-		</FormProvider>
-	);
+        <div className="bg-background m-2 flex flex-col gap-10 rounded-md p-4">
+          <ShowExampleButton />
+          <div className="flex flex-col gap-2">
+            <ResetButton />
+            <GenerateButton />
+          </div>
+        </div>
+      </form>
+    </FormProvider>
+  );
 }

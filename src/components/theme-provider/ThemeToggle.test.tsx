@@ -11,75 +11,75 @@ vi.mock("./useTheme");
 
 // Mock lucide-react icons
 vi.mock("lucide-react", () => ({
-	Moon: () => <div data-testid="moon-icon">Moon</div>,
-	Sun: () => <div data-testid="sun-icon">Sun</div>,
+  Moon: () => <div data-testid="moon-icon">Moon</div>,
+  Sun: () => <div data-testid="sun-icon">Sun</div>,
 }));
 
 // Mock Button component
 vi.mock("../ui/button", () => ({
-	Button: ({
-		children,
-		onClick,
-		...props
-	}: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
-		<button onClick={onClick} {...props}>
-			{children}
-		</button>
-	),
+  Button: ({
+    children,
+    onClick,
+    ...props
+  }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+    <button onClick={onClick} {...props}>
+      {children}
+    </button>
+  ),
 }));
 
 describe("ThemeToggle", () => {
-	beforeEach(() => {
-		vi.clearAllMocks();
-		// Reset to default "light" theme before each test
-		mockUseTheme.mockReturnValue({
-			theme: "light",
-			setTheme: mockSetTheme,
-		});
-	});
+  beforeEach(() => {
+    vi.clearAllMocks();
+    // Reset to default "light" theme before each test
+    mockUseTheme.mockReturnValue({
+      theme: "light",
+      setTheme: mockSetTheme,
+    });
+  });
 
-	it("renders moon icon when theme is light", () => {
-		render(<ThemeToggle />);
-		expect(screen.getByTestId("moon-icon")).toBeInTheDocument();
-	});
+  it("renders moon icon when theme is light", () => {
+    render(<ThemeToggle />);
+    expect(screen.getByTestId("moon-icon")).toBeInTheDocument();
+  });
 
-	it("renders sun icon when theme is dark", () => {
-		mockUseTheme.mockReturnValue({
-			theme: "dark",
-			setTheme: mockSetTheme,
-		});
+  it("renders sun icon when theme is dark", () => {
+    mockUseTheme.mockReturnValue({
+      theme: "dark",
+      setTheme: mockSetTheme,
+    });
 
-		render(<ThemeToggle />);
-		expect(screen.getByTestId("sun-icon")).toBeInTheDocument();
-	});
+    render(<ThemeToggle />);
+    expect(screen.getByTestId("sun-icon")).toBeInTheDocument();
+  });
 
-	it('calls setTheme with "dark" when current theme is light', () => {
-		render(<ThemeToggle />);
-		const button = screen.getByRole("button");
+  it('calls setTheme with "dark" when current theme is light', () => {
+    render(<ThemeToggle />);
+    const button = screen.getByRole("button");
 
-		fireEvent.click(button);
+    fireEvent.click(button);
 
-		expect(mockSetTheme).toHaveBeenCalledWith("dark");
-	});
+    expect(mockSetTheme).toHaveBeenCalledWith("dark");
+  });
 
-	it('calls setTheme with "light" when current theme is dark', () => {
-		mockUseTheme.mockReturnValue({
-			theme: "dark",
-			setTheme: mockSetTheme,
-		});
+  it('calls setTheme with "light" when current theme is dark', () => {
+    mockUseTheme.mockReturnValue({
+      theme: "dark",
+      setTheme: mockSetTheme,
+    });
 
-		render(<ThemeToggle />);
-		const button = screen.getByRole("button");
+    render(<ThemeToggle />);
+    const button = screen.getByRole("button");
 
-		fireEvent.click(button);
+    fireEvent.click(button);
 
-		expect(mockSetTheme).toHaveBeenCalledWith("light");
-	});
+    expect(mockSetTheme).toHaveBeenCalledWith("light");
+  });
 
-	it("renders button with correct attributes", () => {
-		render(<ThemeToggle />);
-		const button = screen.getByRole("button");
+  it("renders button with correct attributes", () => {
+    render(<ThemeToggle />);
+    const button = screen.getByRole("button");
 
-		expect(button).toHaveAttribute("type", "button");
-	});
+    expect(button).toHaveAttribute("type", "button");
+  });
 });
