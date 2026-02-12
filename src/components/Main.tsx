@@ -9,7 +9,7 @@ import { OutputCard } from "./output/OutputCard";
 export function Main() {
   return (
     <div className="flex w-screen">
-      <ResizablePanelGroup direction="horizontal" className="horizontal p-2">
+      <ResizablePanelGroup orientation="horizontal" className="horizontal p-2">
         <ResizablePanel defaultSize={60}>
           <div className="h-full overflow-y-auto">
             <OutputCard />
