@@ -28,7 +28,6 @@ export default defineConfig({
             "@radix-ui/react-separator",
             "@radix-ui/react-slot",
             "@radix-ui/react-tooltip",
-            "sonner",
           ],
           "vendor-utils": [
             "zod",
