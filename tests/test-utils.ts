@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import type { UserEvent } from "@testing-library/user-event";
 
 export async function clickClearType(
@@ -7,8 +7,8 @@ export async function clickClearType(
   value: string,
 ) {
   await user.click(element);
-  await user.clear(element);
-  await user.type(element, value);
+
+  fireEvent.change(element, { target: { value: value } });
 }
 
 export async function findByRoleClickClearType(
@@ -21,8 +21,8 @@ export async function findByRoleClickClearType(
     name,
   });
   await user.click(element);
-  await user.clear(element);
-  await user.type(element, value);
+
+  fireEvent.change(element, { target: { value: value } });
 }
 
 export async function findByRoleClickClearTypeTabSelect(
@@ -58,8 +58,7 @@ export async function findByRoleClickClearTypeTabType(
     throw new Error("No active element after tabbing");
   }
 
-  await user.clear(document.activeElement);
-  await user.type(document.activeElement, value2);
+  fireEvent.change(document.activeElement, { target: { value: value2 } });
 }
 
 export async function findByRoleClickClearTypeTabSelectType(

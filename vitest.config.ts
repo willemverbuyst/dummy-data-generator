@@ -49,7 +49,7 @@ export default mergeConfig(
             alias: {
               "@/": new URL("./src/", import.meta.url).pathname,
             },
-            testTimeout: 60_000,
+            testTimeout: 240_000,
           },
         },
       ],

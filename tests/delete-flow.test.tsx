@@ -25,7 +25,12 @@ describe("Delete Flow Integration Test", () => {
     });
 
     await findByRoleClickClearType(user, "textbox", /^entity 1$/i, "User");
-    await findByRoleClickClearType(user, "textbox", /number of records/i, "3");
+    await findByRoleClickClearType(
+      user,
+      "spinbutton",
+      /number of records/i,
+      "3",
+    );
 
     await findByRoleClickClearTypeTabSelect(
       user,

@@ -34,7 +34,7 @@ export function FormItem({
 
   return (
     <FieldGroup key={schemaId} className="bg-background m-2 rounded-md p-4">
-      <div className="flex w-full items-end gap-2">
+      <div className="flex w-full items-start gap-2">
         <Controller
           name={`schemas.${index}.entity`}
           control={control}
