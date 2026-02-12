@@ -32,6 +32,7 @@ export function ShowExampleButton() {
           toast("Example dummy data has been generated");
         }, 300);
       }}
+      aria-label="example-button"
     >
       Example
     </Button>

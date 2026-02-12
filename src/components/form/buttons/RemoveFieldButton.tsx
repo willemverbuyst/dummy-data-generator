@@ -20,7 +20,8 @@ export function RemoveFieldButton({
       htmlType="button"
       disabled={disabled}
       onClick={() => remove(index)}
-      title={title}
+      aria-label={title}
+      title="Remove Field"
     >
       <MinusOutlined />
     </Button>

@@ -20,6 +20,7 @@ export function ResetButton() {
         clearDummyData();
         setInSyncWithForm(true);
       }}
+      aria-label="reset-button"
     >
       Reset
     </Button>

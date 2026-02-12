@@ -18,9 +18,11 @@ describe("Reset Flow Integration Test", () => {
     expect(initialBadge).toBeInTheDocument();
 
     const addEntityButton = await screen.findByRole("button", {
-      name: /add entity/i,
+      name: /add-entity-button/i,
     });
-    const generateButton = screen.getByRole("button", { name: /generate/i });
+    const generateButton = screen.getByRole("button", {
+      name: /generate-button/i,
+    });
 
     await findByRoleClickClearType(user, "textbox", /^entity 1$/i, "User");
     await findByRoleClickClearType(user, "textbox", /number of records/i, "3");
@@ -33,8 +35,9 @@ describe("Reset Flow Integration Test", () => {
       "name",
     );
 
-    const entity1AddFieldButton =
-      await screen.findByTitle("entity-1-add-field");
+    const entity1AddFieldButton = await screen.findByRole("button", {
+      name: "entity-1-add-field",
+    });
     await user.click(entity1AddFieldButton);
 
     await findByRoleClickClearTypeTabSelect(
@@ -94,7 +97,7 @@ describe("Reset Flow Integration Test", () => {
     expect(firstPost).toHaveProperty("title");
 
     const resetButton = await screen.findByRole("button", {
-      name: /reset/i,
+      name: /reset-button/i,
     });
     await user.click(resetButton);
 

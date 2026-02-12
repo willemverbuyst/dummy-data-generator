@@ -18,9 +18,13 @@ describe("Full Flow Integration Test", () => {
     const initialBadge = await screen.findByText("in sync");
     expect(initialBadge).toBeInTheDocument();
 
-    const addEntityButton = await screen.findByTitle("add-entity");
+    const addEntityButton = await screen.findByRole("button", {
+      name: /add-entity-button/i,
+    });
 
-    const generateButton = await screen.findByTitle("generate");
+    const generateButton = await screen.findByRole("button", {
+      name: /generate-button/i,
+    });
 
     // ============================================================================
     // PART 1: FILL THE FORM WITH EXAMPLE DATA
@@ -40,8 +44,9 @@ describe("Full Flow Integration Test", () => {
       "name",
     );
 
-    const entity1AddFieldButton =
-      await screen.findByTitle("entity-1-add-field");
+    const entity1AddFieldButton = await screen.findByRole("button", {
+      name: "entity-1-add-field",
+    });
     await user.click(entity1AddFieldButton);
 
     await findByRoleClickClearTypeTabSelect(
@@ -62,8 +67,11 @@ describe("Full Flow Integration Test", () => {
       "nested",
     );
 
-    const entity1Field3AddNestedFieldButton = await screen.findByTitle(
-      "entity-1-field-3-add-nested-field",
+    const entity1Field3AddNestedFieldButton = await screen.findByRole(
+      "button",
+      {
+        name: "entity-1-field-3-add-nested-field",
+      },
     );
 
     // nested fields within address
@@ -137,8 +145,9 @@ describe("Full Flow Integration Test", () => {
       "word",
     );
 
-    const entity2AddFieldButton =
-      await screen.findByTitle("entity-2-add-field");
+    const entity2AddFieldButton = await screen.findByRole("button", {
+      name: "entity-2-add-field",
+    });
     await user.click(entity2AddFieldButton);
 
     await findByRoleClickClearTypeTabSelectType(
@@ -204,8 +213,9 @@ describe("Full Flow Integration Test", () => {
       "3",
     );
 
-    const entity3AddFieldButton =
-      await screen.findByTitle("entity-3-add-field");
+    const entity3AddFieldButton = await screen.findByRole("button", {
+      name: "entity-3-add-field",
+    });
 
     await user.click(entity3AddFieldButton);
 

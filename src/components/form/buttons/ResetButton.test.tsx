@@ -36,19 +36,21 @@ describe("ResetButton", () => {
 
   it("renders reset button with correct text", () => {
     render(<ResetButton />);
-    expect(screen.getByRole("button", { name: "Reset" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "reset-button" }),
+    ).toBeInTheDocument();
   });
 
   it("has correct button attributes", () => {
     render(<ResetButton />);
-    const button = screen.getByRole("button", { name: "Reset" });
+    const button = screen.getByRole("button", { name: "reset-button" });
     expect(button).toHaveAttribute("type", "button");
   });
 
   it("calls all reset functions when clicked", async () => {
     const user = userEvent.setup();
     render(<ResetButton />);
-    const button = screen.getByRole("button", { name: "Reset" });
+    const button = screen.getByRole("button", { name: "reset-button" });
 
     await user.click(button);
 
@@ -64,7 +66,7 @@ describe("ResetButton", () => {
   it("calls reset functions in correct order", async () => {
     const user = userEvent.setup();
     render(<ResetButton />);
-    const button = screen.getByRole("button", { name: "Reset" });
+    const button = screen.getByRole("button", { name: "reset-button" });
 
     await user.click(button);
 

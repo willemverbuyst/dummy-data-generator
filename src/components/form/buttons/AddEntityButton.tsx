@@ -14,7 +14,7 @@ export function AddEntityButton({
       htmlType="button"
       onClick={() => append(defaultSchema)}
       className="ml-auto"
-      title="add-entity"
+      aria-label="add-entity-button"
     >
       Add Entity
     </Button>

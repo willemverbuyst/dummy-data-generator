@@ -51,6 +51,6 @@ describe("AddFieldButton", () => {
     render(<AddFieldButton append={mockAppend} title="add field" />);
 
     const button = screen.getByRole("button");
-    expect(button).toHaveAttribute("title", "add field");
+    expect(button).toHaveAttribute("title", "Add Field");
   });
 });

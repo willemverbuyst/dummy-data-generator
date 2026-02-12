@@ -1,8 +1,3 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import type { UseFieldArrayRemove } from "react-hook-form";
@@ -19,22 +14,16 @@ export function RemoveEntityButton({
   title: string;
 }) {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          variant="outlined"
-          size="small"
-          htmlType="button"
-          disabled={disabled}
-          onClick={() => remove(index)}
-          title={title}
-        >
-          <DeleteOutlined />
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p>Remove Entity</p>
-      </TooltipContent>
-    </Tooltip>
+    <Button
+      variant="outlined"
+      size="small"
+      htmlType="button"
+      disabled={disabled}
+      onClick={() => remove(index)}
+      title="Remove Entity"
+      aria-label={title}
+    >
+      <DeleteOutlined />
+    </Button>
   );
 }

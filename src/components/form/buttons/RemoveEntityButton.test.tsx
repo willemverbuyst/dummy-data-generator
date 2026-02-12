@@ -67,19 +67,4 @@ describe("RemoveEntityButton", () => {
     const button = screen.getByRole("button");
     expect(button).not.toBeDisabled();
   });
-
-  it("shows tooltip on hover", async () => {
-    render(<RemoveEntityButton {...defaultProps} />);
-    const user = userEvent.setup();
-
-    expect(screen.queryByText("Remove")).not.toBeInTheDocument();
-
-    const button = screen.getByRole("button");
-    await user.hover(button);
-
-    await waitFor(async () => {
-      const tooltip = await screen.findByRole("tooltip");
-      expect(tooltip).toHaveTextContent("Remove Entity");
-    });
-  });
 });

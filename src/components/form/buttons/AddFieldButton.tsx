@@ -16,7 +16,8 @@ export function AddFieldButton({
       size="small"
       htmlType="button"
       onClick={() => append(defaultField)}
-      title={title}
+      title="Add Field"
+      aria-label={title}
     >
       <PlusOutlined />
     </Button>
