@@ -18,10 +18,9 @@ describe("Full Flow Integration Test", () => {
     const initialBadge = await screen.findByText("in sync");
     expect(initialBadge).toBeInTheDocument();
 
-    const addEntityButton = await screen.findByRole("button", {
-      name: /add entity/i,
-    });
-    const generateButton = screen.getByRole("button", { name: /generate/i });
+    const addEntityButton = await screen.findByTitle("add-entity");
+
+    const generateButton = await screen.findByTitle("generate");
 
     // ============================================================================
     // PART 1: FILL THE FORM WITH EXAMPLE DATA

@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { exampleInput } from "@/exampleInput";
 import { useDummyData } from "@/zustand/store";
+import { Button } from "antd";
 import { useFormContext } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -12,8 +12,9 @@ export function ShowExampleButton() {
 
   return (
     <Button
-      variant="secondary"
-      type="button"
+      variant="solid"
+      color="pink"
+      htmlType="button"
       onClick={async () => {
         setIsGenerating(true);
 

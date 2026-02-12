@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { MinusIcon } from "lucide-react";
+import { MinusOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import type { UseFieldArrayRemove } from "react-hook-form";
 
 export function RemoveFieldButton({
@@ -15,14 +15,14 @@ export function RemoveFieldButton({
 }) {
   return (
     <Button
-      variant="outline"
-      size="sm"
-      type="button"
+      variant="outlined"
+      size="small"
+      htmlType="button"
       disabled={disabled}
       onClick={() => remove(index)}
       title={title}
     >
-      <MinusIcon />
+      <MinusOutlined />
     </Button>
   );
 }

@@ -1,8 +1,8 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "antd";
 
 export function GenerateButton() {
   return (
-    <Button type="submit" variant="default">
+    <Button type="primary" htmlType="submit" title="generate">
       Generate
     </Button>
   );

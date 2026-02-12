@@ -45,9 +45,9 @@ describe("Delete Flow Integration Test", () => {
       "email",
     );
 
-    const removeFieldButton = await screen.findByRole("button", {
-      name: /entity-1-remove-field-2/i,
-    });
+    const removeFieldButton = await screen.findByTitle(
+      "entity-1-remove-field-2",
+    );
     await user.click(removeFieldButton);
 
     await user.click(addEntityButton);
@@ -68,9 +68,7 @@ describe("Delete Flow Integration Test", () => {
       "word",
     );
 
-    const removeEntityButton = await screen.findByRole("button", {
-      name: /remove-entity-2/i,
-    });
+    const removeEntityButton = await screen.findByTitle("remove-entity-2");
     await user.click(removeEntityButton);
 
     await user.click(generateButton);

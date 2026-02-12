@@ -28,7 +28,7 @@ describe("RemoveEntityButton", () => {
 
     const button = screen.getByRole("button");
     expect(button.querySelector("svg")).toBeInTheDocument();
-    expect(button.querySelector("svg")).toHaveClass("lucide-trash");
+    expect(button.querySelector("svg")).toHaveAttribute("data-icon", "delete");
   });
 
   it("calls remove with correct index when clicked", async () => {

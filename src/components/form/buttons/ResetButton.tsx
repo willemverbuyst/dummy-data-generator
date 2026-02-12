@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { useDummyData } from "@/zustand/store";
+import { Button } from "antd";
 import { useFormContext } from "react-hook-form";
 import { defaultSchema } from "../formSchema";
 
@@ -10,8 +10,9 @@ export function ResetButton() {
 
   return (
     <Button
-      type="button"
-      variant="destructive"
+      htmlType="button"
+      variant="solid"
+      color="danger"
       onClick={() => {
         reset({
           schemas: [defaultSchema],
