@@ -58,6 +58,7 @@ export async function findByRoleClickClearTypeTabType(
     throw new Error("No active element after tabbing");
   }
 
+  await user.clear(document.activeElement);
   await user.type(document.activeElement, value2);
 }
 

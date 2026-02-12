@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { afterAll, beforeAll } from "vitest";
+import { afterAll, beforeAll, vi } from "vitest";
 
 // Suppress React 18 act warnings from Radix UI Select/Tooltip components
 // These warnings occur due to async state updates in Radix UI's internal
@@ -19,6 +19,12 @@ beforeAll(() => {
     }
     originalError.call(console, ...args);
   };
+
+  // stackoverflow.com/questions/79790413/how-to-avoid-target-haspointercapture-is-not-a-function-when-testing-radix-ui-s
+
+  if (!Element.prototype.hasPointerCapture) {
+    Element.prototype.hasPointerCapture = vi.fn().mockReturnValue(false);
+  }
 });
 
 afterAll(() => {
