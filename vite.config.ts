@@ -23,7 +23,7 @@ export default defineConfig({
         manualChunks: {
           "vendor-react": ["react", "react-dom", "react-hook-form"],
           "vendor-ui": ["antd"],
-          "vendor-utils": ["zod", "zustand", "clsx", "tailwind-merge"],
+          "vendor-utils": ["zod", "zustand"],
         },
       },
     },
