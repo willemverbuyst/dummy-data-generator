@@ -4,7 +4,6 @@ import {
   useFormContext,
   type UseFieldArrayRemove,
 } from "react-hook-form";
-import { FieldGroup, FieldLabel } from "../ui/field";
 import { AddFieldButton } from "./buttons/AddFieldButton";
 import { RemoveEntityButton } from "./buttons/RemoveEntityButton";
 import { NumberInput } from "./inputs/NumberInput";
@@ -33,7 +32,7 @@ export function FormItem({
   });
 
   return (
-    <FieldGroup key={schemaId} className="bg-background m-2 rounded-md p-4">
+    <div key={schemaId} className="bg-background m-2 rounded-md p-4">
       <div className="flex w-full items-start gap-2">
         <Controller
           name={`schemas.${index}.entity`}
@@ -68,7 +67,7 @@ export function FormItem({
 
       <div className="flex w-full flex-col gap-2">
         <div className="flex w-full items-end justify-between">
-          <FieldLabel>Fields</FieldLabel>
+          <div>Fields</div>
           <AddFieldButton
             append={appendField}
             title={`entity-${index + 1}-add-field`}
@@ -85,6 +84,6 @@ export function FormItem({
           />
         ))}
       </div>
-    </FieldGroup>
+    </div>
   );
 }
