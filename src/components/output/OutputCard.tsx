@@ -1,5 +1,5 @@
 import { useDummyData } from "@/zustand/store";
-import { Spinner } from "../Spinner";
+import { LoadingOutlined } from "@ant-design/icons";
 import { DataDisplay } from "./DataDisplay";
 import { InSyncBadge } from "./InSyncBadge";
 
@@ -9,7 +9,7 @@ export function OutputCard() {
   return (
     <div className="bg-background relative m-2 rounded-md p-4">
       {isGenerating ? (
-        <Spinner />
+        <LoadingOutlined data-testid="spinner" />
       ) : (
         <>
           <InSyncBadge />
