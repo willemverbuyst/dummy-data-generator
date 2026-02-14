@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { PlusIcon } from "lucide-react";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import type { FieldValues, UseFieldArrayAppend } from "react-hook-form";
 import { defaultField } from "../formSchema";
 
@@ -12,13 +12,14 @@ export function AddFieldButton({
 }) {
   return (
     <Button
-      variant="outline"
-      size="sm"
-      type="button"
+      variant="outlined"
+      size="small"
+      htmlType="button"
       onClick={() => append(defaultField)}
-      title={title}
+      title="Add Field"
+      aria-label={title}
     >
-      <PlusIcon />
+      <PlusOutlined />
     </Button>
   );
 }

@@ -35,7 +35,7 @@ export function KeyValueFields({
 
   return (
     <div key={field.id}>
-      <div className="flex w-full items-end gap-2">
+      <div className="flex w-full items-start gap-2">
         <Controller
           name={`schemas.${index}.fields.${fieldIndex}.key`}
           control={control}
@@ -52,9 +52,7 @@ export function KeyValueFields({
         <Controller
           name={`schemas.${index}.fields.${fieldIndex}.type`}
           control={control}
-          render={({ field, fieldState }) => (
-            <ValueTypeSelector field={field} fieldState={fieldState} />
-          )}
+          render={({ field }) => <ValueTypeSelector field={field} />}
         />
         {renderTextInput && (
           <Controller

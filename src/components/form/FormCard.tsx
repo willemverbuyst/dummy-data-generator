@@ -1,9 +1,9 @@
 import { useDummyData } from "@/zustand/store";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { message } from "antd";
 import { useEffect } from "react";
 import type { Resolver } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { toast } from "sonner";
 import type { z } from "zod";
 import { AddEntityButton } from "./buttons/AddEntityButton";
 import { GenerateButton } from "./buttons/GenerateButton";
@@ -13,6 +13,7 @@ import { FormItem } from "./FormItem";
 import { defaultSchema, type FormSchema, formSchema } from "./formSchema";
 
 export function FormCard() {
+  const [messageApi, contextHolder] = message.useMessage();
   const setDummyData = useDummyData((state) => state.setDummyData);
   const setIsGenerating = useDummyData((state) => state.setIsGenerating);
   const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
@@ -61,38 +62,41 @@ export function FormCard() {
       setDummyData(dummyData);
       setInSyncWithForm(true);
       setIsGenerating(false);
-      toast("Dummy data has been generated");
+      messageApi.success("Dummy data has been generated");
     }, 300);
   }
 
   return (
-    <FormProvider {...methods}>
-      <form
-        id="form-dummy-data"
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full justify-between gap-4"
-      >
-        <div className="flex w-full flex-col gap-1">
-          {schemas.map((schema, index) => (
-            <FormItem
-              key={schema.id}
-              schemaId={schema.id}
-              index={index}
-              removeSchema={removeSchema}
-              schemasLength={schemas.length}
-            />
-          ))}
-          <AddEntityButton append={appendSchema} />
-        </div>
-
-        <div className="bg-background m-2 flex flex-col gap-10 rounded-md p-4">
-          <ShowExampleButton />
-          <div className="flex flex-col gap-2">
-            <ResetButton />
-            <GenerateButton />
+    <>
+      {contextHolder}
+      <FormProvider {...methods}>
+        <form
+          id="form-dummy-data"
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex w-full justify-between gap-4"
+        >
+          <div className="flex w-full flex-col gap-1">
+            {schemas.map((schema, index) => (
+              <FormItem
+                key={schema.id}
+                schemaId={schema.id}
+                index={index}
+                removeSchema={removeSchema}
+                schemasLength={schemas.length}
+              />
+            ))}
+            <AddEntityButton append={appendSchema} />
           </div>
-        </div>
-      </form>
-    </FormProvider>
+
+          <div className="bg-background m-2 flex flex-col gap-10 rounded-md p-4">
+            <ShowExampleButton />
+            <div className="flex flex-col gap-2">
+              <ResetButton />
+              <GenerateButton />
+            </div>
+          </div>
+        </form>
+      </FormProvider>
+    </>
   );
 }

@@ -45,10 +45,9 @@ describe("TextInput", () => {
 
     const label = screen.getByText("Test Label");
     expect(label).toBeInTheDocument();
-    expect(label).toHaveAttribute("for", "testField");
   });
 
-  it("hides label when hideLabel is true", () => {
+  it("does not render label when hideLabel is true", async () => {
     render(
       <TextInput
         field={mockField}
@@ -58,9 +57,8 @@ describe("TextInput", () => {
       />,
     );
 
-    const label = screen.getByText("Test Label");
-    expect(label).toBeInTheDocument();
-    expect(label).toHaveClass("hidden");
+    const label = screen.queryByText("Test Label");
+    expect(label).not.toBeInTheDocument();
   });
 
   it("shows label when hideLabel is false", () => {
@@ -75,7 +73,6 @@ describe("TextInput", () => {
 
     const label = screen.getByText("Test Label");
     expect(label).toBeInTheDocument();
-    expect(label).not.toHaveClass("hidden");
   });
 
   it("renders placeholder when provided", () => {
@@ -107,10 +104,8 @@ describe("TextInput", () => {
       />,
     );
 
-    const field = screen.getByRole("textbox").closest("[data-invalid]");
     const input = screen.getByRole("textbox");
 
-    expect(field).toHaveAttribute("data-invalid", "true");
     expect(input).toHaveAttribute("aria-invalid", "true");
   });
 
@@ -141,10 +136,8 @@ describe("TextInput", () => {
       />,
     );
 
-    const field = screen.getByRole("textbox").closest("[data-invalid]");
     const input = screen.getByRole("textbox");
 
-    expect(field).toHaveAttribute("data-invalid", "false");
     expect(input).toHaveAttribute("aria-invalid", "false");
   });
 });

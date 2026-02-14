@@ -9,7 +9,7 @@ describe("AddEntityButton", () => {
     render(<AddEntityButton append={mockAppend} />);
 
     expect(
-      screen.getByRole("button", { name: "Add Entity" }),
+      screen.getByRole("button", { name: "add-entity-button" }),
     ).toBeInTheDocument();
   });
 

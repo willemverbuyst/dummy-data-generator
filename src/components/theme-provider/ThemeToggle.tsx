@@ -1,5 +1,5 @@
-import { Moon, Sun } from "lucide-react";
-import { Button } from "../ui/button";
+import { MoonOutlined, SunOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import { useTheme } from "./useTheme";
 
 export function ThemeToggle() {
@@ -7,12 +7,14 @@ export function ThemeToggle() {
 
   return (
     <Button
-      variant="outline"
-      size="icon"
-      type="button"
+      htmlType="button"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >
-      {theme === "dark" ? <Sun /> : <Moon />}
+      {theme === "dark" ? (
+        <SunOutlined data-testid="sun-icon" />
+      ) : (
+        <MoonOutlined data-testid="moon-icon" />
+      )}
     </Button>
   );
 }

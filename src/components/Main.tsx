@@ -1,27 +1,22 @@
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
+import { Splitter } from "antd";
 import { FormCard } from "./form/FormCard";
 import { OutputCard } from "./output/OutputCard";
 
 export function Main() {
   return (
     <div className="flex w-screen">
-      <ResizablePanelGroup orientation="horizontal" className="horizontal p-2">
-        <ResizablePanel defaultSize={60}>
+      <Splitter>
+        <Splitter.Panel defaultSize="60%">
           <div className="h-full overflow-y-auto">
             <OutputCard />
           </div>
-        </ResizablePanel>
-        <ResizableHandle className="bg-dark" />
-        <ResizablePanel defaultSize={40}>
+        </Splitter.Panel>
+        <Splitter.Panel defaultSize="40%">
           <div className="h-full overflow-y-auto">
             <FormCard />
           </div>
-        </ResizablePanel>
-      </ResizablePanelGroup>
+        </Splitter.Panel>
+      </Splitter>
     </div>
   );
 }

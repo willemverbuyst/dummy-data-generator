@@ -1,61 +1,34 @@
-import { Field, FieldError } from "@/components/ui/field";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { fieldValueTypeComplex, fieldValueTypeSimple } from "@/types";
-import type {
-  ControllerFieldState,
-  ControllerRenderProps,
-  FieldValues,
-} from "react-hook-form";
+import { Select } from "antd";
+import type { ControllerRenderProps, FieldValues } from "react-hook-form";
 
 export function ValueTypeSelector({
   field,
-  fieldState,
   includeComplex = true,
 }: {
   field: ControllerRenderProps<FieldValues, string>;
-  fieldState: ControllerFieldState;
   includeComplex?: boolean;
 }) {
+  const options = includeComplex
+    ? [...fieldValueTypeSimple, ...fieldValueTypeComplex]
+    : fieldValueTypeSimple;
+
   return (
-    <Field data-invalid={fieldState.invalid}>
-      <Select
-        name={field.name}
-        value={field.value}
-        onValueChange={field.onChange}
-      >
-        <SelectTrigger className="w-[280px]">
-          <SelectValue placeholder="Select a value type" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Simple type</SelectLabel>
-            {fieldValueTypeSimple.map((type) => (
-              <SelectItem key={type} value={type}>
-                {type.replace("-", " ")}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-          {includeComplex && (
-            <SelectGroup>
-              <SelectLabel>Complex type</SelectLabel>
-              {fieldValueTypeComplex.map((type) => (
-                <SelectItem key={type} value={type}>
-                  {type.replace("-", " ")}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          )}
-        </SelectContent>
-      </Select>
-      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-    </Field>
+    <Select
+      id={field.name}
+      listHeight={options.length * 32}
+      aria-label={field.name}
+      value={field.value}
+      onChange={field.onChange}
+      options={options.map((type) => ({
+        label: type.replace("-", " "),
+        value: type,
+      }))}
+      style={{ width: 240 }}
+      showSearch={{
+        filterOption: (input, option) =>
+          (option?.label ?? "").toLowerCase().includes(input.toLowerCase()),
+      }}
+    />
   );
 }

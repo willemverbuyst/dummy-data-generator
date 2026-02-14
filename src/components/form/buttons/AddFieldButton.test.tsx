@@ -18,7 +18,7 @@ describe("AddFieldButton", () => {
 
     const button = screen.getByRole("button");
     expect(button.querySelector("svg")).toBeInTheDocument();
-    expect(button.querySelector("svg")).toHaveClass("lucide-plus");
+    expect(button.querySelector("svg")).toHaveAttribute("data-icon", "plus");
   });
 
   it("calls append with defaultField when clicked", async () => {
@@ -50,7 +50,7 @@ describe("AddFieldButton", () => {
     const mockAppend = vi.fn();
     render(<AddFieldButton append={mockAppend} title="add field" />);
 
-    const button = screen.getByRole("button", { name: "add field" });
-    expect(button).toBeInTheDocument();
+    const button = screen.getByRole("button");
+    expect(button).toHaveAttribute("title", "Add Field");
   });
 });

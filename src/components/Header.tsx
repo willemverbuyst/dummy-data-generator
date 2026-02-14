@@ -1,6 +1,6 @@
-import { CircleQuestionMark } from "lucide-react";
+import { QuestionCircleOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import { ThemeToggle } from "./theme-provider/ThemeToggle";
-import { Button } from "./ui/button";
 
 export function Header() {
   return (
@@ -10,9 +10,9 @@ export function Header() {
       </h1>
       <div className="absolute top-4 right-4 flex gap-2">
         <ThemeToggle />
-        <Button variant="outline" size="icon" asChild>
+        <Button>
           <a href="https://github.com/willemverbuyst/dummy-data-generator">
-            <CircleQuestionMark />
+            <QuestionCircleOutlined />
           </a>
         </Button>
       </div>

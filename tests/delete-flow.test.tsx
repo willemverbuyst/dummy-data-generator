@@ -18,12 +18,19 @@ describe("Delete Flow Integration Test", () => {
     expect(initialBadge).toBeInTheDocument();
 
     const addEntityButton = await screen.findByRole("button", {
-      name: /add entity/i,
+      name: /add-entity-button/i,
     });
-    const generateButton = screen.getByRole("button", { name: /generate/i });
+    const generateButton = screen.getByRole("button", {
+      name: /generate-button/i,
+    });
 
     await findByRoleClickClearType(user, "textbox", /^entity 1$/i, "User");
-    await findByRoleClickClearType(user, "textbox", /number of records/i, "3");
+    await findByRoleClickClearType(
+      user,
+      "spinbutton",
+      /number of records/i,
+      "3",
+    );
 
     await findByRoleClickClearTypeTabSelect(
       user,
@@ -33,8 +40,9 @@ describe("Delete Flow Integration Test", () => {
       "name",
     );
 
-    const entity1AddFieldButton =
-      await screen.findByTitle("entity-1-add-field");
+    const entity1AddFieldButton = await screen.findByRole("button", {
+      name: "entity-1-add-field",
+    });
     await user.click(entity1AddFieldButton);
 
     await findByRoleClickClearTypeTabSelect(
@@ -46,7 +54,7 @@ describe("Delete Flow Integration Test", () => {
     );
 
     const removeFieldButton = await screen.findByRole("button", {
-      name: /entity-1-remove-field-2/i,
+      name: "entity-1-remove-field-2",
     });
     await user.click(removeFieldButton);
 
@@ -69,7 +77,7 @@ describe("Delete Flow Integration Test", () => {
     );
 
     const removeEntityButton = await screen.findByRole("button", {
-      name: /remove-entity-2/i,
+      name: "remove-entity-2",
     });
     await user.click(removeEntityButton);
 

@@ -28,7 +28,7 @@ describe("RemoveFieldButton", () => {
 
     const button = screen.getByRole("button");
     expect(button.querySelector("svg")).toBeInTheDocument();
-    expect(button.querySelector("svg")).toHaveClass("lucide-minus");
+    expect(button.querySelector("svg")).toHaveAttribute("data-icon", "minus");
   });
 
   it("calls remove with correct index when clicked", async () => {

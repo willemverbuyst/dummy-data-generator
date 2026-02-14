@@ -6,11 +6,6 @@ vi.mock("@/zustand/store", () => ({
   useDummyData: vi.fn(),
 }));
 
-// Mock the child components
-vi.mock("../Spinner", () => ({
-  Spinner: () => <div data-testid="spinner">Loading...</div>,
-}));
-
 vi.mock("./DataDisplay", () => ({
   DataDisplay: () => <div data-testid="data-display">Data Display</div>,
 }));

@@ -42,19 +42,21 @@ describe("ShowExampleButton", () => {
 
   it("renders the button with correct text", () => {
     render(<ShowExampleButton />);
-    expect(screen.getByRole("button", { name: "Example" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "example-button" }),
+    ).toBeInTheDocument();
   });
 
   it("has correct button attributes", () => {
     render(<ShowExampleButton />);
-    const button = screen.getByRole("button", { name: "Example" });
+    const button = screen.getByRole("button", { name: "example-button" });
     expect(button).toHaveAttribute("type", "button");
   });
 
   it("calls all required functions when clicked", async () => {
     const user = userEvent.setup();
     render(<ShowExampleButton />);
-    const button = screen.getByRole("button", { name: "Example" });
+    const button = screen.getByRole("button", { name: "example-button" });
 
     await user.click(button);
     expect(mockSetIsGenerating).toHaveBeenCalledWith(true);
@@ -75,7 +77,7 @@ describe("ShowExampleButton", () => {
   it("calls functions in correct order", async () => {
     const user = userEvent.setup();
     render(<ShowExampleButton />);
-    const button = screen.getByRole("button", { name: "Example" });
+    const button = screen.getByRole("button", { name: "example-button" });
 
     await user.click(button);
 

@@ -1,10 +1,5 @@
-import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { TrashIcon } from "lucide-react";
+import { DeleteOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import type { UseFieldArrayRemove } from "react-hook-form";
 
 export function RemoveEntityButton({
@@ -19,22 +14,16 @@ export function RemoveEntityButton({
   title: string;
 }) {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          type="button"
-          disabled={disabled}
-          onClick={() => remove(index)}
-          title={title}
-        >
-          <TrashIcon />
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p>Remove Entity</p>
-      </TooltipContent>
-    </Tooltip>
+    <Button
+      variant="outlined"
+      size="small"
+      htmlType="button"
+      disabled={disabled}
+      onClick={() => remove(index)}
+      title="Remove Entity"
+      aria-label={title}
+    >
+      <DeleteOutlined />
+    </Button>
   );
 }

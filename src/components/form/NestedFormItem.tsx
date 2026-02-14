@@ -1,5 +1,4 @@
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import { FieldLabel } from "../ui/field";
 import { AddFieldButton } from "./buttons/AddFieldButton";
 import { RemoveFieldButton } from "./buttons/RemoveFieldButton";
 import { TextInput } from "./inputs/TextInput";
@@ -25,15 +24,15 @@ export function NestedFormItem({
 
   return (
     <div className="bg-light m-4 flex flex-col gap-2 rounded-md p-2">
-      <div className="flex w-full items-end justify-between">
-        <FieldLabel>Nested Fields</FieldLabel>
+      <div className="flex w-full items-start justify-between">
+        <div>Nested Fields</div>
         <AddFieldButton
           append={appendNestedField}
           title={`entity-${index + 1}-field-${fieldIndex + 1}-add-nested-field`}
         />
       </div>
       {nestedKeyValueFields.map((field, nestedFieldIndex) => (
-        <div key={field.id} className="flex w-full items-end gap-2">
+        <div key={field.id} className="flex w-full items-start gap-2">
           <Controller
             name={`schemas.${index}.fields.${fieldIndex}.value.${nestedFieldIndex}.key`}
             control={control}
@@ -50,12 +49,8 @@ export function NestedFormItem({
           <Controller
             name={`schemas.${index}.fields.${fieldIndex}.value.${nestedFieldIndex}.type`}
             control={control}
-            render={({ field, fieldState }) => (
-              <ValueTypeSelector
-                field={field}
-                fieldState={fieldState}
-                includeComplex={false}
-              />
+            render={({ field }) => (
+              <ValueTypeSelector field={field} includeComplex={false} />
             )}
           />
 

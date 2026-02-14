@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "antd";
 import type { UseFieldArrayAppend } from "react-hook-form";
 import { defaultSchema, type FormSchema } from "../formSchema";
 
@@ -9,11 +9,12 @@ export function AddEntityButton({
 }) {
   return (
     <Button
-      type="button"
-      variant="secondary"
+      variant="solid"
+      color="pink"
+      htmlType="button"
       onClick={() => append(defaultSchema)}
       className="ml-auto"
-      title="add-entity"
+      aria-label="add-entity-button"
     >
       Add Entity
     </Button>
