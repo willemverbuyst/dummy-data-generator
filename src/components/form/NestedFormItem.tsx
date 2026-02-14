@@ -26,7 +26,7 @@ export function NestedFormItem({
   return (
     <div className="bg-light m-4 flex flex-col gap-2 rounded-md p-2">
       <div className="flex w-full items-start justify-between">
-        <FieldLabel>NestedFields</FieldLabel>
+        <FieldLabel>Nested Fields</FieldLabel>
         <AddFieldButton
           append={appendNestedField}
           title={`entity-${index + 1}-field-${fieldIndex + 1}-add-nested-field`}
