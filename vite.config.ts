@@ -22,13 +22,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           "vendor-react": ["react", "react-dom", "react-hook-form"],
-          "vendor-ui": [
-            "@radix-ui/react-label",
-            "@radix-ui/react-select",
-            "@radix-ui/react-separator",
-            "@radix-ui/react-slot",
-            "@radix-ui/react-tooltip",
-          ],
+          "vendor-ui": ["@radix-ui/react-slot", "@radix-ui/react-tooltip"],
           "vendor-utils": [
             "zod",
             "zustand",
