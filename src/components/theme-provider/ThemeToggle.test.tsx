@@ -9,25 +9,6 @@ const mockUseTheme = vi.mocked(useTheme);
 
 vi.mock("./useTheme");
 
-// Mock lucide-react icons
-vi.mock("lucide-react", () => ({
-  Moon: () => <div data-testid="moon-icon">Moon</div>,
-  Sun: () => <div data-testid="sun-icon">Sun</div>,
-}));
-
-// Mock Button component
-vi.mock("../ui/button", () => ({
-  Button: ({
-    children,
-    onClick,
-    ...props
-  }: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
-    <button onClick={onClick} {...props}>
-      {children}
-    </button>
-  ),
-}));
-
 describe("ThemeToggle", () => {
   beforeEach(() => {
     vi.clearAllMocks();
