@@ -46,6 +46,7 @@ export function NumberInput({
           field.onChange(value);
         }}
         aria-label={label}
+        style={{ width: 240 }}
       />
     </Form.Item>
   );

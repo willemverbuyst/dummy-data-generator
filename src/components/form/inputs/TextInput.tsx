@@ -32,6 +32,7 @@ export function TextInput({
         placeholder={placeholder}
         autoComplete="off"
         aria-label={label}
+        style={{ width: 240 }}
       />
     </Form.Item>
   );

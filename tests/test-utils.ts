@@ -39,9 +39,8 @@ export async function findByRoleClickClearTypeTabSelect(
     throw new Error("No active element after tabbing");
   }
 
+  // await user.click(document.activeElement);
   await user.type(document.activeElement, option);
-  const optionElement = await screen.findByRole("option", { name: option });
-  await user.click(optionElement);
 }
 
 export async function findByRoleClickClearTypeTabType(
@@ -76,9 +75,9 @@ export async function findByRoleClickClearTypeTabSelectType(
     throw new Error("No active element after tabbing");
   }
 
+  await user.click(document.activeElement);
   await user.type(document.activeElement, option);
-  const optionElement = await screen.findByRole("option", { name: option });
-  await user.click(optionElement);
+
   await user.tab();
 
   if (!document.activeElement) {
