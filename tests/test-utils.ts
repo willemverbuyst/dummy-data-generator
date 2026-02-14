@@ -59,30 +59,3 @@ export async function findByRoleClickClearTypeTabType(
 
   fireEvent.change(document.activeElement, { target: { value: value2 } });
 }
-
-export async function findByRoleClickClearTypeTabSelectType(
-  user: UserEvent,
-  role: string,
-  name: RegExp | string,
-  value1: string,
-  option: string,
-  value2: string,
-) {
-  await findByRoleClickClearType(user, role, name, value1);
-  await user.tab();
-
-  if (!document.activeElement) {
-    throw new Error("No active element after tabbing");
-  }
-
-  await user.click(document.activeElement);
-  await user.type(document.activeElement, option);
-
-  await user.tab();
-
-  if (!document.activeElement) {
-    throw new Error("No active element after tabbing");
-  }
-
-  await user.type(document.activeElement, value2);
-}
