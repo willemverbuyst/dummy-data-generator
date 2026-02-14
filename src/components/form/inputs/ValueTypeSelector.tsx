@@ -15,6 +15,7 @@ export function ValueTypeSelector({
 
   return (
     <Select
+      id={field.name}
       listHeight={options.length * 32}
       aria-label={field.name}
       value={field.value}
