@@ -1,6 +1,8 @@
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Form, Space } from "antd";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import { AddFieldButton } from "./buttons/AddFieldButton";
 import { RemoveFieldButton } from "./buttons/RemoveFieldButton";
+import { defaultField } from "./formSchema";
 import { TextInput } from "./inputs/TextInput";
 import { ValueTypeSelector } from "./inputs/ValueTypeSelector";
 
@@ -23,45 +25,52 @@ export function NestedFormItem({
   });
 
   return (
-    <div className="bg-light m-4 flex flex-col gap-2 rounded-md p-2">
-      <div className="flex w-full items-start justify-between">
-        <div>Nested Fields</div>
-        <AddFieldButton
-          append={appendNestedField}
-          title={`entity-${index + 1}-field-${fieldIndex + 1}-add-nested-field`}
-        />
-      </div>
+    <Form.Item style={{ marginTop: "16px", marginBottom: "0px" }}>
       {nestedKeyValueFields.map((field, nestedFieldIndex) => (
-        <div key={field.id} className="flex w-full items-start gap-2">
-          <Controller
-            name={`schemas.${index}.fields.${fieldIndex}.value.${nestedFieldIndex}.key`}
-            control={control}
-            render={({ field, fieldState }) => (
-              <TextInput
-                field={field}
-                fieldState={fieldState}
-                placeholder="e.g. name"
-                label={`Entity ${index + 1} Key ${fieldIndex + 1} Nested Key ${nestedFieldIndex + 1}`}
-                hideLabel
-              />
-            )}
-          />
-          <Controller
-            name={`schemas.${index}.fields.${fieldIndex}.value.${nestedFieldIndex}.type`}
-            control={control}
-            render={({ field }) => (
-              <ValueTypeSelector field={field} includeComplex={false} />
-            )}
-          />
+        <Form.Item
+          key={field.id}
+          label={`Nested field ${nestedFieldIndex + 1}`}
+        >
+          <Space.Compact block>
+            <Controller
+              name={`schemas.${index}.fields.${fieldIndex}.value.${nestedFieldIndex}.key`}
+              control={control}
+              render={({ field, fieldState }) => (
+                <TextInput
+                  field={field}
+                  fieldState={fieldState}
+                  placeholder="e.g. name"
+                  label={`Entity ${index + 1} Key ${fieldIndex + 1} Nested Key ${nestedFieldIndex + 1}`}
+                />
+              )}
+            />
+            <Controller
+              name={`schemas.${index}.fields.${fieldIndex}.value.${nestedFieldIndex}.type`}
+              control={control}
+              render={({ field }) => (
+                <ValueTypeSelector field={field} includeComplex={false} />
+              )}
+            />
 
-          <RemoveFieldButton
-            remove={removeNestedField}
-            index={nestedFieldIndex}
-            disabled={false}
-            title={`entity-${index + 1}-field-${fieldIndex + 1}-remove-nested-field`}
-          />
-        </div>
+            <RemoveFieldButton
+              remove={removeNestedField}
+              index={nestedFieldIndex}
+              disabled={false}
+              title={`entity-${index + 1}-field-${fieldIndex + 1}-remove-nested-field`}
+            />
+          </Space.Compact>
+        </Form.Item>
       ))}
-    </div>
+      <Button
+        block
+        variant="dashed"
+        htmlType="button"
+        onClick={() => appendNestedField(defaultField)}
+        aria-label="Append nested field"
+      >
+        <PlusOutlined />
+        Add Nested Field
+      </Button>
+    </Form.Item>
   );
 }

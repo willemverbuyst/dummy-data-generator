@@ -1,4 +1,4 @@
-import { Form, Input } from "antd";
+import { Input } from "antd";
 import type {
   ControllerFieldState,
   ControllerRenderProps,
@@ -19,21 +19,19 @@ export function TextInput({
   hideLabel?: boolean;
 }) {
   return (
-    <Form.Item
-      layout="vertical"
-      validateStatus={fieldState.invalid ? "error" : undefined}
-      label={hideLabel ? undefined : label}
-      help={fieldState.invalid ? fieldState.error?.message : undefined}
-    >
-      <Input
-        {...field}
-        id={field.name}
-        aria-invalid={fieldState.invalid}
-        placeholder={placeholder}
-        autoComplete="off"
-        aria-label={label}
-        style={{ width: 240 }}
-      />
-    </Form.Item>
+    // <Form.Item
+    //   validateStatus={fieldState.invalid ? "error" : undefined}
+    //   label={hideLabel ? undefined : label}
+    //   help={fieldState.invalid ? fieldState.error?.message : undefined}
+    // >
+    <Input
+      {...field}
+      id={field.name}
+      aria-invalid={fieldState.invalid}
+      placeholder={placeholder}
+      autoComplete="off"
+      aria-label={label}
+    />
+    // </Form.Item>
   );
 }

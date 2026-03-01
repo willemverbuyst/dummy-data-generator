@@ -5,7 +5,7 @@ export function InSyncBadge() {
   const inSyncWithForm = useDummyData((state) => state.inSyncWithForm);
 
   return (
-    <div className="absolute top-2 right-2">
+    <div>
       <Tooltip
         title={
           inSyncWithForm ? (
@@ -13,7 +13,7 @@ export function InSyncBadge() {
           ) : (
             <div className="flex flex-col gap-2">
               <p>Form and json are out of sync</p>
-              <p>Press the Generate button to sync</p>
+              <p>Press the Generate button to sync output data</p>
             </div>
           )
         }

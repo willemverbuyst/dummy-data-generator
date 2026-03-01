@@ -1,5 +1,6 @@
 import { exampleInput } from "@/exampleInput";
 import { useDummyData } from "@/zustand/store";
+import { DatabaseOutlined } from "@ant-design/icons";
 import { Button, message } from "antd";
 import { useFormContext } from "react-hook-form";
 
@@ -14,8 +15,7 @@ export function ShowExampleButton() {
     <>
       {contextHolder}
       <Button
-        variant="solid"
-        color="pink"
+        type="text"
         htmlType="button"
         onClick={async () => {
           setIsGenerating(true);
@@ -35,8 +35,9 @@ export function ShowExampleButton() {
           }, 300);
         }}
         aria-label="example-button"
+        title="show example"
       >
-        Example
+        <DatabaseOutlined style={{ color: "cyan" }} />
       </Button>
     </>
   );

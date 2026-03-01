@@ -4,9 +4,11 @@ import type { ControllerRenderProps, FieldValues } from "react-hook-form";
 
 export function ValueTypeSelector({
   field,
+  label,
   includeComplex = true,
 }: {
   field: ControllerRenderProps<FieldValues, string>;
+  label?: string;
   includeComplex?: boolean;
 }) {
   const options = includeComplex
@@ -14,6 +16,7 @@ export function ValueTypeSelector({
     : fieldValueTypeSimple;
 
   return (
+    // <Form.Item label={label ? label : undefined}>
     <Select
       id={field.name}
       listHeight={options.length * 32}
@@ -24,11 +27,11 @@ export function ValueTypeSelector({
         label: type.replace("-", " "),
         value: type,
       }))}
-      style={{ width: 240 }}
       showSearch={{
         filterOption: (input, option) =>
           (option?.label ?? "").toLowerCase().includes(input.toLowerCase()),
       }}
     />
+    // </Form.Item>
   );
 }

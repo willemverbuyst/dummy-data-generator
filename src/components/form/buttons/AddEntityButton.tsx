@@ -1,3 +1,4 @@
+import { FileAddOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import type { UseFieldArrayAppend } from "react-hook-form";
 import { defaultSchema, type FormSchema } from "../formSchema";
@@ -9,14 +10,13 @@ export function AddEntityButton({
 }) {
   return (
     <Button
-      variant="solid"
-      color="pink"
+      type="text"
       htmlType="button"
       onClick={() => append(defaultSchema)}
-      className="ml-auto"
       aria-label="add-entity-button"
+      title="add entity"
     >
-      Add Entity
+      <FileAddOutlined style={{ color: "purple" }} />
     </Button>
   );
 }

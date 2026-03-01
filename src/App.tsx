@@ -1,11 +1,20 @@
-import { Main } from "@/components/Main";
 import {
   MoonOutlined,
   QuestionCircleOutlined,
   SunOutlined,
 } from "@ant-design/icons";
-import { Button, ConfigProvider, Layout, theme, Typography } from "antd";
+import {
+  Button,
+  ConfigProvider,
+  Flex,
+  Layout,
+  Splitter,
+  theme,
+  Typography,
+} from "antd";
 import { useState } from "react";
+import { FormCard } from "./components/form/FormCard";
+import { OutputCard } from "./components/output/OutputCard";
 
 function App() {
   const [isDark, setIsDark] = useState(false);
@@ -29,29 +38,46 @@ function App() {
             level={1}
             style={{
               color: token.colorPrimary,
-              marginBottom: 0,
             }}
           >
             Dummy Data Generator
           </Typography.Title>
 
-          <div className="flex gap-2">
+          <Flex gap="small">
             <Button
               htmlType="button"
+              type="text"
               onClick={() => setIsDark((prev) => !prev)}
             >
-              {isDark ? <SunOutlined /> : <MoonOutlined />}
+              {isDark ? (
+                <SunOutlined style={{ color: "#fff" }} />
+              ) : (
+                <MoonOutlined style={{ color: "#fff" }} />
+              )}
             </Button>
 
-            <Button>
+            <Button htmlType="button" type="text">
               <a href="https://github.com/willemverbuyst/dummy-data-generator">
-                <QuestionCircleOutlined />
+                <QuestionCircleOutlined style={{ color: "#fff" }} />
               </a>
             </Button>
-          </div>
+          </Flex>
         </Layout.Header>
 
-        <Main />
+        <Layout.Content style={{ padding: "16px" }}>
+          <Splitter>
+            <Splitter.Panel defaultSize="60%">
+              <div style={{ paddingRight: "16px" }}>
+                <OutputCard />
+              </div>
+            </Splitter.Panel>
+            <Splitter.Panel defaultSize="40%">
+              <div style={{ paddingLeft: "16px" }}>
+                <FormCard />
+              </div>
+            </Splitter.Panel>
+          </Splitter>
+        </Layout.Content>
       </Layout>
     </ConfigProvider>
   );

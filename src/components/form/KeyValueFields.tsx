@@ -1,3 +1,4 @@
+import { Form, Space } from "antd";
 import {
   Controller,
   useFormContext,
@@ -33,9 +34,14 @@ export function KeyValueFields({
   );
   const renderNestedForm = ["nested"].includes(type);
 
+  // const { append: appendNestedField } = useFieldArray({
+  //   control,
+  //   name: `schemas.${index}.fields.${fieldIndex}.value`,
+  // });
+
   return (
-    <div key={field.id}>
-      <div className="flex w-full items-start gap-2">
+    <Form.Item key={field.id} label={`Field ${fieldIndex + 1}`}>
+      <Space.Compact block>
         <Controller
           name={`schemas.${index}.fields.${fieldIndex}.key`}
           control={control}
@@ -44,7 +50,7 @@ export function KeyValueFields({
               field={field}
               fieldState={fieldState}
               placeholder="e.g. name"
-              label={`entity ${index + 1} key ${fieldIndex + 1}`}
+              label={`Key ${fieldIndex + 1} for Entity ${index + 1}`}
               hideLabel
             />
           )}
@@ -54,6 +60,7 @@ export function KeyValueFields({
           control={control}
           render={({ field }) => <ValueTypeSelector field={field} />}
         />
+
         {renderTextInput && (
           <Controller
             name={`schemas.${index}.fields.${fieldIndex}.value`}
@@ -85,11 +92,11 @@ export function KeyValueFields({
           disabled={keyValueFieldsLength === 1}
           title={`entity-${index + 1}-remove-field-${fieldIndex + 1}`}
         />
-      </div>
+      </Space.Compact>
 
       {renderNestedForm && (
         <NestedFormItem index={index} fieldIndex={fieldIndex} />
       )}
-    </div>
+    </Form.Item>
   );
 }

@@ -15,8 +15,6 @@ export function RemoveFieldButton({
 }) {
   return (
     <Button
-      variant="outlined"
-      size="small"
       htmlType="button"
       disabled={disabled}
       onClick={() => remove(index)}

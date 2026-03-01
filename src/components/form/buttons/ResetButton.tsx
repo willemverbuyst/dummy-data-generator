@@ -1,4 +1,5 @@
 import { useDummyData } from "@/zustand/store";
+import { UndoOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { useFormContext } from "react-hook-form";
 import { defaultSchema } from "../formSchema";
@@ -11,8 +12,7 @@ export function ResetButton() {
   return (
     <Button
       htmlType="button"
-      variant="solid"
-      color="danger"
+      type="text"
       onClick={() => {
         reset({
           schemas: [defaultSchema],
@@ -21,8 +21,9 @@ export function ResetButton() {
         setInSyncWithForm(true);
       }}
       aria-label="reset-button"
+      title="reset form"
     >
-      Reset
+      <UndoOutlined style={{ color: "red" }} />
     </Button>
   );
 }

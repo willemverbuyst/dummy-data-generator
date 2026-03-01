@@ -1,6 +1,6 @@
 import { useDummyData } from "@/zustand/store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { message } from "antd";
+import { Card, Flex, Form, message } from "antd";
 import { useEffect } from "react";
 import type { Resolver } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
@@ -67,15 +67,23 @@ export function FormCard() {
   }
 
   return (
-    <>
-      {contextHolder}
-      <FormProvider {...methods}>
-        <form
-          id="form-dummy-data"
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex w-full justify-between gap-4"
-        >
-          <div className="flex w-full flex-col gap-1">
+    <FormProvider {...methods}>
+      <Card
+        title="Input"
+        actions={[
+          <AddEntityButton append={appendSchema} key="add-entity" />,
+          <ResetButton key="reset" />,
+          <ShowExampleButton key="show-example" />,
+          <GenerateButton
+            handleSubmit={handleSubmit(onSubmit)}
+            key="generate"
+          />,
+        ]}
+      >
+        {contextHolder}
+
+        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 14 }}>
+          <Flex vertical gap="large" style={{ width: "100%" }}>
             {schemas.map((schema, index) => (
               <FormItem
                 key={schema.id}
@@ -85,18 +93,9 @@ export function FormCard() {
                 schemasLength={schemas.length}
               />
             ))}
-            <AddEntityButton append={appendSchema} />
-          </div>
-
-          <div className="bg-background m-2 flex flex-col gap-10 rounded-md p-4">
-            <ShowExampleButton />
-            <div className="flex flex-col gap-2">
-              <ResetButton />
-              <GenerateButton />
-            </div>
-          </div>
-        </form>
-      </FormProvider>
-    </>
+          </Flex>
+        </Form>
+      </Card>
+    </FormProvider>
   );
 }

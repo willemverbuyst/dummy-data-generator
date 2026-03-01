@@ -15,7 +15,6 @@ export function RemoveEntityButton({
 }) {
   return (
     <Button
-      variant="outlined"
       size="small"
       htmlType="button"
       disabled={disabled}
