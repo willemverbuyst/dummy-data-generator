@@ -1,15 +1,59 @@
-import { Header } from "@/components/Header";
 import { Main } from "@/components/Main";
-import { ThemeProvider } from "@/components/theme-provider/ThemeProvider";
+import {
+  MoonOutlined,
+  QuestionCircleOutlined,
+  SunOutlined,
+} from "@ant-design/icons";
+import { Button, ConfigProvider, Layout, theme, Typography } from "antd";
+import { useState } from "react";
 
 function App() {
+  const [isDark, setIsDark] = useState(false);
+  const { token } = theme.useToken();
+
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <div className="bg-dark relative flex h-full min-h-screen w-screen flex-col items-center gap-2 p-4">
-        <Header />
+    <ConfigProvider
+      theme={{
+        algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+      }}
+    >
+      <Layout style={{ minHeight: "100vh" }}>
+        <Layout.Header
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography.Title
+            level={1}
+            style={{
+              color: token.colorPrimary,
+              marginBottom: 0,
+            }}
+          >
+            Dummy Data Generator
+          </Typography.Title>
+
+          <div className="flex gap-2">
+            <Button
+              htmlType="button"
+              onClick={() => setIsDark((prev) => !prev)}
+            >
+              {isDark ? <SunOutlined /> : <MoonOutlined />}
+            </Button>
+
+            <Button>
+              <a href="https://github.com/willemverbuyst/dummy-data-generator">
+                <QuestionCircleOutlined />
+              </a>
+            </Button>
+          </div>
+        </Layout.Header>
+
         <Main />
-      </div>
-    </ThemeProvider>
+      </Layout>
+    </ConfigProvider>
   );
 }
 
