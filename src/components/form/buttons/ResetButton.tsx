@@ -22,8 +22,9 @@ export function ResetButton() {
       }}
       aria-label="reset-button"
       title="reset form"
+      style={{ color: "red" }}
     >
-      <UndoOutlined style={{ color: "red" }} />
+      <UndoOutlined /> Reset
     </Button>
   );
 }

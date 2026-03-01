@@ -10,7 +10,6 @@ export function TextInput({
   fieldState,
   label,
   placeholder,
-  hideLabel = false,
 }: {
   field: ControllerRenderProps<FieldValues, string>;
   fieldState: ControllerFieldState;
@@ -19,11 +18,6 @@ export function TextInput({
   hideLabel?: boolean;
 }) {
   return (
-    // <Form.Item
-    //   validateStatus={fieldState.invalid ? "error" : undefined}
-    //   label={hideLabel ? undefined : label}
-    //   help={fieldState.invalid ? fieldState.error?.message : undefined}
-    // >
     <Input
       {...field}
       id={field.name}
@@ -32,6 +26,5 @@ export function TextInput({
       autoComplete="off"
       aria-label={label}
     />
-    // </Form.Item>
   );
 }

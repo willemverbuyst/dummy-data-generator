@@ -34,11 +34,6 @@ export function KeyValueFields({
   );
   const renderNestedForm = ["nested"].includes(type);
 
-  // const { append: appendNestedField } = useFieldArray({
-  //   control,
-  //   name: `schemas.${index}.fields.${fieldIndex}.value`,
-  // });
-
   return (
     <Form.Item key={field.id} label={`Field ${fieldIndex + 1}`}>
       <Space.Compact block>

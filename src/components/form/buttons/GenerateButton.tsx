@@ -9,8 +9,9 @@ export function GenerateButton({ handleSubmit }: { handleSubmit: () => void }) {
       aria-label="generate-button"
       onClick={handleSubmit}
       title="generate dummy data"
+      style={{ color: "primary" }}
     >
-      <CheckOutlined style={{ color: "primary" }} />
+      <CheckOutlined /> Generate
     </Button>
   );
 }

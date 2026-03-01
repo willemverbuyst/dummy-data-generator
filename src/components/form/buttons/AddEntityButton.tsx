@@ -15,8 +15,9 @@ export function AddEntityButton({
       onClick={() => append(defaultSchema)}
       aria-label="add-entity-button"
       title="add entity"
+      style={{ color: "purple" }}
     >
-      <FileAddOutlined style={{ color: "purple" }} />
+      <FileAddOutlined /> Add Entity
     </Button>
   );
 }

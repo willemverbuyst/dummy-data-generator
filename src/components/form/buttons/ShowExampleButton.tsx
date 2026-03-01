@@ -36,8 +36,9 @@ export function ShowExampleButton() {
         }}
         aria-label="example-button"
         title="show example"
+        style={{ color: "cyan" }}
       >
-        <DatabaseOutlined style={{ color: "cyan" }} />
+        <DatabaseOutlined /> Example
       </Button>
     </>
   );

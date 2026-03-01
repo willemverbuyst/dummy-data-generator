@@ -1,5 +1,5 @@
 import { useDummyData } from "@/zustand/store";
-import { Tag, Tooltip } from "antd";
+import { Flex, Tag, Tooltip } from "antd";
 
 export function InSyncBadge() {
   const inSyncWithForm = useDummyData((state) => state.inSyncWithForm);
@@ -11,10 +11,10 @@ export function InSyncBadge() {
           inSyncWithForm ? (
             <p>Form and json are in sync</p>
           ) : (
-            <div className="flex flex-col gap-2">
+            <Flex vertical gap="small">
               <p>Form and json are out of sync</p>
               <p>Press the Generate button to sync output data</p>
-            </div>
+            </Flex>
           )
         }
       >
