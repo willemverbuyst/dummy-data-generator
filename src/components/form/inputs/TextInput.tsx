@@ -15,7 +15,6 @@ export function TextInput({
   fieldState: ControllerFieldState;
   label: string;
   placeholder?: string;
-  hideLabel?: boolean;
 }) {
   return (
     <Input

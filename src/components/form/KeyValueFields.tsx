@@ -14,13 +14,11 @@ import { NestedFormItem } from "./NestedFormItem";
 export function KeyValueFields({
   index,
   fieldIndex,
-  field,
   keyValueFieldsLength,
   removeField,
 }: {
   index: number;
   fieldIndex: number;
-  field: Record<"id", string>;
   keyValueFieldsLength: number;
   removeField: UseFieldArrayRemove;
 }) {
@@ -35,7 +33,7 @@ export function KeyValueFields({
   const renderNestedForm = ["nested"].includes(type);
 
   return (
-    <Form.Item key={field.id} label={`Field ${fieldIndex + 1}`}>
+    <Form.Item label={`Field ${fieldIndex + 1}`}>
       <Space.Compact block>
         <Controller
           name={`schemas.${index}.fields.${fieldIndex}.key`}
@@ -46,7 +44,6 @@ export function KeyValueFields({
               fieldState={fieldState}
               placeholder="e.g. name"
               label={`Key ${fieldIndex + 1} for Entity ${index + 1}`}
-              hideLabel
             />
           )}
         />
@@ -66,7 +63,6 @@ export function KeyValueFields({
                 fieldState={fieldState}
                 placeholder="e.g. User"
                 label={`entity ${index + 1} key ${fieldIndex + 1} value`}
-                hideLabel
               />
             )}
           />

@@ -154,7 +154,6 @@ export function FormCard() {
             {schemas.map((schema, index) => (
               <FormItem
                 key={schema.id}
-                schemaId={schema.id}
                 index={index}
                 removeSchema={removeSchema}
                 schemasLength={schemas.length}

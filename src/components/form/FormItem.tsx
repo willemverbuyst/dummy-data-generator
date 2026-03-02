@@ -13,12 +13,10 @@ import { KeyValueFields } from "./KeyValueFields";
 
 export function FormItem({
   index,
-  schemaId,
   removeSchema,
   schemasLength,
 }: {
   index: number;
-  schemaId: string;
   removeSchema: UseFieldArrayRemove;
   schemasLength: number;
 }) {
@@ -34,7 +32,6 @@ export function FormItem({
 
   return (
     <Card
-      key={schemaId}
       title={`Entity ${index + 1}`}
       extra={
         <Button
@@ -83,11 +80,11 @@ export function FormItem({
           key={field.id}
           index={index}
           fieldIndex={fieldIndex}
-          field={field}
           keyValueFieldsLength={keyValueFields.length}
           removeField={removeField}
         />
       ))}
+
       <div style={{ width: "100%", textAlign: "center" }}>
         <Button
           key="add-field"
