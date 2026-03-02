@@ -65,7 +65,7 @@ describe("InSyncBadge", () => {
       expect(tooltip).toBeInTheDocument();
       expect(tooltip).toHaveTextContent("Form and json are out of sync");
       expect(tooltip).toHaveTextContent(
-        "Press the Generate button to sync output data",
+        "Press the Generate Data button to sync output data",
       );
     });
   });
