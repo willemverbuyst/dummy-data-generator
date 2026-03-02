@@ -8,7 +8,7 @@ export function OutputCard() {
 
   return (
     <Card title="Output" extra={<InSyncBadge />}>
-      {isGenerating ? <Spin /> : <DataDisplay />}
+      {isGenerating ? <Spin data-testid="output-spinner" /> : <DataDisplay />}
     </Card>
   );
 }
