@@ -1,19 +1,23 @@
+import { exampleInput } from "@/exampleInput";
 import { useDummyData } from "@/zustand/store";
+import {
+  CheckOutlined,
+  DatabaseOutlined,
+  FileAddOutlined,
+  UndoOutlined,
+} from "@ant-design/icons";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Card, Flex, Form, message } from "antd";
+import { Button, Card, Flex, Form, message } from "antd";
 import { useEffect } from "react";
 import type { Resolver } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import type { z } from "zod";
-import { AddEntityButton } from "./buttons/AddEntityButton";
-import { GenerateButton } from "./buttons/GenerateButton";
-import { ResetButton } from "./buttons/ResetButton";
-import { ShowExampleButton } from "./buttons/ShowExampleButton";
 import { FormItem } from "./FormItem";
 import { defaultSchema, type FormSchema, formSchema } from "./formSchema";
 
 export function FormCard() {
   const [messageApi, contextHolder] = message.useMessage();
+  const clearDummyData = useDummyData((state) => state.clearDummyData);
   const setDummyData = useDummyData((state) => state.setDummyData);
   const setIsGenerating = useDummyData((state) => state.setIsGenerating);
   const setInSyncWithForm = useDummyData((state) => state.setInSyncWithForm);
@@ -25,7 +29,7 @@ export function FormCard() {
     },
   });
 
-  const { subscribe, handleSubmit, control } = methods;
+  const { subscribe, handleSubmit, control, reset } = methods;
 
   useEffect(() => {
     const callback = subscribe({
@@ -66,18 +70,81 @@ export function FormCard() {
     }, 300);
   }
 
+  function onReset() {
+    reset({
+      schemas: [defaultSchema],
+    });
+    clearDummyData();
+    setInSyncWithForm(true);
+  }
+
+  async function onShowExample() {
+    setIsGenerating(true);
+
+    // Dynamic import - only load the generator (and faker) when needed
+    const { generateDummyData } = await import(
+      "@/lib/generators/generateDummyData"
+    );
+
+    setTimeout(() => {
+      const dummyData = generateDummyData(exampleInput);
+      setDummyData(dummyData);
+      reset({ schemas: exampleInput });
+      setInSyncWithForm(true);
+      setIsGenerating(false);
+      messageApi.success("Example dummy data has been generated");
+    }, 300);
+  }
+
+  function onAppend() {
+    appendSchema(defaultSchema);
+  }
+
   return (
     <FormProvider {...methods}>
       <Card
         title="Input"
         actions={[
-          <AddEntityButton append={appendSchema} key="add-entity" />,
-          <ResetButton key="reset" />,
-          <ShowExampleButton key="show-example" />,
-          <GenerateButton
-            handleSubmit={handleSubmit(onSubmit)}
+          <Button
+            key="add-entity"
+            type="text"
+            htmlType="button"
+            aria-label="add-entity-button"
+            onClick={onAppend}
+            style={{ color: "purple" }}
+          >
+            <FileAddOutlined /> Add Entity
+          </Button>,
+          <Button
+            key="reset"
+            type="text"
+            htmlType="button"
+            aria-label="reset-button"
+            onClick={onReset}
+            style={{ color: "red" }}
+          >
+            <UndoOutlined /> Reset Form
+          </Button>,
+          <Button
+            key="show-example"
+            type="text"
+            htmlType="button"
+            onClick={onShowExample}
+            aria-label="show-example-button"
+            style={{ color: "cyan" }}
+          >
+            <DatabaseOutlined /> Show Example
+          </Button>,
+          <Button
             key="generate"
-          />,
+            type="text"
+            htmlType="submit"
+            aria-label="generate-data-button"
+            onClick={handleSubmit(onSubmit)}
+            style={{ color: "primary" }}
+          >
+            <CheckOutlined /> Generate Data
+          </Button>,
         ]}
       >
         {contextHolder}

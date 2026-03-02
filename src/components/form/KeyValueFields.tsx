@@ -1,11 +1,11 @@
-import { Form, Space } from "antd";
+import { MinusOutlined } from "@ant-design/icons";
+import { Button, Form, Space } from "antd";
 import {
   Controller,
   useFormContext,
   useWatch,
   type UseFieldArrayRemove,
 } from "react-hook-form";
-import { RemoveFieldButton } from "./buttons/RemoveFieldButton";
 import { NumberInput } from "./inputs/NumberInput";
 import { TextInput } from "./inputs/TextInput";
 import { ValueTypeSelector } from "./inputs/ValueTypeSelector";
@@ -81,12 +81,15 @@ export function KeyValueFields({
           />
         )}
 
-        <RemoveFieldButton
-          remove={removeField}
-          index={fieldIndex}
+        <Button
+          htmlType="button"
           disabled={keyValueFieldsLength === 1}
-          title={`entity-${index + 1}-remove-field-${fieldIndex + 1}`}
-        />
+          aria-label={`entity-${index + 1}-remove-field-${fieldIndex + 1}`}
+          onClick={() => removeField(fieldIndex)}
+          title="Remove Field"
+        >
+          <MinusOutlined />
+        </Button>
       </Space.Compact>
 
       {renderNestedForm && (

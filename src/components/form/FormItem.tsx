@@ -1,4 +1,4 @@
-import { PlusOutlined } from "@ant-design/icons";
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Card, Form } from "antd";
 import {
   Controller,
@@ -6,7 +6,6 @@ import {
   useFormContext,
   type UseFieldArrayRemove,
 } from "react-hook-form";
-import { RemoveEntityButton } from "./buttons/RemoveEntityButton";
 import { defaultField } from "./formSchema";
 import { NumberInput } from "./inputs/NumberInput";
 import { TextInput } from "./inputs/TextInput";
@@ -38,12 +37,16 @@ export function FormItem({
       key={schemaId}
       title={`Entity ${index + 1}`}
       extra={
-        <RemoveEntityButton
-          remove={removeSchema}
-          index={index}
+        <Button
+          size="small"
+          htmlType="button"
+          aria-label={`remove-entity-${index + 1}`}
           disabled={schemasLength === 1}
-          title={`remove-entity-${index + 1}`}
-        />
+          onClick={() => removeSchema(index)}
+          title="Remove Entity"
+        >
+          <DeleteOutlined />
+        </Button>
       }
       type="inner"
     >

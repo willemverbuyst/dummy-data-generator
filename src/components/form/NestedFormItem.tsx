@@ -1,7 +1,6 @@
-import { PlusOutlined } from "@ant-design/icons";
+import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Space } from "antd";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import { RemoveFieldButton } from "./buttons/RemoveFieldButton";
 import { defaultField } from "./formSchema";
 import { TextInput } from "./inputs/TextInput";
 import { ValueTypeSelector } from "./inputs/ValueTypeSelector";
@@ -52,12 +51,14 @@ export function NestedFormItem({
               )}
             />
 
-            <RemoveFieldButton
-              remove={removeNestedField}
-              index={nestedFieldIndex}
-              disabled={false}
-              title={`entity-${index + 1}-field-${fieldIndex + 1}-remove-nested-field`}
-            />
+            <Button
+              htmlType="button"
+              aria-label={`entity-${index + 1}-field-${fieldIndex + 1}-remove-nested-field`}
+              onClick={() => removeNestedField(nestedFieldIndex)}
+              title="Remove nested field"
+            >
+              <MinusOutlined />
+            </Button>
           </Space.Compact>
         </Form.Item>
       ))}
@@ -66,7 +67,7 @@ export function NestedFormItem({
         variant="dashed"
         htmlType="button"
         onClick={() => appendNestedField(defaultField)}
-        aria-label="Append nested field"
+        aria-label={`entity-${index + 1}-field-${fieldIndex + 1}-append-nested-field`}
       >
         <PlusOutlined />
         Add Nested Field
