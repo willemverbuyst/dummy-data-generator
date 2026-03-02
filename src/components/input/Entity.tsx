@@ -6,12 +6,12 @@ import {
   useFormContext,
   type UseFieldArrayRemove,
 } from "react-hook-form";
-import { defaultField } from "./formSchema";
+import { Fields } from "./Fields";
+import { defaultField } from "./form/formSchema";
 import { NumberInput } from "./inputs/NumberInput";
 import { TextInput } from "./inputs/TextInput";
-import { KeyValueFields } from "./KeyValueFields";
 
-export function FormItem({
+export function Entity({
   index,
   removeSchema,
   schemasLength,
@@ -22,7 +22,7 @@ export function FormItem({
 }) {
   const { control } = useFormContext();
   const {
-    fields: keyValueFields,
+    fields,
     append: appendField,
     remove: removeField,
   } = useFieldArray({
@@ -40,7 +40,7 @@ export function FormItem({
           aria-label={`remove-entity-${index + 1}`}
           disabled={schemasLength === 1}
           onClick={() => removeSchema(index)}
-          title="Remove Entity"
+          title="Remove entity"
         >
           <DeleteOutlined />
         </Button>
@@ -75,12 +75,12 @@ export function FormItem({
         />
       </Form.Item>
 
-      {keyValueFields.map((field, fieldIndex) => (
-        <KeyValueFields
+      {fields.map((field, fieldIndex) => (
+        <Fields
           key={field.id}
           index={index}
           fieldIndex={fieldIndex}
-          keyValueFieldsLength={keyValueFields.length}
+          fieldsLength={fields.length}
           removeField={removeField}
         />
       ))}
@@ -90,8 +90,8 @@ export function FormItem({
           key="add-field"
           variant="text"
           htmlType="button"
+          aria-label="Add field"
           onClick={() => appendField(defaultField)}
-          aria-label="Append field"
         >
           <PlusOutlined onClick={() => appendField(defaultField)} />
           Add Field

@@ -9,17 +9,17 @@ import {
 import { NumberInput } from "./inputs/NumberInput";
 import { TextInput } from "./inputs/TextInput";
 import { ValueTypeSelector } from "./inputs/ValueTypeSelector";
-import { NestedFormItem } from "./NestedFormItem";
+import { NestedFields } from "./NestedFields";
 
-export function KeyValueFields({
+export function Fields({
   index,
   fieldIndex,
-  keyValueFieldsLength,
+  fieldsLength,
   removeField,
 }: {
   index: number;
   fieldIndex: number;
-  keyValueFieldsLength: number;
+  fieldsLength: number;
   removeField: UseFieldArrayRemove;
 }) {
   const { control } = useFormContext();
@@ -79,17 +79,17 @@ export function KeyValueFields({
 
         <Button
           htmlType="button"
-          disabled={keyValueFieldsLength === 1}
+          disabled={fieldsLength === 1}
           aria-label={`entity-${index + 1}-remove-field-${fieldIndex + 1}`}
           onClick={() => removeField(fieldIndex)}
-          title="Remove Field"
+          title="Remove field"
         >
           <MinusOutlined />
         </Button>
       </Space.Compact>
 
       {renderNestedForm && (
-        <NestedFormItem index={index} fieldIndex={fieldIndex} />
+        <NestedFields index={index} fieldIndex={fieldIndex} />
       )}
     </Form.Item>
   );

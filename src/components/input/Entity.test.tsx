@@ -3,8 +3,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FormProvider, type Resolver, useForm } from "react-hook-form";
 import { describe, expect, it, vi } from "vitest";
-import { FormItem } from "./FormItem";
-import { type FormSchema, formSchema } from "./formSchema";
+import { Entity } from "./Entity";
+import { type FormSchema, formSchema } from "./form/formSchema";
 
 // Mock child components
 vi.mock("./buttons/AddFieldButton", () => ({
@@ -165,12 +165,12 @@ function TestWrapper({
 
   return (
     <FormProvider {...methods}>
-      <FormItem index={index} removeSchema={removeSchema} schemasLength={1} />
+      <Entity index={index} removeSchema={removeSchema} schemasLength={1} />
     </FormProvider>
   );
 }
 
-describe("FormItem", () => {
+describe("Entity", () => {
   it("should render entity input with correct label", () => {
     render(<TestWrapper />);
 

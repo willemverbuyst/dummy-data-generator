@@ -1,11 +1,11 @@
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Space } from "antd";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
-import { defaultField } from "./formSchema";
+import { defaultField } from "./form/formSchema";
 import { TextInput } from "./inputs/TextInput";
 import { ValueTypeSelector } from "./inputs/ValueTypeSelector";
 
-export function NestedFormItem({
+export function NestedFields({
   index,
   fieldIndex,
 }: {
@@ -15,7 +15,7 @@ export function NestedFormItem({
   const { control } = useFormContext();
 
   const {
-    fields: nestedKeyValueFields,
+    fields: nestedFields,
     append: appendNestedField,
     remove: removeNestedField,
   } = useFieldArray({
@@ -25,7 +25,7 @@ export function NestedFormItem({
 
   return (
     <Form.Item style={{ marginTop: "16px", marginBottom: "0px" }}>
-      {nestedKeyValueFields.map((field, nestedFieldIndex) => (
+      {nestedFields.map((field, nestedFieldIndex) => (
         <Form.Item
           key={field.id}
           label={`Nested field ${nestedFieldIndex + 1}`}

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { FormProvider, useForm } from "react-hook-form";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { KeyValueFields } from "./KeyValueFields";
+import { Fields } from "./Fields";
 
 // Mock child components
 vi.mock("./buttons/RemoveFieldButton", () => ({
@@ -121,13 +121,13 @@ function TestWrapper({
   return <FormProvider {...methods}>{children}</FormProvider>;
 }
 
-describe("KeyValueFields", () => {
+describe("Fields", () => {
   const mockRemoveField = vi.fn();
   const defaultProps = {
     index: 0,
     fieldIndex: 0,
     field: { id: "field-1" },
-    keyValueFieldsLength: 1,
+    fieldsLength: 1,
     removeField: mockRemoveField,
   };
 
@@ -139,7 +139,7 @@ describe("KeyValueFields", () => {
     it("should render key input field", () => {
       render(
         <TestWrapper>
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -151,7 +151,7 @@ describe("KeyValueFields", () => {
     it("should render value type selector", () => {
       render(
         <TestWrapper>
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -162,7 +162,7 @@ describe("KeyValueFields", () => {
     it("should render remove field button", () => {
       render(
         <TestWrapper>
-          <KeyValueFields {...defaultProps} keyValueFieldsLength={2} />
+          <Fields {...defaultProps} fieldsLength={2} />
         </TestWrapper>,
       );
 
@@ -176,7 +176,7 @@ describe("KeyValueFields", () => {
     it("should disable remove button when only one field exists", () => {
       render(
         <TestWrapper>
-          <KeyValueFields {...defaultProps} keyValueFieldsLength={1} />
+          <Fields {...defaultProps} fieldsLength={1} />
         </TestWrapper>,
       );
 
@@ -187,7 +187,7 @@ describe("KeyValueFields", () => {
     it("should enable remove button when multiple fields exist", () => {
       render(
         <TestWrapper>
-          <KeyValueFields {...defaultProps} keyValueFieldsLength={2} />
+          <Fields {...defaultProps} fieldsLength={2} />
         </TestWrapper>,
       );
 
@@ -215,7 +215,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -243,7 +243,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -270,7 +270,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -298,7 +298,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -324,7 +324,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -353,7 +353,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -380,7 +380,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -402,7 +402,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -425,7 +425,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -450,7 +450,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -473,7 +473,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -504,10 +504,10 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields
+          <Fields
             index={1}
             fieldIndex={2}
-            keyValueFieldsLength={3}
+            fieldsLength={3}
             removeField={mockRemoveField}
           />
         </TestWrapper>,

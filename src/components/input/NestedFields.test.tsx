@@ -3,8 +3,8 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FormProvider, useForm, type Resolver } from "react-hook-form";
 import { describe, expect, it, vi } from "vitest";
-import { formSchema, type FormSchema } from "./formSchema";
-import { NestedFormItem } from "./NestedFormItem";
+import { formSchema, type FormSchema } from "./form/formSchema";
+import { NestedFields } from "./NestedFields";
 
 // Mock the button components
 vi.mock("./buttons/AddFieldButton", () => ({
@@ -106,12 +106,12 @@ function TestWrapper({
 
   return (
     <FormProvider {...methods}>
-      <NestedFormItem index={index} fieldIndex={fieldIndex} />
+      <NestedFields index={index} fieldIndex={fieldIndex} />
     </FormProvider>
   );
 }
 
-describe("NestedFormItem", () => {
+describe("NestedFields", () => {
   it("should render nested fields label", () => {
     render(<TestWrapper index={0} fieldIndex={0} />);
 

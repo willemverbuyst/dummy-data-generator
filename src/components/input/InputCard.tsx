@@ -12,10 +12,10 @@ import { useEffect } from "react";
 import type { Resolver } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import type { z } from "zod";
-import { FormItem } from "./FormItem";
-import { defaultSchema, type FormSchema, formSchema } from "./formSchema";
+import { Entity } from "./Entity";
+import { defaultSchema, type FormSchema, formSchema } from "./form/formSchema";
 
-export function FormCard() {
+export function InputCard() {
   const [messageApi, contextHolder] = message.useMessage();
   const clearDummyData = useDummyData((state) => state.clearDummyData);
   const setDummyData = useDummyData((state) => state.setDummyData);
@@ -152,7 +152,7 @@ export function FormCard() {
         <Form labelCol={{ span: 6 }} wrapperCol={{ span: 14 }}>
           <Flex vertical gap="large" style={{ width: "100%" }}>
             {schemas.map((schema, index) => (
-              <FormItem
+              <Entity
                 key={schema.id}
                 index={index}
                 removeSchema={removeSchema}

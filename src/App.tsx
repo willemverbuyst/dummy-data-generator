@@ -13,7 +13,7 @@ import {
   Typography,
 } from "antd";
 import { useState } from "react";
-import { FormCard } from "./components/form/FormCard";
+import { InputCard } from "./components/input/InputCard";
 import { OutputCard } from "./components/output/OutputCard";
 
 function App() {
@@ -73,7 +73,7 @@ function App() {
             </Splitter.Panel>
             <Splitter.Panel defaultSize="40%">
               <div style={{ paddingLeft: "16px" }}>
-                <FormCard />
+                <InputCard />
               </div>
             </Splitter.Panel>
           </Splitter>
