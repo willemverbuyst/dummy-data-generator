@@ -145,8 +145,6 @@ function TestWrapper({
   defaultValues?: FormSchema;
 }) {
   const removeSchema = vi.fn();
-  const schemaId = "test-schema-id";
-
   const defaultFormValues: FormSchema = defaultValues || {
     schemas: [
       {
@@ -167,12 +165,7 @@ function TestWrapper({
 
   return (
     <FormProvider {...methods}>
-      <FormItem
-        index={index}
-        schemaId={schemaId}
-        removeSchema={removeSchema}
-        schemasLength={1}
-      />
+      <FormItem index={index} removeSchema={removeSchema} schemasLength={1} />
     </FormProvider>
   );
 }

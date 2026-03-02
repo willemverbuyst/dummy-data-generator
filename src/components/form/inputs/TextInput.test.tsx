@@ -53,7 +53,6 @@ describe("TextInput", () => {
         field={mockField}
         fieldState={mockFieldState}
         label="Test Label"
-        hideLabel={true}
       />,
     );
 
@@ -67,7 +66,6 @@ describe("TextInput", () => {
         field={mockField}
         fieldState={mockFieldState}
         label="Test Label"
-        hideLabel={false}
       />,
     );
 

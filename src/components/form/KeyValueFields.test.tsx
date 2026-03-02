@@ -507,7 +507,6 @@ describe("KeyValueFields", () => {
           <KeyValueFields
             index={1}
             fieldIndex={2}
-            field={{ id: "field-3" }}
             keyValueFieldsLength={3}
             removeField={mockRemoveField}
           />
