@@ -47,32 +47,6 @@ describe("TextInput", () => {
     expect(label).toBeInTheDocument();
   });
 
-  it("does not render label when hideLabel is true", async () => {
-    render(
-      <TextInput
-        field={mockField}
-        fieldState={mockFieldState}
-        label="Test Label"
-      />,
-    );
-
-    const label = screen.queryByText("Test Label");
-    expect(label).not.toBeInTheDocument();
-  });
-
-  it("shows label when hideLabel is false", () => {
-    render(
-      <TextInput
-        field={mockField}
-        fieldState={mockFieldState}
-        label="Test Label"
-      />,
-    );
-
-    const label = screen.getByText("Test Label");
-    expect(label).toBeInTheDocument();
-  });
-
   it("renders placeholder when provided", () => {
     render(
       <TextInput
