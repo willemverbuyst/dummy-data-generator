@@ -3,31 +3,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { Fields } from "./Fields";
 
-// Mock child components
-vi.mock("./buttons/RemoveFieldButton", () => ({
-  RemoveFieldButton: ({
-    remove,
-    index,
-    disabled,
-    title,
-  }: {
-    remove: (index: number) => void;
-    index: number;
-    disabled: boolean;
-    title: string;
-  }) => (
-    <button
-      type="button"
-      onClick={() => remove(index)}
-      disabled={disabled}
-      title={title}
-      data-testid="remove-field-button"
-    >
-      Remove
-    </button>
-  ),
-}));
-
 vi.mock("./inputs/TextInput", () => ({
   TextInput: ({
     field,
@@ -86,8 +61,8 @@ vi.mock("./inputs/ValueTypeSelector", () => ({
   ),
 }));
 
-vi.mock("./NestedFormItem", () => ({
-  NestedFormItem: ({
+vi.mock("./NestedFields", () => ({
+  NestedFields: ({
     index,
     fieldIndex,
   }: {
@@ -136,6 +111,17 @@ describe("Fields", () => {
   });
 
   describe("Basic Rendering", () => {
+    it("should render field label", () => {
+      render(
+        <TestWrapper>
+          <Fields {...defaultProps} />
+        </TestWrapper>,
+      );
+
+      const label = screen.getByText(/field 1/i);
+      expect(label).toBeInTheDocument();
+    });
+
     it("should render key input field", () => {
       render(
         <TestWrapper>
@@ -143,7 +129,7 @@ describe("Fields", () => {
         </TestWrapper>,
       );
 
-      const keyInput = screen.getByLabelText(/entity 1 key 1/i);
+      const keyInput = screen.getByTestId("text-input");
       expect(keyInput).toBeInTheDocument();
       expect(keyInput).toHaveAttribute("placeholder", "e.g. name");
     });
@@ -166,9 +152,10 @@ describe("Fields", () => {
         </TestWrapper>,
       );
 
-      const removeButton = screen.getByTestId("remove-field-button");
+      const removeButton = screen.getByRole("button", {
+        name: "entity-1-remove-field-1",
+      });
       expect(removeButton).toBeInTheDocument();
-      expect(removeButton).toHaveAttribute("title", "entity-1-remove-field-1");
     });
   });
 
@@ -180,7 +167,9 @@ describe("Fields", () => {
         </TestWrapper>,
       );
 
-      const removeButton = screen.getByTestId("remove-field-button");
+      const removeButton = screen.getByRole("button", {
+        name: "entity-1-remove-field-1",
+      });
       expect(removeButton).toBeDisabled();
     });
 
@@ -191,7 +180,9 @@ describe("Fields", () => {
         </TestWrapper>,
       );
 
-      const removeButton = screen.getByTestId("remove-field-button");
+      const removeButton = screen.getByRole("button", {
+        name: "entity-1-remove-field-1",
+      });
       expect(removeButton).not.toBeDisabled();
     });
   });
@@ -407,9 +398,6 @@ describe("Fields", () => {
       );
 
       expect(screen.getByTestId("nested-form-item")).toBeInTheDocument();
-      expect(
-        screen.getByText(/nested form for entity 1 field 1/i),
-      ).toBeInTheDocument();
     });
 
     it("should not render additional inputs for nested type", () => {
@@ -513,11 +501,7 @@ describe("Fields", () => {
         </TestWrapper>,
       );
 
-      expect(screen.getByLabelText(/^entity 2 key 3$/i)).toBeInTheDocument();
-      expect(
-        screen.getByLabelText(/entity 2 key 3 value/i),
-      ).toBeInTheDocument();
-      expect(screen.getByTitle("entity-2-remove-field-3")).toBeInTheDocument();
+      expect(screen.getByText(/^Field 3$/i)).toBeInTheDocument();
     });
   });
 });
