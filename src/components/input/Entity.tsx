@@ -1,5 +1,5 @@
 import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, Card, Form } from "antd";
+import { Button, Card } from "antd";
 import {
   Controller,
   useFieldArray,
@@ -47,33 +47,30 @@ export function Entity({
       }
       type="inner"
     >
-      <Form.Item label="Name of entity">
-        <Controller
-          name={`schemas.${index}.entity`}
-          control={control}
-          render={({ field, fieldState }) => (
-            <TextInput
-              field={field}
-              fieldState={fieldState}
-              placeholder="Enter entity name"
-              label="Name of entity"
-            />
-          )}
-        />
-      </Form.Item>
-      <Form.Item label="Number of records">
-        <Controller
-          name={`schemas.${index}.numberOfRecords`}
-          control={control}
-          render={({ field, fieldState }) => (
-            <NumberInput
-              field={field}
-              fieldState={fieldState}
-              label="Number of records"
-            />
-          )}
-        />
-      </Form.Item>
+      <Controller
+        name={`schemas.${index}.entity`}
+        control={control}
+        render={({ field, fieldState }) => (
+          <TextInput
+            field={field}
+            fieldState={fieldState}
+            placeholder="Enter entity name"
+            label="Name of entity"
+          />
+        )}
+      />
+
+      <Controller
+        name={`schemas.${index}.numberOfRecords`}
+        control={control}
+        render={({ field, fieldState }) => (
+          <NumberInput
+            field={field}
+            fieldState={fieldState}
+            label="Number of records"
+          />
+        )}
+      />
 
       {fields.map((field, fieldIndex) => (
         <Fields

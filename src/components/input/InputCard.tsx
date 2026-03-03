@@ -149,7 +149,11 @@ export function InputCard() {
       >
         {contextHolder}
 
-        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 14 }}>
+        <Form
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 14 }}
+          // style={{ maxWidth: "600px" }}
+        >
           <Flex vertical gap="large" style={{ width: "100%" }}>
             {schemas.map((schema, index) => (
               <Entity

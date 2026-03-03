@@ -39,7 +39,7 @@ export function NestedFields({
                   field={field}
                   fieldState={fieldState}
                   placeholder="e.g. name"
-                  label={`Entity ${index + 1} Key ${fieldIndex + 1} Nested Key ${nestedFieldIndex + 1}`}
+                  noStyle
                 />
               )}
             />
@@ -47,7 +47,11 @@ export function NestedFields({
               name={`schemas.${index}.fields.${fieldIndex}.value.${nestedFieldIndex}.type`}
               control={control}
               render={({ field }) => (
-                <ValueTypeSelector field={field} includeComplex={false} />
+                <ValueTypeSelector
+                  field={field}
+                  includeComplex={false}
+                  noStyle
+                />
               )}
             />
 
@@ -62,6 +66,7 @@ export function NestedFields({
           </Space.Compact>
         </Form.Item>
       ))}
+
       <Button
         block
         variant="dashed"

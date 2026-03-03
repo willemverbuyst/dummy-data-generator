@@ -43,14 +43,14 @@ export function Fields({
               field={field}
               fieldState={fieldState}
               placeholder="e.g. name"
-              label={`Key ${fieldIndex + 1} for Entity ${index + 1}`}
+              noStyle
             />
           )}
         />
         <Controller
           name={`schemas.${index}.fields.${fieldIndex}.type`}
           control={control}
-          render={({ field }) => <ValueTypeSelector field={field} />}
+          render={({ field }) => <ValueTypeSelector field={field} noStyle />}
         />
 
         {renderTextInput && (
@@ -62,7 +62,7 @@ export function Fields({
                 field={field}
                 fieldState={fieldState}
                 placeholder="e.g. User"
-                label={`entity ${index + 1} key ${fieldIndex + 1} value`}
+                noStyle
               />
             )}
           />
@@ -72,7 +72,7 @@ export function Fields({
             name={`schemas.${index}.fields.${fieldIndex}.value`}
             control={control}
             render={({ field, fieldState }) => (
-              <NumberInput field={field} fieldState={fieldState} />
+              <NumberInput field={field} fieldState={fieldState} noStyle />
             )}
           />
         )}
