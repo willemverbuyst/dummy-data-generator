@@ -1,12 +1,7 @@
 import App from "@/App";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import {
-  findByRoleClickClearType,
-  findByRoleClickClearTypeTabSelect,
-  findByRoleClickClearTypeTabType,
-} from "./test-utils";
 
 describe("Delete Flow Integration Test", () => {
   it("should delete fields and entities, generate output, and validate structure", async () => {
@@ -21,66 +16,49 @@ describe("Delete Flow Integration Test", () => {
       name: /add-entity-button/i,
     });
     const generateButton = screen.getByRole("button", {
-      name: /generate-button/i,
+      name: /generate-data-button/i,
     });
-
-    await findByRoleClickClearType(user, "textbox", /^entity 1$/i, "User");
-    await findByRoleClickClearType(
-      user,
-      "spinbutton",
-      /number of records/i,
-      "3",
-    );
-
-    await findByRoleClickClearTypeTabSelect(
-      user,
-      "textbox",
-      /^entity 1 key 1$/i,
-      "name",
-      "name",
-    );
-
     const entity1AddFieldButton = await screen.findByRole("button", {
       name: "entity-1-add-field",
     });
+    const entity1NameInput = await screen.findByRole("textbox", {
+      name: /name of entity/i,
+    });
+
+    await user.click(entity1NameInput);
+    await user.type(entity1NameInput, "User");
+    await user.tab();
+    fireEvent.change(document.activeElement as HTMLElement, {
+      target: { value: 3 },
+    });
+    await user.tab();
+    await user.type(document.activeElement as HTMLElement, "name");
+    await user.tab();
+    await user.type(document.activeElement as HTMLElement, "name");
     await user.click(entity1AddFieldButton);
+    await user.type(document.activeElement as HTMLElement, "email");
+    await user.tab();
+    await user.type(document.activeElement as HTMLElement, "email");
+    await user.click(addEntityButton);
+    await user.type(document.activeElement as HTMLElement, "Post");
+    await user.tab();
+    fireEvent.change(document.activeElement as HTMLElement, {
+      target: { value: 4 },
+    });
+    await user.tab();
+    await user.type(document.activeElement as HTMLElement, "title");
+    await user.tab();
+    await user.type(document.activeElement as HTMLElement, "word");
 
-    await findByRoleClickClearTypeTabSelect(
-      user,
-      "textbox",
-      /^entity 1 key 2$/i,
-      "email",
-      "email",
-    );
-
-    const removeFieldButton = await screen.findByRole("button", {
+    const removeField2Button = await screen.findByRole("button", {
       name: "entity-1-remove-field-2",
     });
-    await user.click(removeFieldButton);
-
-    await user.click(addEntityButton);
-
-    await findByRoleClickClearTypeTabType(
-      user,
-      "textbox",
-      /^entity 2$/i,
-      "Post",
-      "4",
-    );
-
-    await findByRoleClickClearTypeTabSelect(
-      user,
-      "textbox",
-      /^entity 2 key 1$/i,
-      "title",
-      "word",
-    );
-
     const removeEntityButton = await screen.findByRole("button", {
       name: "remove-entity-2",
     });
-    await user.click(removeEntityButton);
 
+    await user.click(removeField2Button);
+    await user.click(removeEntityButton);
     await user.click(generateButton);
     await waitFor(
       () => {
