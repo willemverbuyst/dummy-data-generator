@@ -87,7 +87,7 @@ export function Entity({
           key="add-field"
           variant="text"
           htmlType="button"
-          aria-label="Add field"
+          aria-label={`entity-${index + 1}-add-field`}
           onClick={() => appendField(defaultField)}
         >
           <PlusOutlined onClick={() => appendField(defaultField)} />
