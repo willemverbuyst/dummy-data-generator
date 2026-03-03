@@ -57,7 +57,7 @@ export function NestedFields({
 
             <Button
               htmlType="button"
-              aria-label={`entity-${index + 1}-field-${fieldIndex + 1}-remove-nested-field`}
+              aria-label={`entity-${index + 1}-field-${fieldIndex + 1}-nested-field-${nestedFieldIndex + 1}-remove-nested-field`}
               onClick={() => removeNestedField(nestedFieldIndex)}
               title="Remove nested field"
             >
@@ -72,7 +72,7 @@ export function NestedFields({
         variant="dashed"
         htmlType="button"
         onClick={() => appendNestedField(defaultField)}
-        aria-label={`entity-${index + 1}-field-${fieldIndex + 1}-append-nested-field`}
+        aria-label={`entity-${index + 1}-field-${fieldIndex + 1}-add-nested-field`}
       >
         <PlusOutlined />
         Add Nested Field
