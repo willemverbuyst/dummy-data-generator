@@ -9,18 +9,15 @@ export function NumberInput({
   field,
   fieldState,
   label,
+  noStyle = false,
 }: {
   field: ControllerRenderProps<FieldValues, string>;
   fieldState: ControllerFieldState;
   label?: string;
+  noStyle?: boolean;
 }) {
   return (
-    <Form.Item
-      layout="vertical"
-      validateStatus={fieldState.invalid ? "error" : undefined}
-      label={label ? label : undefined}
-      help={fieldState.invalid ? fieldState.error?.message : undefined}
-    >
+    <Form.Item label={label} noStyle={noStyle}>
       <Input
         {...field}
         id={field.name}
@@ -46,7 +43,6 @@ export function NumberInput({
           field.onChange(value);
         }}
         aria-label={label}
-        style={{ width: 240 }}
       />
     </Form.Item>
   );

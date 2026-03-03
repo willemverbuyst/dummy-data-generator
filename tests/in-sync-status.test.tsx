@@ -1,7 +1,6 @@
 import App from "@/App";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { clickClearType } from "./test-utils";
 
 describe("InSyncBadge Integration Tests", () => {
   it("shows 'not in sync' when form is modified and 'in sync' after submitting", async () => {
@@ -13,10 +12,12 @@ describe("InSyncBadge Integration Tests", () => {
     expect(initialBadge).toBeInTheDocument();
 
     const entityInput = screen.getByPlaceholderText("Enter entity name");
-    await clickClearType(user, entityInput, "Order");
+    await user.click(entityInput);
+    await user.type(entityInput, "Order");
 
     const keyInput = screen.getByPlaceholderText("e.g. name");
-    await clickClearType(user, keyInput, "email");
+    await user.click(keyInput);
+    await user.type(keyInput, "email");
 
     const badgeNotInSync = await screen.findByText("not in sync");
     expect(badgeNotInSync).toBeInTheDocument();
@@ -55,7 +56,8 @@ describe("InSyncBadge Integration Tests", () => {
     await screen.findByText("in sync");
 
     const entityInput = screen.getByPlaceholderText("Enter entity name");
-    await clickClearType(user, entityInput, "Order");
+    await user.click(entityInput);
+    await user.type(entityInput, "Order");
     await user.tab();
 
     await waitFor(

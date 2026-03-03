@@ -1,26 +1,25 @@
+import { MinusOutlined } from "@ant-design/icons";
+import { Button, Form, Space } from "antd";
 import {
   Controller,
   useFormContext,
   useWatch,
   type UseFieldArrayRemove,
 } from "react-hook-form";
-import { RemoveFieldButton } from "./buttons/RemoveFieldButton";
 import { NumberInput } from "./inputs/NumberInput";
 import { TextInput } from "./inputs/TextInput";
 import { ValueTypeSelector } from "./inputs/ValueTypeSelector";
-import { NestedFormItem } from "./NestedFormItem";
+import { NestedFields } from "./NestedFields";
 
-export function KeyValueFields({
+export function Fields({
   index,
   fieldIndex,
-  field,
-  keyValueFieldsLength,
+  fieldsLength,
   removeField,
 }: {
   index: number;
   fieldIndex: number;
-  field: Record<"id", string>;
-  keyValueFieldsLength: number;
+  fieldsLength: number;
   removeField: UseFieldArrayRemove;
 }) {
   const { control } = useFormContext();
@@ -34,8 +33,8 @@ export function KeyValueFields({
   const renderNestedForm = ["nested"].includes(type);
 
   return (
-    <div key={field.id}>
-      <div className="flex w-full items-start gap-2">
+    <Form.Item label={`Field ${fieldIndex + 1}`}>
+      <Space.Compact block>
         <Controller
           name={`schemas.${index}.fields.${fieldIndex}.key`}
           control={control}
@@ -44,16 +43,16 @@ export function KeyValueFields({
               field={field}
               fieldState={fieldState}
               placeholder="e.g. name"
-              label={`entity ${index + 1} key ${fieldIndex + 1}`}
-              hideLabel
+              noStyle
             />
           )}
         />
         <Controller
           name={`schemas.${index}.fields.${fieldIndex}.type`}
           control={control}
-          render={({ field }) => <ValueTypeSelector field={field} />}
+          render={({ field }) => <ValueTypeSelector field={field} noStyle />}
         />
+
         {renderTextInput && (
           <Controller
             name={`schemas.${index}.fields.${fieldIndex}.value`}
@@ -63,8 +62,7 @@ export function KeyValueFields({
                 field={field}
                 fieldState={fieldState}
                 placeholder="e.g. User"
-                label={`entity ${index + 1} key ${fieldIndex + 1} value`}
-                hideLabel
+                noStyle
               />
             )}
           />
@@ -74,22 +72,25 @@ export function KeyValueFields({
             name={`schemas.${index}.fields.${fieldIndex}.value`}
             control={control}
             render={({ field, fieldState }) => (
-              <NumberInput field={field} fieldState={fieldState} />
+              <NumberInput field={field} fieldState={fieldState} noStyle />
             )}
           />
         )}
 
-        <RemoveFieldButton
-          remove={removeField}
-          index={fieldIndex}
-          disabled={keyValueFieldsLength === 1}
-          title={`entity-${index + 1}-remove-field-${fieldIndex + 1}`}
-        />
-      </div>
+        <Button
+          htmlType="button"
+          disabled={fieldsLength === 1}
+          aria-label={`entity-${index + 1}-remove-field-${fieldIndex + 1}`}
+          onClick={() => removeField(fieldIndex)}
+          title="Remove field"
+        >
+          <MinusOutlined />
+        </Button>
+      </Space.Compact>
 
       {renderNestedForm && (
-        <NestedFormItem index={index} fieldIndex={fieldIndex} />
+        <NestedFields index={index} fieldIndex={fieldIndex} />
       )}
-    </div>
+    </Form.Item>
   );
 }

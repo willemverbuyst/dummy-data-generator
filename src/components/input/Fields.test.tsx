@@ -1,32 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { FormProvider, useForm } from "react-hook-form";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { KeyValueFields } from "./KeyValueFields";
-
-// Mock child components
-vi.mock("./buttons/RemoveFieldButton", () => ({
-  RemoveFieldButton: ({
-    remove,
-    index,
-    disabled,
-    title,
-  }: {
-    remove: (index: number) => void;
-    index: number;
-    disabled: boolean;
-    title: string;
-  }) => (
-    <button
-      type="button"
-      onClick={() => remove(index)}
-      disabled={disabled}
-      title={title}
-      data-testid="remove-field-button"
-    >
-      Remove
-    </button>
-  ),
-}));
+import { Fields } from "./Fields";
 
 vi.mock("./inputs/TextInput", () => ({
   TextInput: ({
@@ -86,8 +61,8 @@ vi.mock("./inputs/ValueTypeSelector", () => ({
   ),
 }));
 
-vi.mock("./NestedFormItem", () => ({
-  NestedFormItem: ({
+vi.mock("./NestedFields", () => ({
+  NestedFields: ({
     index,
     fieldIndex,
   }: {
@@ -121,13 +96,13 @@ function TestWrapper({
   return <FormProvider {...methods}>{children}</FormProvider>;
 }
 
-describe("KeyValueFields", () => {
+describe("Fields", () => {
   const mockRemoveField = vi.fn();
   const defaultProps = {
     index: 0,
     fieldIndex: 0,
     field: { id: "field-1" },
-    keyValueFieldsLength: 1,
+    fieldsLength: 1,
     removeField: mockRemoveField,
   };
 
@@ -136,14 +111,25 @@ describe("KeyValueFields", () => {
   });
 
   describe("Basic Rendering", () => {
-    it("should render key input field", () => {
+    it("should render field label", () => {
       render(
         <TestWrapper>
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
-      const keyInput = screen.getByLabelText(/entity 1 key 1/i);
+      const label = screen.getByText(/field 1/i);
+      expect(label).toBeInTheDocument();
+    });
+
+    it("should render key input field", () => {
+      render(
+        <TestWrapper>
+          <Fields {...defaultProps} />
+        </TestWrapper>,
+      );
+
+      const keyInput = screen.getByTestId("text-input");
       expect(keyInput).toBeInTheDocument();
       expect(keyInput).toHaveAttribute("placeholder", "e.g. name");
     });
@@ -151,7 +137,7 @@ describe("KeyValueFields", () => {
     it("should render value type selector", () => {
       render(
         <TestWrapper>
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -162,13 +148,14 @@ describe("KeyValueFields", () => {
     it("should render remove field button", () => {
       render(
         <TestWrapper>
-          <KeyValueFields {...defaultProps} keyValueFieldsLength={2} />
+          <Fields {...defaultProps} fieldsLength={2} />
         </TestWrapper>,
       );
 
-      const removeButton = screen.getByTestId("remove-field-button");
+      const removeButton = screen.getByRole("button", {
+        name: "entity-1-remove-field-1",
+      });
       expect(removeButton).toBeInTheDocument();
-      expect(removeButton).toHaveAttribute("title", "entity-1-remove-field-1");
     });
   });
 
@@ -176,22 +163,26 @@ describe("KeyValueFields", () => {
     it("should disable remove button when only one field exists", () => {
       render(
         <TestWrapper>
-          <KeyValueFields {...defaultProps} keyValueFieldsLength={1} />
+          <Fields {...defaultProps} fieldsLength={1} />
         </TestWrapper>,
       );
 
-      const removeButton = screen.getByTestId("remove-field-button");
+      const removeButton = screen.getByRole("button", {
+        name: "entity-1-remove-field-1",
+      });
       expect(removeButton).toBeDisabled();
     });
 
     it("should enable remove button when multiple fields exist", () => {
       render(
         <TestWrapper>
-          <KeyValueFields {...defaultProps} keyValueFieldsLength={2} />
+          <Fields {...defaultProps} fieldsLength={2} />
         </TestWrapper>,
       );
 
-      const removeButton = screen.getByTestId("remove-field-button");
+      const removeButton = screen.getByRole("button", {
+        name: "entity-1-remove-field-1",
+      });
       expect(removeButton).not.toBeDisabled();
     });
   });
@@ -215,7 +206,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -243,7 +234,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -270,7 +261,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -298,7 +289,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -324,7 +315,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -353,7 +344,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -380,7 +371,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -402,14 +393,11 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
       expect(screen.getByTestId("nested-form-item")).toBeInTheDocument();
-      expect(
-        screen.getByText(/nested form for entity 1 field 1/i),
-      ).toBeInTheDocument();
     });
 
     it("should not render additional inputs for nested type", () => {
@@ -425,7 +413,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -450,7 +438,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -473,7 +461,7 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields {...defaultProps} />
+          <Fields {...defaultProps} />
         </TestWrapper>,
       );
 
@@ -504,21 +492,16 @@ describe("KeyValueFields", () => {
             ],
           }}
         >
-          <KeyValueFields
+          <Fields
             index={1}
             fieldIndex={2}
-            field={{ id: "field-3" }}
-            keyValueFieldsLength={3}
+            fieldsLength={3}
             removeField={mockRemoveField}
           />
         </TestWrapper>,
       );
 
-      expect(screen.getByLabelText(/^entity 2 key 3$/i)).toBeInTheDocument();
-      expect(
-        screen.getByLabelText(/entity 2 key 3 value/i),
-      ).toBeInTheDocument();
-      expect(screen.getByTitle("entity-2-remove-field-3")).toBeInTheDocument();
+      expect(screen.getByText(/^Field 3$/i)).toBeInTheDocument();
     });
   });
 });

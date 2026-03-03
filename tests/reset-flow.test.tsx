@@ -1,12 +1,7 @@
 import App from "@/App";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import {
-  findByRoleClickClearType,
-  findByRoleClickClearTypeTabSelect,
-  findByRoleClickClearTypeTabType,
-} from "./test-utils";
 
 describe("Reset Flow Integration Test", () => {
   it("should reset fields and entities, reset output", async () => {
@@ -21,56 +16,41 @@ describe("Reset Flow Integration Test", () => {
       name: /add-entity-button/i,
     });
     const generateButton = screen.getByRole("button", {
-      name: /generate-button/i,
+      name: /generate-data-button/i,
     });
-
-    await findByRoleClickClearType(user, "textbox", /^entity 1$/i, "User");
-    await findByRoleClickClearType(
-      user,
-      "spinbutton",
-      /number of records/i,
-      "3",
-    );
-
-    await findByRoleClickClearTypeTabSelect(
-      user,
-      "textbox",
-      /^entity 1 key 1$/i,
-      "name",
-      "name",
-    );
 
     const entity1AddFieldButton = await screen.findByRole("button", {
       name: "entity-1-add-field",
     });
+
+    const entity1NameInput = await screen.findByRole("textbox", {
+      name: /name of entity/i,
+    });
+
+    await user.click(entity1NameInput);
+    await user.type(entity1NameInput, "User");
+    await user.tab();
+    fireEvent.change(document.activeElement as HTMLElement, {
+      target: { value: 3 },
+    });
+    await user.tab();
+    await user.type(document.activeElement as HTMLElement, "name");
+    await user.tab();
+    await user.type(document.activeElement as HTMLElement, "name");
     await user.click(entity1AddFieldButton);
-
-    await findByRoleClickClearTypeTabSelect(
-      user,
-      "textbox",
-      /^entity 1 key 2$/i,
-      "email",
-      "email",
-    );
-
+    await user.type(document.activeElement as HTMLElement, "email");
+    await user.tab();
+    await user.type(document.activeElement as HTMLElement, "email");
     await user.click(addEntityButton);
-
-    await findByRoleClickClearTypeTabType(
-      user,
-      "textbox",
-      /^entity 2$/i,
-      "Post",
-      "4",
-    );
-
-    await findByRoleClickClearTypeTabSelect(
-      user,
-      "textbox",
-      /^entity 2 key 1$/i,
-      "title",
-      "word",
-    );
-
+    await user.type(document.activeElement as HTMLElement, "Post");
+    await user.tab();
+    fireEvent.change(document.activeElement as HTMLElement, {
+      target: { value: 4 },
+    });
+    await user.tab();
+    await user.type(document.activeElement as HTMLElement, "title");
+    await user.tab();
+    await user.type(document.activeElement as HTMLElement, "word");
     await user.click(generateButton);
     await waitFor(
       () => {
@@ -108,10 +88,16 @@ describe("Reset Flow Integration Test", () => {
 
     // Verify that the form has been reset
     await waitFor(() => {
-      expect(screen.getByRole("textbox", { name: /^entity 1$/i })).toHaveValue(
-        "",
-      );
+      expect(
+        screen.getByRole("textbox", { name: /^name of entity$/i }),
+      ).toHaveValue("");
     });
+    await waitFor(
+      () => {
+        expect(screen.getByText("in sync")).toBeInTheDocument();
+      },
+      { timeout: 30_000 },
+    );
 
     const jsonTextUpdated = preElement.textContent;
     expect(jsonTextUpdated).toBeTruthy();

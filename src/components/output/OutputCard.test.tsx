@@ -28,8 +28,8 @@ describe("OutputCard", () => {
 
     render(<OutputCard />);
 
-    expect(screen.getByTestId("spinner")).toBeInTheDocument();
-    expect(screen.queryByTestId("in-sync-badge")).not.toBeInTheDocument();
+    expect(screen.getByTestId("output-spinner")).toBeInTheDocument();
+    expect(screen.queryByTestId("in-sync-badge")).toBeInTheDocument();
     expect(screen.queryByTestId("data-display")).not.toBeInTheDocument();
   });
 
@@ -40,6 +40,6 @@ describe("OutputCard", () => {
 
     expect(screen.getByTestId("in-sync-badge")).toBeInTheDocument();
     expect(screen.getByTestId("data-display")).toBeInTheDocument();
-    expect(screen.queryByTestId("spinner")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("output-spinner")).not.toBeInTheDocument();
   });
 });

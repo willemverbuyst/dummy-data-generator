@@ -64,7 +64,9 @@ describe("InSyncBadge", () => {
       const tooltip = await screen.findByRole("tooltip");
       expect(tooltip).toBeInTheDocument();
       expect(tooltip).toHaveTextContent("Form and json are out of sync");
-      expect(tooltip).toHaveTextContent("Press the Generate button to sync");
+      expect(tooltip).toHaveTextContent(
+        "Press the Generate Data button to sync output data",
+      );
     });
   });
 });

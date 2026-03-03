@@ -3,36 +3,8 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FormProvider, useForm, type Resolver } from "react-hook-form";
 import { describe, expect, it, vi } from "vitest";
-import { formSchema, type FormSchema } from "./formSchema";
-import { NestedFormItem } from "./NestedFormItem";
-
-// Mock the button components
-vi.mock("./buttons/AddFieldButton", () => ({
-  AddFieldButton: ({ append }: { append: () => void }) => (
-    <button type="button" onClick={append} data-testid="add-nested-field">
-      Add Field
-    </button>
-  ),
-}));
-
-vi.mock("./buttons/RemoveFieldButton", () => ({
-  RemoveFieldButton: ({
-    remove,
-    index,
-  }: {
-    remove: (index: number) => void;
-    index: number;
-    disabled: boolean;
-  }) => (
-    <button
-      type="button"
-      onClick={() => remove(index)}
-      data-testid={`remove-field-${index}`}
-    >
-      Remove
-    </button>
-  ),
-}));
+import { formSchema, type FormSchema } from "./form/formSchema";
+import { NestedFields } from "./NestedFields";
 
 // Mock the input components
 vi.mock("./inputs/TextInput", () => ({
@@ -106,22 +78,20 @@ function TestWrapper({
 
   return (
     <FormProvider {...methods}>
-      <NestedFormItem index={index} fieldIndex={fieldIndex} />
+      <NestedFields index={index} fieldIndex={fieldIndex} />
     </FormProvider>
   );
 }
 
-describe("NestedFormItem", () => {
-  it("should render nested fields label", () => {
-    render(<TestWrapper index={0} fieldIndex={0} />);
-
-    expect(screen.getByText("Nested Fields")).toBeInTheDocument();
-  });
-
+describe("NestedFields", () => {
   it("should render add field button", () => {
     render(<TestWrapper index={0} fieldIndex={0} />);
 
-    expect(screen.getByTestId("add-nested-field")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", {
+        name: "entity-1-field-1-add-nested-field",
+      }),
+    ).toBeInTheDocument();
   });
 
   it("should render existing nested fields", () => {
@@ -147,15 +117,25 @@ describe("NestedFormItem", () => {
   it("should render remove button for each nested field", () => {
     render(<TestWrapper index={0} fieldIndex={0} />);
 
-    expect(screen.getByTestId("remove-field-0")).toBeInTheDocument();
-    expect(screen.getByTestId("remove-field-1")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", {
+        name: "entity-1-field-1-nested-field-1-remove-nested-field",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", {
+        name: "entity-1-field-1-nested-field-2-remove-nested-field",
+      }),
+    ).toBeInTheDocument();
   });
 
   it("should add a new nested field when add button is clicked", async () => {
     render(<TestWrapper index={0} fieldIndex={0} />);
     const user = userEvent.setup();
 
-    const addButton = screen.getByTestId("add-nested-field");
+    const addButton = screen.getByRole("button", {
+      name: "entity-1-field-1-add-nested-field",
+    });
     await user.click(addButton);
 
     // Should now have 3 fields
@@ -167,7 +147,9 @@ describe("NestedFormItem", () => {
     render(<TestWrapper index={0} fieldIndex={0} />);
     const user = userEvent.setup();
 
-    const removeButton = screen.getByTestId("remove-field-0");
+    const removeButton = screen.getByRole("button", {
+      name: "entity-1-field-1-nested-field-1-remove-nested-field",
+    });
     await user.click(removeButton);
 
     // Should now have 1 field (city remains)

@@ -10,20 +10,20 @@ export function TextInput({
   fieldState,
   label,
   placeholder,
-  hideLabel = false,
+  noStyle = false,
 }: {
   field: ControllerRenderProps<FieldValues, string>;
   fieldState: ControllerFieldState;
-  label: string;
+  label?: string;
   placeholder?: string;
-  hideLabel?: boolean;
+  noStyle?: boolean;
 }) {
   return (
     <Form.Item
-      layout="vertical"
+      label={label}
       validateStatus={fieldState.invalid ? "error" : undefined}
-      label={hideLabel ? undefined : label}
-      help={fieldState.invalid ? fieldState.error?.message : undefined}
+      noStyle={noStyle}
+      help={fieldState.error?.message}
     >
       <Input
         {...field}
@@ -31,8 +31,7 @@ export function TextInput({
         aria-invalid={fieldState.invalid}
         placeholder={placeholder}
         autoComplete="off"
-        aria-label={label}
-        style={{ width: 240 }}
+        aria-label={label ?? field.name}
       />
     </Form.Item>
   );
