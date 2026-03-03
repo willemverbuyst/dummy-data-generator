@@ -1,6 +1,12 @@
 import { fireEvent, screen } from "@testing-library/react";
 import type { UserEvent } from "@testing-library/user-event";
 
+export function assertActiveElement() {
+  if (!document.activeElement) {
+    throw new Error("No active element after tabbing");
+  }
+}
+
 export async function clickClearType(
   user: UserEvent,
   element: HTMLElement,
