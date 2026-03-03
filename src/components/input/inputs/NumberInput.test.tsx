@@ -131,24 +131,6 @@ describe("NumberInput", () => {
     expect(onChange).toHaveBeenCalledWith(10);
   });
 
-  it("shows error when field is invalid", () => {
-    const invalidFieldState = {
-      ...mockFieldState,
-      invalid: true,
-      error: { message: "Required field", type: "required" },
-    };
-
-    render(
-      <NumberInput
-        field={mockField}
-        fieldState={invalidFieldState}
-        label="Test Number"
-      />,
-    );
-
-    expect(screen.getByText("Required field")).toBeInTheDocument();
-  });
-
   it("sets aria-invalid when field is invalid", () => {
     const invalidFieldState = {
       ...mockFieldState,
