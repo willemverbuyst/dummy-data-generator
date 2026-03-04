@@ -2,9 +2,14 @@ describe("full flow", () => {
   it("generates dummy data", () => {
     cy.visit("http://localhost:5173/dummy-data-generator");
 
+    assertInitialJsonIsEmpty();
+    assertGenerationStatusInSync();
+
     fillUserEntity();
     fillPostEntity();
     fillCommentEntity();
+
+    assertGenerationStatusNotInSync();
 
     clickGenerate();
     assertGenerationStatusInSync();
@@ -238,6 +243,19 @@ function clickGenerate() {
 
 function assertGenerationStatusInSync() {
   cy.get(".ant-tag").should("contain.text", "in sync");
+}
+
+function assertInitialJsonIsEmpty() {
+  cy.get("code")
+    .should("exist")
+    .invoke("text")
+    .then((jsonText) => {
+      expect(jsonText.trim()).to.equal("{}");
+    });
+}
+
+function assertGenerationStatusNotInSync() {
+  cy.get(".ant-tag").should("contain.text", "not in sync");
 }
 
 type Output = {
