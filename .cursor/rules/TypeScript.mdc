@@ -1,0 +1,7 @@
+---
+alwaysApply: true
+---
+
+Do not ignore or suppress TypeScript Errors. Focus on clean, passing code.
+
+Never use 'any' as a type unless absolutely necessary. When using 'any' always add comments or documentation.
