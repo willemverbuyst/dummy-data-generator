@@ -10,19 +10,23 @@ export default defineConfig({
     },
   },
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes("node_modules/react") || id.includes("node_modules/react-dom") || id.includes("node_modules/react-hook-form")) {
-            return "vendor-react";
-          }
-          if (id.includes("node_modules/antd")) {
-            return "vendor-ui";
-          }
-          if (id.includes("node_modules/zod") || id.includes("node_modules/zustand")) {
-            return "vendor-utils";
-          }
-          return undefined;
+        codeSplitting: {
+          groups: [
+            {
+              name: "vendor-react",
+              test: /node_modules[\\/]react|node_modules[\\/]react-dom|node_modules[\\/]react-hook-form/,
+            },
+            {
+              name: "vendor-ui",
+              test: /node_modules[\\/]antd/,
+            },
+            {
+              name: "vendor-utils",
+              test: /node_modules[\\/]zod|node_modules[\\/]zustand/,
+            },
+          ],
         },
       },
     },
