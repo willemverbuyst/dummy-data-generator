@@ -2,13 +2,7 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  plugins: [
-    react({
-      babel: {
-        plugins: ["babel-plugin-react-compiler"],
-      },
-    }),
-  ],
+  plugins: [react()],
   base: "/dummy-data-generator",
   resolve: {
     alias: {
@@ -16,12 +10,23 @@ export default defineConfig({
     },
   },
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          "vendor-react": ["react", "react-dom", "react-hook-form"],
-          "vendor-ui": ["antd"],
-          "vendor-utils": ["zod", "zustand"],
+        codeSplitting: {
+          groups: [
+            {
+              name: "vendor-react",
+              test: /node_modules[\\/]react|node_modules[\\/]react-dom|node_modules[\\/]react-hook-form/,
+            },
+            {
+              name: "vendor-ui",
+              test: /node_modules[\\/]antd/,
+            },
+            {
+              name: "vendor-utils",
+              test: /node_modules[\\/]zod|node_modules[\\/]zustand/,
+            },
+          ],
         },
       },
     },
